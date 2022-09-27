@@ -1,24 +1,42 @@
-import logo from './logo.svg';
+import { useEffect } from 'react';
+import { Routes, Route } from 'react-router-dom';
 import './App.css';
+import { onAuthStateChangedListener } from './utils/firebase.utils';
+import { useDispatch, useSelector } from 'react-redux';
+import LoginPage from './pages/login/login-page.component';
+import SignupPage from './pages/signup/signup-page.component';
+import HomePage from './pages/home/home-page.component';
+import MyListPage from './pages/mylist/mylist-page.component';
+import { selectUser, SET_CURRENT_USER } from './store/user/user.slice';
 
 function App() {
+  const currentUser = useSelector(selectUser);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChangedListener((user) => {
+      if (!user) {
+        console.log('currentUser', currentUser);
+      } else {
+        const { email } = user;
+        dispatch(SET_CURRENT_USER(email));
+        console.log(user);
+        console.log('currentUser', currentUser);
+      }
+    });
+
+    return unsubscribe;
+    // eslint-disable-next-line
+  }, [currentUser]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Routes>
+      <Route path='/' element={<LoginPage />} />
+      <Route path='/home' element={<HomePage />} />
+      <Route path='/mylist' element={<MyListPage />} />
+
+      <Route path='/signup' element={<SignupPage />} />
+    </Routes>
   );
 }
 
