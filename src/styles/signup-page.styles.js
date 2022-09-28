@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import bg from '../../assets/cinema-signup-page.png';
+import styled from "styled-components";
+import bg from "../assets/cinema-signup-page.png";
 
 export const SignupContainer = styled.div`
   display: flex;

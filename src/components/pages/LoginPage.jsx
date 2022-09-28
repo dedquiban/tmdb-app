@@ -7,11 +7,11 @@ import {
 } from '../../utils/firebase.utils';
 import { getRedirectResult } from 'firebase/auth';
 import google from '../../assets/google.png';
-import FormInput from '../../components/form-input/form-input.component';
-import { LoginContainer, Form, OtherAcctsContainer } from './login-page.styles';
+import FormInput from '../FormInput';
+import { LoginContainer, Form, OtherAcctsContainer } from '../../styles/login-page.styles';
 import Button, {
   BUTTON_TYPE_CLASSES,
-} from '../../components/button/button.component';
+} from '../Button';
 
 const defaultFormFields = {
   email: '',

@@ -3,10 +3,10 @@ import { Routes, Route } from "react-router-dom";
 import "./App.css";
 import { onAuthStateChangedListener } from "./utils/firebase.utils";
 import { useDispatch, useSelector } from "react-redux";
-import LoginPage from "./pages/login/LoginPage";
-import SignupPage from "./pages/signup/SignupPage";
-import HomePage from "./pages/home/HomePage";
-import MyListPage from "./pages/mylist/MyListPage";
+import LoginPage from "./components/pages/LoginPage";
+import SignupPage from "./components/pages/SignupPage";
+import HomePage from "./components/pages/HomePage";
+import MyListPage from "./components/pages/MyListPage";
 import { selectUser, SET_CURRENT_USER } from "./store/user/user.slice";
 
 function App() {

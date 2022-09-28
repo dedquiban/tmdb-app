@@ -1,7 +1,7 @@
 import React from 'react';
 
-import SignupForm from '../../components/signup-form/signup-form.component';
-import { LeftDiv, RightDiv, SignupContainer } from './signup-page.styles';
+import SignupForm from '../signup-form/SignupForm';
+import { LeftDiv, RightDiv, SignupContainer } from '../../styles/signup-page.styles';
 
 const SignupPage = () => {
   return (
