@@ -9,14 +9,11 @@ import InlineStyleComponent from "./script";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  //<React.StrictMode>
   <>
-    <InlineStyleComponent />
     <Provider store={store}>
       <Router basename='/'>
         <App />
       </Router>
     </Provider>
   </>
-  //</React.StrictMode>
 );
