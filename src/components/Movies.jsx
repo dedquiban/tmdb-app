@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
-import axios from '../../axios';
+import axios from '../axios';
 import {
   MoviesContainer,
   MoviesDiv,
@@ -7,7 +7,7 @@ import {
   Tooltip,
   Overview,
   Options,
-} from './movies.styles';
+} from '../styles/movies.styles';
 
 const base_url = 'https://image.tmdb.org/t/p/original/';
 
