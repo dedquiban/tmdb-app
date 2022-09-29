@@ -5,8 +5,8 @@ import {
   SET_PLAYLISTS,
   selectedPlaylist,
   SET_CURRENT_PLAYLIST,
-} from '../../store/mylist/mylist.slice';
-import { PlaylistsContainer } from './playlists.styles';
+} from '../store/mylist/mylist.slice';
+import { PlaylistsContainer } from '../styles/playlists.styles';
 
 const Playlists = () => {
   const dispatch = useDispatch();
