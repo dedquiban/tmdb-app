@@ -14,7 +14,7 @@ import {
 } from '../../styles/mylist-page.styles';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import Playlists from '../../components/playlists/playlists.component';
+import Playlists from '../Playlists';
 
 const MyListPage = () => {
   const currentPlaylist = useSelector(selectedPlaylist);
