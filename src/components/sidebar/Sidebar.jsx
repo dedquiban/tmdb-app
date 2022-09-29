@@ -9,9 +9,9 @@ import {
   ProfileDiv,
   Tooltip,
   Overlay,
-} from './sidebar.styles';
-import Button, { BUTTON_TYPE_CLASSES } from '../button/button.component';
-import { Icon } from '../button/button.styles';
+} from '../../styles/sidebar.styles';
+import Button, { BUTTON_TYPE_CLASSES } from '../Button';
+import { Icon } from '../../styles/button.styles';
 import vector from '../../assets/vector.svg';
 import { SIDEBAR_ICONS } from './sidebar.icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

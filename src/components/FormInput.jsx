@@ -1,5 +1,5 @@
 import React from 'react';
-import { Group, Input, Label } from './form-input.styles';
+import { Group, Input, Label } from '../styles/form-input.styles';
 
 const FormInput = ({ label, value, ...otherProps }) => {
   return (

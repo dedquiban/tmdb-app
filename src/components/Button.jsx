@@ -2,7 +2,7 @@ import {
   BaseButton,
   GoogleSigninButton,
   ToggleMenuButton,
-} from './button.styles';
+} from '../styles/button.styles';
 
 export const BUTTON_TYPE_CLASSES = {
   base: 'base',

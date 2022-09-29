@@ -5,15 +5,16 @@ import {
   createUserDocumentFromAuth,
 } from '../../utils/firebase.utils';
 
-import Button from '../../components/button/button.component';
+import Button from '../Button';
+
 import {
   Form,
   Group,
   Input,
   Label,
-  Div,
+  Div, 
   ErrorMessage,
-} from './signup-form.styles';
+} from '../../styles/signup-form.styles';
 
 const SignupForm = () => {
   const navigate = useNavigate();

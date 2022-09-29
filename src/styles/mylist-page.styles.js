@@ -1,4 +1,8 @@
+<<<<<<< HEAD:src/pages/mylist/mylist-page.styles.js
 import styled from 'styled-components';
+=======
+import styled from "styled-components";
+>>>>>>> 4968bb098490db158f056239c3d478f5b3383514:src/styles/mylist-page.styles.js
 
 export const MyListContainer = styled.div`
   display: flex;
