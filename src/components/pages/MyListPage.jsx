@@ -13,7 +13,8 @@ import {
   Movies,
 } from '../../styles/mylist-page.styles';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faTableCellsLarge } from '@fortawesome/free-solid-svg-icons';
+import { faSquare } from '@fortawesome/free-regular-svg-icons';
 import Playlists from '../Playlists';
 
 const MyListPage = () => {
@@ -34,8 +35,8 @@ const MyListPage = () => {
           <ToggleDiv>
             <p>{null ? '' : name}</p>
             <Div>
-              <i className='fa-regular fa-square' id='scroll'></i>
-              <i className='fa-solid fa-table-cells-large' id='grid'></i>
+              <FontAwesomeIcon icon={faSquare} id='scroll' />
+              <FontAwesomeIcon icon={faTableCellsLarge} id='grid' />
             </Div>
           </ToggleDiv>
           <Movies></Movies>
