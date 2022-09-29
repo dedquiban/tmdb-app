@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 export const MyListContainer = styled.div`
   display: flex;
@@ -10,7 +10,7 @@ export const Group = styled.div`
   display: flex;
   background: rgb(22, 22, 22);
   width: 100%;
-  height: 55%;
+  height: 45%;
   border-radius: 16px;
 
   margin: 24px;
@@ -27,8 +27,9 @@ export const PlaylistsDiv = styled.div`
 export const IconDiv = styled.div`
   display: flex;
   color: rgb(87, 87, 87);
-  font-size: 18px;
+  font-size: 16px;
   width: 100%;
+  margin-bottom: 24px;
 
   &:hover {
     cursor: pointer;
@@ -37,7 +38,6 @@ export const IconDiv = styled.div`
 
   p {
     margin-left: 12px;
-    margin-bottom: 24px;
     font-weight: bold;
   }
 
@@ -47,5 +47,51 @@ export const IconDiv = styled.div`
 //CONTENT--movies of playlist
 export const ContentDiv = styled.div`
   display: flex;
+  flex-direction: column;
   width: 85%;
+`;
+
+export const ToggleDiv = styled.div`
+  display: flex;
+  justify-content: space-between;
+
+  color: rgb(87, 87, 87);
+  font-size: 16px;
+  width: 100%;
+
+  p {
+  }
+`;
+
+export const Div = styled.div`
+  display: flex;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  #scroll {
+    padding-right: 12px;
+    border-right: 1px solid;
+
+    transition: 0.3s ease all;
+    &:hover {
+      border-right: 1px solid rgb(87, 87, 87);
+      color: rgb(160, 160, 160);
+    }
+  }
+
+  #grid {
+    padding-left: 12px;
+
+    transition: 0.3s ease all;
+    &:hover {
+      color: rgb(160, 160, 160);
+    }
+  }
+`;
+
+export const Movies = styled.div`
+  display: flex;
+  height: 80%;
 `;

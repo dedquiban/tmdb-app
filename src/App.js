@@ -18,8 +18,8 @@ function App() {
       if (!user) {
         console.log('currentUser', currentUser);
       } else {
-        const { email } = user;
-        dispatch(SET_CURRENT_USER(email));
+        const { uid, email } = user;
+        dispatch(SET_CURRENT_USER({ uid, email }));
         console.log(user);
         console.log('currentUser', currentUser);
       }

@@ -22,6 +22,8 @@ const Sidebar = () => {
   const currentUser = useSelector(selectUser);
   const dispatch = useDispatch();
 
+  const { email } = currentUser;
+
   const [isOpen, setIsOpen] = useState(false);
   const handleClick = () => setIsOpen(!isOpen);
 
@@ -47,7 +49,7 @@ const Sidebar = () => {
 
           <ProfileDiv />
           <Tooltip>
-            <span>{currentUser}</span>
+            <span>{null ? '' : email}</span>
             <p onClick={handleSignout}>Sign Out</p>
           </Tooltip>
         </UpperDiv>
