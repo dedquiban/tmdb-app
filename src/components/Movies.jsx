@@ -1,7 +1,10 @@
 import React, { useRef, useState, useEffect } from 'react';
 import axios from '../axios';
-import { useSelector } from 'react-redux';
-import { selectAllPlaylists } from '../store/mylist/mylist.slice';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  ADD_MOVIE_TO_PLAYLIST,
+  selectAllPlaylists,
+} from '../store/mylist/mylist.slice';
 import {
   MoviesContainer,
   MoviesDiv,
@@ -9,8 +12,6 @@ import {
   Tooltip,
   Overview,
   Options,
-  TooltipList,
-  Div,
 } from '../styles/movies.styles';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-regular-svg-icons';
@@ -18,6 +19,7 @@ import { faHeart } from '@fortawesome/free-regular-svg-icons';
 const base_url = 'https://image.tmdb.org/t/p/original/';
 
 const Movies = ({ header, fetchUrl }) => {
+  const dispatch = useDispatch();
   const playlists = useSelector(selectAllPlaylists);
 
   const ref = useRef(null);
@@ -34,7 +36,9 @@ const Movies = ({ header, fetchUrl }) => {
     fetchData();
   }, [fetchUrl]);
 
-  const handleAddMovieToPlaylist = (movieToAdd, selectedPlaylist) => {};
+  const handleAddMovieToPlaylist = ({ movieToAdd, selectedPlaylist }) => {
+    dispatch(ADD_MOVIE_TO_PLAYLIST({ movieToAdd, selectedPlaylist }));
+  };
 
   return (
     <MoviesContainer>
@@ -44,12 +48,35 @@ const Movies = ({ header, fetchUrl }) => {
         {movies.map((movie, index) => (
           <Group key={index}>
             <img src={`${base_url}${movie.poster_path}`} alt='sample' />
-            <Tooltip isActive={isActive}>
-              <h3>{movie.title || movie.name}</h3>
-              <Overview>
-                <p>{movie.overview}</p>
+            <Tooltip
+              isActive={isActive}
+              onMouseLeave={() => setIsActive(false)}
+            >
+              <h3>{!isActive ? movie.title || movie.name : 'My List'}</h3>
+
+              <Overview isActive={isActive}>
+                {!isActive ? (
+                  <p id='overview'>{movie.overview}</p>
+                ) : (
+                  <div id='playlist-div'>
+                    {playlists.map((playlist) => (
+                      <p
+                        id='playlists'
+                        onClick={() =>
+                          handleAddMovieToPlaylist({
+                            movieToAdd: movie,
+                            selectedPlaylist: playlist,
+                          })
+                        }
+                      >
+                        {playlist.name}
+                      </p>
+                    ))}
+                  </div>
+                )}
               </Overview>
-              <Options>
+
+              <Options isActive={isActive}>
                 <FontAwesomeIcon
                   icon={faHeart}
                   id='add'
@@ -57,22 +84,6 @@ const Movies = ({ header, fetchUrl }) => {
                 />
               </Options>
             </Tooltip>
-            <TooltipList
-              isActive={isActive}
-              onMouseLeave={() => setIsActive(false)}
-            >
-              <Div>
-                <h3>My Lists</h3>
-                <div>
-                  {playlists.map((playlist) => (
-                    <p onClick={handleAddMovieToPlaylist(movie, playlist)}>
-                      {' '}
-                      {playlist.name}
-                    </p>
-                  ))}
-                </div>
-              </Div>
-            </TooltipList>
           </Group>
         ))}
       </MoviesDiv>

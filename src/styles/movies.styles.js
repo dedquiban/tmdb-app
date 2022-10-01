@@ -2,14 +2,6 @@ import styled, { css } from 'styled-components';
 
 const tooltipGrey = '#1a1a1a';
 
-const visible = css`
-  display: flex;
-`;
-
-const invisible = css`
-  display: none;
-`;
-
 const gradientBorder = css`
   background: linear-gradient(#1a1a1a, #1a1a1a) padding-box,
     linear-gradient(to right, #f7b42c, #fc575e) border-box;
@@ -58,6 +50,14 @@ export const Group = styled.div`
   }
 `;
 
+const fullHeight = css`
+  height: 100%;
+`;
+
+const position = css`
+  top: 304px;
+`;
+
 export const Overview = styled.div``;
 export const Options = styled.div``;
 
@@ -74,9 +74,9 @@ export const Tooltip = styled.div`
   width: 240px;
   height: 350px;
 
+  transition: 0.3s all ease;
   &:hover {
     opacity: 0.95;
-    ${({ isActive }) => isActive && invisible}
 
     h3 {
       max-width: 160px;
@@ -97,12 +97,38 @@ export const Tooltip = styled.div`
       text-align: left;
       padding: 32px 22px;
       height: 50%;
+
+      transition: 0.6s height ease;
+      ${({ isActive }) => isActive && fullHeight}
     }
 
-    p {
+    #overview {
       height: 100%;
       overflow-y: scroll;
       font-size: 14px;
+    }
+
+    #playlist-div {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      overflow-y: scroll;
+    }
+
+    #playlists {
+      font-weight: bold;
+      font-size: 14px;
+      padding: 2px 0;
+
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow-x: clip;
+
+      transition: 0.3s all ease;
+      &:hover {
+        cursor: pointer;
+        color: rgb(160, 160, 160);
+      }
     }
 
     ${Options} {
@@ -116,62 +142,12 @@ export const Tooltip = styled.div`
       margin-left: 4px;
       z-index: 1;
 
+      transition: 0.6s top ease;
+      ${({ isActive }) => isActive && position}
+
       #add {
         cursor: pointer;
       }
     }
-  }
-`;
-
-export const TooltipList = styled.div`
-  display: none;
-  flex-direction: column;
-  opacity: 0;
-  background-color: ${tooltipGrey};
-  color: #fff;
-  border-radius: 4px;
-  padding: 24px 20px;
-
-  position: absolute;
-  width: 240px;
-  height: 350px;
-
-  ${({ isActive }) => isActive && visible}
-
-  &:hover {
-    opacity: 0.95;
-  }
-`;
-
-export const Div = styled.div`
-  display: flex;
-  flex-direction: column;
-  ${gradientBorder};
-  padding: 32px 22px 24px 22px;
-  overflow-y: scroll;
-
-  h3 {
-    max-width: 160px;
-    position: absolute;
-    top: 4px;
-    left: 36px;
-    font-size: 18px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    background: #1a1a1a;
-    padding: 12px;
-    z-index: 1;
-  }
-
-  div {
-    overflow-x: scroll;
-  }
-
-  p {
-    cursor: pointer;
-    font-weight: bold;
-    font-size: 14px;
-    padding: 2px;
   }
 `;

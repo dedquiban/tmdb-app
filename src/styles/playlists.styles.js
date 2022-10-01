@@ -10,6 +10,9 @@ export const PlaylistsContainer = styled.div`
     font-size: 16px;
     padding: 2px 0;
     color: rgb(87, 87, 87);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow-x: clip;
 
     transition: 0.3s ease all;
     &:hover {

@@ -8,10 +8,12 @@ import {
 import { getRedirectResult } from 'firebase/auth';
 import google from '../../assets/google.png';
 import FormInput from '../FormInput';
-import { LoginContainer, Form, OtherAcctsContainer } from '../../styles/login-page.styles';
-import Button, {
-  BUTTON_TYPE_CLASSES,
-} from '../Button';
+import {
+  LoginContainer,
+  Form,
+  OtherAcctsContainer,
+} from '../../styles/login-page.styles';
+import Button, { BUTTON_TYPE_CLASSES } from '../Button';
 
 const defaultFormFields = {
   email: '',
@@ -60,6 +62,9 @@ const LoginPage = () => {
           break;
         case 'auth/user-not-found':
           alert('Invalid email or password');
+          break;
+        case 'auth/internal-error':
+          alert('Network is unstable');
           break;
         default:
           console.log('user sign in failed', error);

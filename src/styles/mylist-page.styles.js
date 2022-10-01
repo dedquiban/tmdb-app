@@ -4,17 +4,17 @@ export const MyListContainer = styled.div`
   display: flex;
   background: black;
   height: 100vh;
+  padding: 24px;
 `;
 
 export const Group = styled.div`
   display: flex;
   background: rgb(22, 22, 22);
   width: 100%;
-  height: 45%;
+  height: 444px;
   border-radius: 16px;
 
-  margin: 24px;
-  padding 24px;
+  padding: 24px;
 `;
 
 //PLAYLISTS
@@ -49,6 +49,7 @@ export const ContentDiv = styled.div`
   display: flex;
   flex-direction: column;
   width: 85%;
+  padding-left: 32px;
 `;
 
 export const ToggleDiv = styled.div`
@@ -58,9 +59,6 @@ export const ToggleDiv = styled.div`
   color: rgb(87, 87, 87);
   font-size: 16px;
   width: 100%;
-
-  p {
-  }
 `;
 
 export const Div = styled.div`
@@ -93,5 +91,7 @@ export const Div = styled.div`
 
 export const Movies = styled.div`
   display: flex;
-  height: 80%;
+  align-items: center;
+
+  padding: 28px 0;
 `;

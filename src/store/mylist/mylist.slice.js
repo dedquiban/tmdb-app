@@ -5,7 +5,7 @@ const initialState = {
     {
       id: 1,
       createDate: '07/20/2022',
-      name: 'july 2022',
+      name: 'super long playlist name example vol 2',
       movies: [],
     },
     {
@@ -110,6 +110,21 @@ export const mylistSlice = createSlice({
     SET_PLAYLISTS: (state, action) => {
       state.playlists = action.payload;
     },
+    ADD_MOVIE_TO_PLAYLIST: (state, action) => {
+      const { movieToAdd, selectedPlaylist } = action.payload;
+
+      const playlist = state.playlists.find(
+        (playlist) => playlist.id === selectedPlaylist.id
+      );
+      const { movies } = playlist;
+      const existingMovie = movies.find((movie) => movie.id === movieToAdd.id);
+
+      if (existingMovie) {
+        alert('This movie is already in playlist');
+      } else {
+        movies.push(movieToAdd);
+      }
+    },
 
     SET_CURRENT_PLAYLIST: (state, action) => {
       state.currentPlaylist = action.payload;
@@ -117,7 +132,8 @@ export const mylistSlice = createSlice({
   },
 });
 
-export const { SET_PLAYLISTS, SET_CURRENT_PLAYLIST } = mylistSlice.actions;
+export const { SET_PLAYLISTS, ADD_MOVIE_TO_PLAYLIST, SET_CURRENT_PLAYLIST } =
+  mylistSlice.actions;
 
 export const selectAllPlaylists = (state) => state.mylist.playlists;
 export const selectedPlaylist = (state) => state.mylist.currentPlaylist;

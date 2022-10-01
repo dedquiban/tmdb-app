@@ -16,6 +16,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faTableCellsLarge } from '@fortawesome/free-solid-svg-icons';
 import { faSquare } from '@fortawesome/free-regular-svg-icons';
 import Playlists from '../Playlists';
+import MyMovies from '../MyMovies';
 
 const MyListPage = () => {
   const currentPlaylist = useSelector(selectedPlaylist);
@@ -39,7 +40,9 @@ const MyListPage = () => {
               <FontAwesomeIcon icon={faTableCellsLarge} id='grid' />
             </Div>
           </ToggleDiv>
-          <Movies></Movies>
+          <Movies>
+            <MyMovies />
+          </Movies>
         </ContentDiv>
       </Group>
     </MyListContainer>
