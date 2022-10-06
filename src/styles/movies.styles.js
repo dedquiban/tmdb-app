@@ -106,6 +106,7 @@ export const Tooltip = styled.div`
       height: 100%;
       overflow-y: scroll;
       font-size: 14px;
+      font-family: 'Inter', sans-serif;
     }
 
     #playlist-div {
@@ -147,6 +148,10 @@ export const Tooltip = styled.div`
 
       #add {
         cursor: pointer;
+      }
+      #added {
+        cursor: pointer;
+        color: red;
       }
     }
   }

@@ -46,6 +46,7 @@ export const IconDiv = styled.div`
 
 //CONTENT--movies of playlist
 export const ContentDiv = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   width: 85%;

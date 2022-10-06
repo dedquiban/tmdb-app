@@ -14,7 +14,10 @@ const HomePage = () => {
         header='Netflix Originals'
         fetchUrl={requests.fetchNetflixOriginals}
       />
-      <Movies header='Trending' fetchUrl={requests.fetchTrending} />
+      <Movies
+        header='Dominic is fucking badass'
+        fetchUrl={requests.fetchTrending}
+      />
     </HomePageContainer>
   );
 };

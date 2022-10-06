@@ -5,5 +5,5 @@ export const HomePageContainer = styled.div`
   flex-direction: column;
   /*background: linear-gradient(rgba(255, 255, 255), rgba(22, 22, 22));*/
   background: black;
-  height: 200vh;
+  min-height: 100vh;
 `;

@@ -122,7 +122,7 @@ export const mylistSlice = createSlice({
       if (existingMovie) {
         alert('This movie is already in playlist');
       } else {
-        movies.push(movieToAdd);
+        movies.push({ ...movieToAdd, isLiked: true });
       }
     },
 

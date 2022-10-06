@@ -15,7 +15,6 @@ export const MyMoviesContainer = styled.div`
     display: none;
   }
 
-  position: relative;
   display: flex;
   //justify-content: center;
   align-items: center;
@@ -24,9 +23,10 @@ export const MyMoviesContainer = styled.div`
 
   h1 {
     color: rgb(87, 87, 87);
-    //position: absolute;
-    padding: 132px 300px;
     display: flex;
+    position: absolute;
+    top: 50%;
+    left: 40%;
   }
 `;
 
@@ -54,6 +54,7 @@ export const Overview = styled.div`
     height: 100%;
     overflow-y: scroll;
     font-size: 14px;
+    font-family: 'Inter', sans-serif;
   }
 `;
 export const Options = styled.div`
@@ -68,6 +69,9 @@ export const Options = styled.div`
   z-index: 1;
 
   #add {
+    cursor: pointer;
+  }
+  #added {
     cursor: pointer;
     color: red;
   }

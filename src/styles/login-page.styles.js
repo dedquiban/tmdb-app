@@ -8,7 +8,7 @@ export const LoginContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   background-color: black;
-  height: 100vh;
+  min-height: 100vh;
   align-items: center;
 
   p,

@@ -26,5 +26,6 @@ export const Description = styled.div`
     width: 75%;
     max-width: 700px;
     color: rgb(87, 87, 87);
+    font-family: 'Inter', sans-serif;
   }
 `;

@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from '../axios';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -15,29 +15,89 @@ import {
 } from '../styles/movies.styles';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-regular-svg-icons';
+import { faHeart as added } from '@fortawesome/free-solid-svg-icons';
+import {
+  selectNetflixOriginals,
+  SET_MOVIE_LIKED,
+  SET_NETFLIX_ORIGINALS_MOVIES,
+  getMoviesStatus,
+  getMoviesError,
+  FETCH_NETFLIX_ORIGINALS,
+} from '../store/movies/movies.slice';
 
 const base_url = 'https://image.tmdb.org/t/p/original/';
 
 const Movies = ({ header, fetchUrl }) => {
   const dispatch = useDispatch();
+  const movies = useSelector(selectNetflixOriginals);
+  const moviesStatus = useSelector(getMoviesStatus);
+  const moviesError = useSelector(getMoviesError);
+
   const playlists = useSelector(selectAllPlaylists);
 
-  const ref = useRef(null);
-  const [movies, setMovies] = useState([]);
   const [isActive, setIsActive] = useState(false);
 
   useEffect(() => {
-    async function fetchData() {
-      const request = await axios.get(fetchUrl);
-      setMovies(request.data.results);
-      console.log(request);
-      return request;
+    if (moviesStatus === 'idle') {
+      dispatch(FETCH_NETFLIX_ORIGINALS());
     }
-    fetchData();
-  }, [fetchUrl]);
+  }, [moviesStatus, dispatch]);
+
+  // const [movies, setMovies] = useState([]);
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     const response = await axios.get(fetchUrl);
+  //     const request = response.data.results;
+  //     dispatch(
+  //       SET_NETFLIX_ORIGINALS_MOVIES({ request: request, movies: movies })
+  //     );
+  //     return movies;
+  //     // setMovies(movies);
+  //     // console.log(movies);
+  //     // return movies;
+  //   }
+  //   fetchData();
+  //   //eslint-disable-next-line
+  // }, [fetchUrl]);
+
+  // async function fetchData() {
+  //   const response = await axios.get(fetchUrl);
+  //   const request = response.data.results;
+  //   dispatch(SET_NETFLIX_ORIGINALS_MOVIES({ request: request }));
+  //   return movies;
+  // }
+
+  // fetchData();
+
+  // useEffect(() => {
+  //   console.log(movies);
+  // }, [movies]);
+
+  // useEffect(() => {
+  //   const newMovies = movies.map((movie) => ({
+  //     ...movie,
+  //     isLiked: false,
+  //   }));
+
+  //   setMovies(newMovies);
+  //   console.log(newMovies);
+  // }, []);
 
   const handleAddMovieToPlaylist = ({ movieToAdd, selectedPlaylist }) => {
+    // const newMovies = movies.map((movie) => {
+    //   if (movie.id === movieToAdd.id) {
+    //     const updatedMovie = { ...movie, isLiked: true };
+    //     return updatedMovie;
+    //   }
+
+    //   return movie;
+    // });
+
+    // setMovies(newMovies);
+    // console.log(newMovies);
     dispatch(ADD_MOVIE_TO_PLAYLIST({ movieToAdd, selectedPlaylist }));
+    dispatch(SET_MOVIE_LIKED({ movieToModify: movieToAdd }));
+    console.log('updatedMovies', movies);
   };
 
   return (
@@ -77,11 +137,19 @@ const Movies = ({ header, fetchUrl }) => {
               </Overview>
 
               <Options isActive={isActive}>
-                <FontAwesomeIcon
-                  icon={faHeart}
-                  id='add'
-                  onClick={() => setIsActive(true)}
-                />
+                {movie.isLiked ? (
+                  <FontAwesomeIcon
+                    icon={added}
+                    id='added'
+                    onClick={() => setIsActive(true)}
+                  />
+                ) : (
+                  <FontAwesomeIcon
+                    icon={faHeart}
+                    id='add'
+                    onClick={() => setIsActive(true)}
+                  />
+                )}
               </Options>
             </Tooltip>
           </Group>
