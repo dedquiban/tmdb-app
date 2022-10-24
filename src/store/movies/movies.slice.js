@@ -1,22 +1,18 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import axios from '../../axios';
-import requests from '../../utils/requests';
+import {
+  createLikedMovieDoc,
+  fetchLikedMovies,
+} from '../../utils/firebase.utils';
 
 const initialState = {
-  netflixOriginals: [],
-  status: 'idle',
-  error: null,
+  likedMovies: [],
 };
 
-export const FETCH_NETFLIX_ORIGINALS = createAsyncThunk(
-  'movies/FETCH_NETFLIX_ORIGINALS',
-  async () => {
-    try {
-      const response = await axios.get(requests.fetchNetflixOriginals);
-      return response.data.results;
-    } catch (err) {
-      return err.message;
-    }
+export const FETCH_LIKED_MOVIES = createAsyncThunk(
+  'mylist/FETCH_LIKED_MOVIES',
+  async ({ currentUser }) => {
+    const fetchedLikedMovies = await fetchLikedMovies(currentUser);
+    return fetchedLikedMovies;
   }
 );
 
@@ -24,84 +20,33 @@ export const moviesSlice = createSlice({
   name: 'movies',
   initialState,
   reducers: {
-    SET_NETFLIX_ORIGINALS_MOVIES: (state, action) => {
-      const { request } = action.payload;
-      if (state.netflixOriginals.length === 0) {
-        state.netflixOriginals = request;
+    ADD_TO_LIKED_MOVIES: (state, action) => {
+      const { currentUser, movieToAdd } = action.payload;
 
-        const newMovies = state.netflixOriginals.map((movie) => ({
-          ...movie,
-          isLiked: false,
-        }));
-        state.netflixOriginals = newMovies;
+      const existingMovie = state.likedMovies.find(
+        (movie) => movie.id === movieToAdd.id
+      );
+
+      if (existingMovie) {
+        alert('Movie is already liked');
       } else {
-        const newMovies = state.netflixOriginals.map((movie) => {
-          request.forEach((request) => {
-            if (movie.id === request.id) {
-              return movie;
-            } else {
-              return { ...request, isLiked: false };
-            }
-          });
-          return movie;
-        });
+        const likedMovie = {
+          ...movieToAdd,
+          isLiked: true,
+        };
+        createLikedMovieDoc(currentUser, likedMovie);
       }
     },
-    SET_MOVIE_LIKED: (state, action) => {
-      const { movieToModify } = action.payload;
-      const newMovies = state.netflixOriginals.map((movie) => {
-        if (movie.id === movieToModify.id) {
-          const updatedMovie = { ...movie, isLiked: true };
-          return updatedMovie;
-        }
-        return movie;
-      });
-
-      state.netflixOriginals = newMovies;
-    },
   },
-  extraReducers(builder) {
-    builder
-      .addCase(FETCH_NETFLIX_ORIGINALS.pending, (state, action) => {
-        state.status = 'loading';
-      })
-      .addCase(FETCH_NETFLIX_ORIGINALS.fulfilled, (state, action) => {
-        state.status = 'succeeded';
-
-        const response = action.payload;
-        if (state.netflixOriginals.length === 0) {
-          state.netflixOriginals = response;
-
-          const newMovies = state.netflixOriginals.map((movie) => ({
-            ...movie,
-            isLiked: false,
-          }));
-          state.netflixOriginals = newMovies;
-        } else {
-          const newMovies = state.netflixOriginals.map((movie) => {
-            response.forEach((response) => {
-              if (movie.id === response.id) {
-                return movie;
-              } else {
-                return { ...response, isLiked: false };
-              }
-            });
-            return movie;
-          });
-        }
-      })
-      .addCase(FETCH_NETFLIX_ORIGINALS.rejected, (state, action) => {
-        state.status = 'failed';
-        state.error = action.error.message;
-      });
+  extraReducers: (builder) => {
+    builder.addCase(FETCH_LIKED_MOVIES.fulfilled, (state, action) => {
+      state.likedMovies = action.payload;
+    });
   },
 });
 
-export const { SET_NETFLIX_ORIGINALS_MOVIES, SET_MOVIE_LIKED } =
-  moviesSlice.actions;
+export const { ADD_TO_LIKED_MOVIES } = moviesSlice.actions;
 
-export const selectNetflixOriginals = (state) => state.movies.netflixOriginals;
-export const getMoviesStatus = (state) => state.movies.status;
-export const getMoviesError = (state) => state.movies.error;
+export const getLikedMovies = (state) => state.movies.likedMovies;
 
 export default moviesSlice.reducer;

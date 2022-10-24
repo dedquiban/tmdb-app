@@ -4,10 +4,11 @@ const tooltipGrey = '#1a1a1a';
 
 const gradientBorder = css`
   background: linear-gradient(#1a1a1a, #1a1a1a) padding-box,
-    linear-gradient(to right, #f7b42c, #fc575e) border-box;
+    linear-gradient(to right bottom, #697f85, #516d75, #516d75, #697f85)
+      border-box;
   opacity: 0.95;
   border-radius: 8px;
-  border: 1px solid transparent;
+  border: 2px solid transparent;
 `;
 
 export const MoviesContainer = styled.div`
@@ -15,12 +16,14 @@ export const MoviesContainer = styled.div`
   justify-content: center;
   flex-direction: column;
   padding: 56px 0;
+`;
 
-  h2 {
-    color: white;
-    margin-left: 64px;
-    margin-bottom: 6px;
-  }
+export const MoviesWrapper = styled.div`
+  background: rgba(87, 87, 87, 0.3);
+
+  padding: 24px;
+  margin: 12px 36px;
+  border-radius: 8px;
 `;
 
 export const MoviesDiv = styled.div`
@@ -32,15 +35,56 @@ export const MoviesDiv = styled.div`
   align-items: center;
   overflow-x: scroll;
   overflow-y: hidden;
-  padding-top: 6px;
-  padding-bottom: 32px;
+  scroll-behavior: smooth;
   position: relative;
 `;
 
+export const Header = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 36px;
+  color: #fff;
+
+  h2 {
+    margin-left: 32px;
+  }
+
+  #left {
+    margin-right: 8px;
+    padding: 12px;
+    border-radius: 8px;
+    &:hover {
+      cursor: pointer;
+      background: #1a1a1a;
+    }
+  }
+
+  #right {
+    padding: 12px;
+    border-radius: 8px;
+    &:hover {
+      cursor: pointer;
+
+      background: #1a1a1a;
+    }
+  }
+`;
+
+export const Navigate = styled.div`
+  display: flex;
+  justify-content: center;
+  padding-right: 20px;
+`;
+
 export const Group = styled.div`
+  &:last-child {
+    padding-right: 0;
+  }
+
   display: flex;
   scroll-behavior: smooth;
-  padding: 0 14px;
+  padding-right: 28px;
 
   img {
     object-fit: cover;
@@ -54,12 +98,115 @@ const fullHeight = css`
   height: 100%;
 `;
 
+const noHeight = css`
+  transform: translateY(320%);
+  opacity: 0;
+`;
 const position = css`
   top: 304px;
 `;
 
-export const Overview = styled.div``;
-export const Options = styled.div``;
+export const Overview = styled.div`
+  ${gradientBorder};
+  text-align: left;
+  padding: 32px 22px;
+  height: 50%;
+
+  #overview {
+    height: 100%;
+    overflow-y: scroll;
+    font-size: 14px;
+    font-family: 'Inter', sans-serif;
+  }
+
+  #playlist-div {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+  }
+
+  #playlists {
+    font-weight: bold;
+    font-size: 14px;
+    padding: 2px 0;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow-x: clip;
+
+    transition: 0.3s all ease;
+    &:hover {
+      cursor: pointer;
+      color: rgb(160, 160, 160);
+    }
+  }
+`;
+export const Options = styled.div`
+  max-width: 160px;
+  position: absolute;
+  top: 154px;
+  left: 36px;
+  font-size: 18px;
+  background: #1a1a1a;
+  padding: 12px;
+  margin-left: 4px;
+  z-index: 1;
+
+  #add {
+    cursor: pointer;
+  }
+  #added {
+    cursor: pointer;
+    color: red;
+  }
+`;
+
+export const Info = styled.div`
+  position: absolute;
+  top: 200px;
+  left: 22px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 81%;
+  padding: 12px 0 12px 2px;
+  // border: 1px solid #fff;
+  background: transparent;
+
+  transform: translateY(0);
+  opacity: 1;
+
+  p {
+    color: linear-gradient(to right bottom, #697f85, #516d75, #516d75, #697f85);
+    font-size: 12px;
+    font-family: 'Ubuntu', sans-serif;
+    background: linear-gradient(
+      to right bottom,
+      #697f85,
+      #516d75,
+      #516d75,
+      #697f85
+    );
+
+    font-weight: bold;
+    border-radius: 4px;
+    padding: 6px 17px;
+  }
+
+  #star {
+    margin-right: 4px;
+    color: #e4a300;
+  }
+  #vote {
+    display: flex;
+    top: 48px;
+  }
+
+  // #hd {
+  //   color: rgba(26, 26, 26, 0.95);
+  // }
+`;
 
 export const Tooltip = styled.div`
   display: flex;
@@ -74,85 +221,38 @@ export const Tooltip = styled.div`
   width: 240px;
   height: 350px;
 
+  h3 {
+    max-width: 160px;
+    position: absolute;
+    top: 4px;
+    left: 36px;
+    font-size: 18px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    background: #1a1a1a;
+    padding: 12px;
+    z-index: 1;
+  }
+
+  ${Overview} {
+    transition: 0.6s height ease;
+    ${({ isActive }) => isActive && fullHeight}
+  }
+
+  ${Options} {
+    transition: 0.6s top ease;
+    ${({ isActive }) => isActive && position}
+  }
+
+  ${Info} {
+    transition: transform 0.6s, opacity 0.7s ease;
+    // transition: opacity 1s ease;
+    ${({ isActive }) => isActive && noHeight};
+  }
+
   transition: 0.3s all ease;
   &:hover {
     opacity: 0.95;
-
-    h3 {
-      max-width: 160px;
-      position: absolute;
-      top: 4px;
-      left: 36px;
-      font-size: 18px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      background: #1a1a1a;
-      padding: 12px;
-      z-index: 1;
-    }
-
-    ${Overview} {
-      ${gradientBorder};
-      text-align: left;
-      padding: 32px 22px;
-      height: 50%;
-
-      transition: 0.6s height ease;
-      ${({ isActive }) => isActive && fullHeight}
-    }
-
-    #overview {
-      height: 100%;
-      overflow-y: scroll;
-      font-size: 14px;
-      font-family: 'Inter', sans-serif;
-    }
-
-    #playlist-div {
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      overflow-y: scroll;
-    }
-
-    #playlists {
-      font-weight: bold;
-      font-size: 14px;
-      padding: 2px 0;
-
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      overflow-x: clip;
-
-      transition: 0.3s all ease;
-      &:hover {
-        cursor: pointer;
-        color: rgb(160, 160, 160);
-      }
-    }
-
-    ${Options} {
-      max-width: 160px;
-      position: absolute;
-      top: 154px;
-      left: 36px;
-      font-size: 18px;
-      background: #1a1a1a;
-      padding: 12px;
-      margin-left: 4px;
-      z-index: 1;
-
-      transition: 0.6s top ease;
-      ${({ isActive }) => isActive && position}
-
-      #add {
-        cursor: pointer;
-      }
-      #added {
-        cursor: pointer;
-        color: red;
-      }
-    }
   }
 `;

@@ -12,7 +12,7 @@ import {
   Group,
   Input,
   Label,
-  Div, 
+  Div,
   ErrorMessage,
 } from '../../styles/signup-form.styles';
 
@@ -116,7 +116,6 @@ const SignupForm = () => {
   const validate = (values, errors) => {
     //const errors = {};
     const regex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$/;
-    //const pwRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
     const isUpperCase = /(.*[A-Z].*)/;
     const hasNum = /[0-9]/;
     const hasChar = /(.*\W.*)/;
@@ -226,7 +225,7 @@ const SignupForm = () => {
   };
 
   return (
-    <Form onSubmit={handleSubmit} noValidate>
+    <Form onSubmit={handleSubmit}>
       <Group>
         <Div>
           <Label>Email</Label>

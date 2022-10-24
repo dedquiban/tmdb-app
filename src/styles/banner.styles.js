@@ -13,7 +13,7 @@ export const BannerContainer = styled.div`
       rgba(44, 44, 44, 0.1)
     ),
     url('https://image.tmdb.org/t/p/original/${({ movie }) =>
-      movie ? movie.backdrop_path : 'no pics'}');
+      movie ? movie?.backdrop_path : 'no pics'}');
 `;
 
 export const Description = styled.div`

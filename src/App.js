@@ -8,9 +8,15 @@ import SignupPage from './components/pages/SignupPage';
 import HomePage from './components/pages/HomePage';
 import MyListPage from './components/pages/MyListPage';
 import { selectUser, SET_CURRENT_USER } from './store/user/user.slice';
+import {
+  FETCH_PLAYLISTS,
+  selectAllPlaylists,
+} from './store/mylist/mylist.slice';
+import { FETCH_LIKED_MOVIES } from './store/movies/movies.slice';
 
 function App() {
   const currentUser = useSelector(selectUser);
+  const playlists = useSelector(selectAllPlaylists);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -20,6 +26,8 @@ function App() {
       } else {
         const { uid, email } = user;
         dispatch(SET_CURRENT_USER({ uid, email }));
+        dispatch(FETCH_PLAYLISTS({ currentUser }));
+        dispatch(FETCH_LIKED_MOVIES({ currentUser }));
         console.log(user);
         console.log('currentUser', currentUser);
       }

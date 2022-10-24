@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
+  db,
   auth,
   signInAuthUserFromEmailAndPassword,
   signInWithGoogleRedirect,
 } from '../../utils/firebase.utils';
+import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { getRedirectResult } from 'firebase/auth';
 import google from '../../assets/google.png';
 import FormInput from '../FormInput';
@@ -27,14 +29,31 @@ const LoginPage = () => {
   const { email, password } = formFields;
 
   useEffect(() => {
+    let response;
     async function getResult() {
-      const response = await getRedirectResult(auth);
+      response = await getRedirectResult(auth);
+      const userDocRef = doc(db, 'users', response.user.uid);
+      const userSnapshot = await getDoc(userDocRef);
       if (!response) {
         console.log('No google user to redirect');
       } else {
-        console.log(response);
+        console.log('response', response);
         navigate('/home');
       }
+      if (!userSnapshot.exists()) {
+        const { displayName, email } = response.user;
+        const createdAt = new Date();
+        try {
+          await setDoc(userDocRef, {
+            displayName,
+            email,
+            createdAt,
+          });
+        } catch (error) {
+          console.log('error creating the user', error.message);
+        }
+      }
+      return userDocRef;
     }
     getResult();
     // eslint-disable-next-line

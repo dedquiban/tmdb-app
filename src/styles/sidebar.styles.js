@@ -1,8 +1,5 @@
 import styled, { css } from 'styled-components';
 
-//const linear = 'linear-gradient(#ffa80f, #fe8116)';
-//const radial = 'radial-gradient(#ffa80f, #fe8116)';
-
 const visible = css`
   display: flex;
 `;
@@ -15,7 +12,21 @@ const z = css`
 `;
 
 const gradientText = css`
-  background: -webkit-radial-gradient(#fc575e, #f7b42c);
+  background: linear-gradient(
+    to right bottom,
+    #c441c4,
+    #de379f,
+    #e73f7d,
+    #e45160,
+    #d9654c,
+    #d36c46,
+    #cc7342,
+    #c5793f,
+    #c7763f,
+    #c8743f,
+    #ca713f,
+    #cb6e3f
+  );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 `;
@@ -28,15 +39,17 @@ const gradientBorder = css`
 `;
 
 export const SidebarContainer = styled.div`
-  transform: translateY(150%);
+  z-index: 100;
+  transform: translateY(200%);
   position: fixed;
   flex-direction: column;
-  margin: 4px;
+  padding: 0 12px 42px 12px;
   height: 100%;
-  width: 200px;
-
   transition: 0.4s ease all;
   ${({ isOpen }) => isOpen && z};
+
+  background: black;
+  box-shadow: 50px 50px 905px 305px black;
 `;
 
 export const Overlay = styled.div`
@@ -53,16 +66,12 @@ export const Overlay = styled.div`
   ${({ isOpen }) => isOpen && visible};
 `;
 
-export const UpperDiv = styled.div`
-  //transform: translateY(150%);
+export const ContentDiv = styled.div`
   flex-direction: column;
   align-items: center;
   height: 93%;
-  padding: 8px;
-
-  background: black;
-  border-radius: 8px;
-  box-shadow: 50px 50px 905px 305px black;
+  padding: 8px 0;
+  overflow-y: scroll;
 `;
 
 export const IconDiv = styled.div`
@@ -87,44 +96,75 @@ export const IconDiv = styled.div`
 `;
 
 export const Tooltip = styled.div`
-  position: fixed;
+  color: rgb(87, 87, 87);
   display: none;
+  position: absolute;
   flex-direction: column;
-  top: 190px;
-  left: 38px;
+  top: calc(100%);
+  left: 54px;
   background: transparent;
   border-radius: 8px;
-  width: 300px;
-  height: 140px;
+  // width: 210px;
+  // height: 40px;
+
+  transition: 0.3s all ease;
 
   &:hover {
     display: flex;
   }
 
-  span {
-    ${gradientText};
-    font-weight: bold;
-    font-size: 14px;
-    margin-left: 18px;
+  div {
+    cursor: pointer;
+    margin-top: 12px;
+    display: flex;
+    font-size: 16px;
+    color: rgb(87, 87, 87);
+
+    &:hover {
+      color: rgb(160, 160, 160);
+      transform: translateY(-1px);
+    }
   }
 
   p {
-    cursor: pointer;
-    margin-left: 18px;
-    margin-top: 12px;
-    font-size: 12px;
-    color: rgb(87, 87, 87);
+    margin-left: 10px;
+    font-size: 14px;
   }
 `;
 
 export const ProfileDiv = styled.div`
-  cursor: pointer;
-  height: 22px;
-  width: 22px;
-  margin: 8px;
-  ${gradientBorder};
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-  &:hover ~ ${Tooltip} {
-    display: flex;
+  min-width: 150px;
+  transition: 0.3s ease all;
+  &:hover {
+    ${Tooltip} {
+      display: flex;
+    }
   }
+
+  span {
+    ${gradientText};
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 14px;
+    padding: 4px 20px;
+
+    &:hover {
+      #tooltip {
+        display: block;
+      }
+    }
+  }
+`;
+
+export const Profile = styled.div`
+  cursor: pointer;
+  height: 24px;
+  width: 24px;
+  margin: 10px 0 10px 8px;
+  ${gradientBorder};
 `;

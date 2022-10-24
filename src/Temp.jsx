@@ -1,15 +1,15 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faStar, faHeart as added } from '@fortawesome/free-solid-svg-icons';
+import { faHeart } from '@fortawesome/free-regular-svg-icons';
+import { faHeart as added } from '@fortawesome/free-solid-svg-icons';
 import { useSelector } from 'react-redux';
 import { selectedPlaylist } from '../store/mylist/mylist.slice';
 import {
+  MyMoviesContainer,
   Group,
-  MoviesDiv,
-  Overview,
   Tooltip,
+  Overview,
   Options,
-  Info,
 } from '../styles/mymovies.styles';
 
 const base_url = 'https://image.tmdb.org/t/p/original/';
@@ -19,35 +19,32 @@ const MyMovies = () => {
   const { movies } = currentPlaylist;
 
   return (
-    <MoviesDiv id='moviesDiv'>
+    <MyMoviesContainer>
       {Object.keys(currentPlaylist).length > 0 ? (
         movies.map((movie, index) => (
-          <Group key={index} id='group'>
+          <Group key={index}>
             <img src={`${base_url}${movie.poster_path}`} alt='sample' />
             <Tooltip>
               <h3>{movie.title || movie.name}</h3>
+
               <Overview>
-                <p id='overview'>{movie.overview}</p>
+                <p>{movie.overview}</p>
               </Overview>
 
               <Options>
-                <FontAwesomeIcon icon={added} id='added' />
+                {movie.isLiked ? (
+                  <FontAwesomeIcon icon={added} id='added' />
+                ) : (
+                  <FontAwesomeIcon icon={faHeart} id='add' />
+                )}
               </Options>
-              <Info>
-                <p id='vote'>
-                  <FontAwesomeIcon icon={faStar} id='star' />
-                  {movie.vote_sliced}
-                </p>
-                <p>{movie.release_sliced}</p>
-                <p id='hd'>HD</p>
-              </Info>
             </Tooltip>
           </Group>
         ))
       ) : (
         <h1>Select a playlist</h1>
       )}
-    </MoviesDiv>
+    </MyMoviesContainer>
   );
 };
 

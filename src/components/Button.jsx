@@ -1,20 +1,20 @@
 import {
   BaseButton,
   GoogleSigninButton,
-  ToggleMenuButton,
+  MenuButton,
 } from '../styles/button.styles';
 
 export const BUTTON_TYPE_CLASSES = {
   base: 'base',
   google: 'google-signin',
-  toggleMenu: 'toggle-menu',
+  menu: 'menu',
 };
 
 const getButton = (buttonType = BUTTON_TYPE_CLASSES.base) =>
   ({
     [BUTTON_TYPE_CLASSES.base]: BaseButton,
     [BUTTON_TYPE_CLASSES.google]: GoogleSigninButton,
-    [BUTTON_TYPE_CLASSES.toggleMenu]: ToggleMenuButton,
+    [BUTTON_TYPE_CLASSES.menu]: MenuButton,
   }[buttonType]);
 
 const Button = ({ children, buttonType, ...otherProps }) => {

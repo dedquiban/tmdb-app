@@ -9,6 +9,7 @@ const Banner = () => {
   //const dispatch = useDispatch();
   //const movies = useSelector(selectAllMovies);
   const [movie, setMovie] = useState([]);
+  // const { name, overview } = movie;
 
   useEffect(() => {
     async function fetchData() {
@@ -26,8 +27,8 @@ const Banner = () => {
   return (
     <BannerContainer movie={movie}>
       <Description>
-        <h1>{movie.name}</h1>
-        <p>{movie.overview}</p>
+        <h1>{movie?.name}</h1>
+        <p>{movie?.overview}</p>
       </Description>
     </BannerContainer>
   );

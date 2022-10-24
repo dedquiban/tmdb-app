@@ -25,25 +25,32 @@ const gradientBorder = css`
   border: 2px solid transparent;
 `;
 
-export const MoviesDiv = styled.div`
+export const MyMoviesContainer = styled.div`
   &::-webkit-scrollbar {
     display: none;
   }
 
   display: flex;
+  width: 100%;
+  align-items: center;
   overflow-x: scroll;
   overflow-y: hidden;
 
   h1 {
     color: rgb(87, 87, 87);
+    display: flex;
     position: absolute;
-    top: 120px;
-    left: 30%;
+    top: 50%;
+    left: 40%;
   }
 `;
 
 export const Group = styled.div`
   position: relative;
+  display: flex;
+  // overflow-x: scroll;
+  // overflow-y: hidden;
+  scroll-behavior: smooth;
   padding: 0 14px;
 
   img {
@@ -54,48 +61,17 @@ export const Group = styled.div`
   }
 `;
 
-// const fullHeight = css`
-//   height: 100%;
-// `;
-
-// const position = css`
-//   top: 304px;
-// `;
-
 export const Overview = styled.div`
   ${gradientBorder};
   text-align: left;
   padding: 32px 22px;
   height: 50%;
 
-  #overview {
+  p {
     height: 100%;
     overflow-y: scroll;
     font-size: 14px;
     font-family: 'Inter', sans-serif;
-  }
-
-  #playlist-div {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    overflow-y: scroll;
-  }
-
-  #playlists {
-    font-weight: bold;
-    font-size: 14px;
-    padding: 2px 0;
-
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow-x: clip;
-
-    transition: 0.3s all ease;
-    &:hover {
-      cursor: pointer;
-      color: rgb(160, 160, 160);
-    }
   }
 `;
 export const Options = styled.div`
@@ -118,57 +94,6 @@ export const Options = styled.div`
   }
 `;
 
-export const Info = styled.div`
-  position: absolute;
-  top: 200px;
-  left: 22px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 81%;
-  padding: 12px 0 12px 2px;
-  // border: 1px solid #fff;
-  background: transparent;
-
-  transform: translateY(0);
-  opacity: 1;
-
-  p {
-    color: linear-gradient(to right bottom, #697f85, #516d75, #516d75, #697f85);
-    font-size: 12px;
-    font-family: 'Ubuntu', sans-serif;
-    background: linear-gradient(
-      to left top,
-      #2c272c,
-      #31262c,
-      #352629,
-      #392525,
-      #3b2620,
-      #3d2820,
-      #3f2b1f,
-      #402d1f,
-      #453123,
-      #493428,
-      #4e382c,
-      #523c31
-    );
-    // background: rgba(18, 18, 18, 1);
-
-    font-weight: bold;
-    border-radius: 4px;
-    padding: 6px 17px;
-  }
-
-  #star {
-    margin-right: 4px;
-    color: #e4a300;
-  }
-  #vote {
-    display: flex;
-    top: 48px;
-  }
-`;
-
 export const Tooltip = styled.div`
   display: flex;
   flex-direction: column;
@@ -179,8 +104,6 @@ export const Tooltip = styled.div`
   padding: 24px 20px;
 
   position: absolute;
-  top: 0;
-  left: 14px;
   width: 240px;
   height: 350px;
 
@@ -196,13 +119,6 @@ export const Tooltip = styled.div`
     background: #1a1a1a;
     padding: 12px;
     z-index: 1;
-  }
-
-  ${Overview} {
-    transition: 0.6s height ease;
-  }
-
-  ${Options} {
   }
 
   transition: 0.3s all ease;
