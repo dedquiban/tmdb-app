@@ -37,10 +37,8 @@ import {
   faPlus,
   faHeart,
 } from '@fortawesome/free-solid-svg-icons';
-
 import { selectUser } from '../store/user/user.slice';
 import { AppContext } from '../context/AppContext';
-import EmailVerifiedOverlay from './EmailVerifiedOverlay';
 
 const base_url = 'https://image.tmdb.org/t/p/original/';
 
@@ -313,7 +311,6 @@ const Movies = ({ header, fetchUrl, idx }) => {
           ))}
         </MoviesDiv>
       </MoviesWrapper>
-      {/* <EmailVerifiedOverlay /> */}
     </MoviesContainer>
   );
 };

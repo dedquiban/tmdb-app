@@ -16,7 +16,9 @@ export const LoaderContainer = styled.div`
   width: 100vw;
   height: 100vh;
 
-  ${({ value }) => (value === 'loading' || value === 'succeeded') && visible}
+  ${({ value }) =>
+    (value === 'loading' || value === 'succeeded' || value === 'idle') &&
+    visible}
 `;
 const inlineBlock = css`
   display: inline-block;

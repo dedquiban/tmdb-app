@@ -9,6 +9,7 @@ import {
   signInWithGoogleRedirect,
   createLikedMoviesDoc,
   sendUserPasswordResetEmail,
+  signOutUser,
 } from '../../utils/firebase.utils';
 import { getRedirectResult } from 'firebase/auth';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
@@ -25,7 +26,11 @@ import {
 } from '../../styles/login-page.styles';
 import Button, { BUTTON_TYPE_CLASSES } from '../Button';
 import { CREATE_LIKED_MOVIES_PLAYLIST } from '../../store/movies/movies.slice';
-import { selectUser, SET_USER_STATUS } from '../../store/user/user.slice';
+import {
+  selectUser,
+  SET_LOGOUT_STATE,
+  SET_USER_STATUS,
+} from '../../store/user/user.slice';
 import Loader from '../Loader';
 
 const defaultFormFields = {
@@ -83,6 +88,17 @@ const LoginPage = () => {
     }
     getResult();
     // eslint-disable-next-line
+  }, []);
+
+  useEffect(() => {
+    const logout = async () => {
+      if (currentUser) {
+        dispatch(SET_LOGOUT_STATE());
+        console.log('logged out');
+      }
+      await signOutUser();
+    };
+    logout();
   }, []);
 
   const handleSignInWithGoogleRedirect = async (e) => {

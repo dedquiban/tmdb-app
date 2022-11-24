@@ -54,7 +54,7 @@ const EmailVerifiedOverlay = () => {
     <EmailVerifiedOverlayContainer isEmailOverlayActive={isEmailOverlayActive}>
       <Message ref={ref}>
         <h3>
-          Hi <span>{currentUser.email}</span>,
+          Hi <span>{currentUser?.email}</span>,
         </h3>
         <button
           onClick={

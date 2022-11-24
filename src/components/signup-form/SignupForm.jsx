@@ -98,6 +98,7 @@ const SignupForm = () => {
       !char
     ) {
       try {
+        console.log('hit');
         const { user } = await createAuthUserFromEmailAndPassword(
           formValues.email,
           formValues.password
