@@ -69,6 +69,18 @@ function App() {
   }, [currentUser]);
 
   useEffect(() => {
+    let unsubscribe;
+
+    const getUser = () => {
+      unsubscribe = onAuthStateChangedListener(async (user) => {
+        if (user) {
+          navigate('/home');
+        }
+      });
+    };
+  }, []);
+
+  useEffect(() => {
     console.log('likedMoviesPlaylist', likedMoviesPlaylist);
   }, [likedMoviesPlaylist]);
 
