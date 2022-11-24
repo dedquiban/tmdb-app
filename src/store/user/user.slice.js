@@ -41,13 +41,13 @@ export const userSlice = createSlice({
       state.status = 'loading';
     });
     builder.addCase(SET_CURRENT_USER.fulfilled, (state, action) => {
-      state.status = 'succeeded';
       const { uid, email, emailVerified } = action.payload;
       Object.assign(state.currentUser, {
         uid: uid,
         email: email,
         emailVerified: emailVerified,
       });
+      state.status = 'succeeded';
     });
     builder.addCase(SET_CURRENT_USER.rejected, (state, action) => {
       state.status = 'failed';
