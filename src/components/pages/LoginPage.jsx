@@ -90,17 +90,6 @@ const LoginPage = () => {
     // eslint-disable-next-line
   }, []);
 
-  useEffect(() => {
-    const logout = async () => {
-      if (currentUser) {
-        dispatch(SET_LOGOUT_STATE());
-        console.log('logged out');
-      }
-      await signOutUser();
-    };
-    logout();
-  }, []);
-
   const handleSignInWithGoogleRedirect = async (e) => {
     console.log('clicked handleSignInWithGoogleRedirect');
     try {

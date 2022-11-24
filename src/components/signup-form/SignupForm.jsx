@@ -17,6 +17,7 @@ import {
 import {
   selectUser,
   selectUserLoadingStatus,
+  SET_CURRENT_USER,
 } from '../../store/user/user.slice';
 import { SignInBtn } from '../../styles/button.styles';
 import FormInput from '../FormInput';
