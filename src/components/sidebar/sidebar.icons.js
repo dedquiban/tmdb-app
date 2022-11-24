@@ -13,23 +13,16 @@ export const SIDEBAR_ICONS = [
     name: 'Home',
     nav: '/home',
   },
-  {
-    id: uuidv4(),
-    tag: faFire,
-    name: 'Trending',
-    nav: '/trending',
-  },
+  // {
+  //   id: uuidv4(),
+  //   tag: faFire,
+  //   name: 'Trending',
+  //   nav: '/trending',
+  // },
   {
     id: uuidv4(),
     tag: faList,
     name: 'My List',
     nav: '/mylist',
   },
-
-  // {
-  //   id: uuidv4(),
-  //   tag: faUserGear,
-  //   name: 'User',
-  //   nav: '/user',
-  // }
 ];

@@ -111,16 +111,6 @@ function App() {
     });
   }, [likedMoviesPlaylist]);
 
-  // setInterval(function () {
-  //   auth.currentUser.reload();
-  //   if (auth.currentUser.emailVerified) {
-  //   }
-  //   if (auth.currentUser.emailVerified) {
-  //     console.log('Email Verified!');
-  //     navigate('/home');
-  //   }
-  // }, 1000);
-
   return (
     <>
       <Routes>
