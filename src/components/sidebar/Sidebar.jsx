@@ -1,6 +1,12 @@
 import React, { useState } from 'react';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
-import { signOutUser } from '../../utils/firebase.utils';
+import {
+  auth,
+  sendUserPasswordResetEmail,
+  signOutUser,
+} from '../../utils/firebase.utils';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   SidebarContainer,
@@ -10,28 +16,46 @@ import {
   Tooltip,
   Overlay,
   Profile,
+  SignOut,
+  Password,
 } from '../../styles/sidebar.styles';
 import Button, { BUTTON_TYPE_CLASSES } from '../Button';
 import { SIDEBAR_ICONS } from './sidebar.icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
-import { selectUser, SET_LOGOUT_STATE } from '../../store/user/user.slice';
+import { faRightFromBracket, faKey } from '@fortawesome/free-solid-svg-icons';
+import {
+  selectUser,
+  selectUserLoadingStatus,
+  SET_LOGOUT_STATE,
+} from '../../store/user/user.slice';
+import { useContext } from 'react';
+import { AppContext } from '../../context/AppContext';
+import { selectAllPlaylists } from '../../store/mylist/mylist.slice';
+import { selectLikedMoviesPlaylist } from '../../store/movies/movies.slice';
 
 const Sidebar = () => {
   const navigate = useNavigate();
   const currentUser = useSelector(selectUser);
+  const userLoadingStatus = useSelector(selectUserLoadingStatus);
   const dispatch = useDispatch();
-
-  const { email } = currentUser;
+  const playlists = useSelector(selectAllPlaylists);
+  const likedMoviesPlaylist = useSelector(selectLikedMoviesPlaylist);
 
   const [isOpen, setIsOpen] = useState(false);
   const handleClick = () => setIsOpen(!isOpen);
 
+  const { isUpdatePwActive, setIsUpdatePwActive, setCurrentPlaylist } =
+    useContext(AppContext);
+
   const handleSignout = async () => {
     await signOutUser();
     console.log('signed out');
-    dispatch(SET_LOGOUT_STATE(null));
+    dispatch(SET_LOGOUT_STATE({}));
+    setCurrentPlaylist({});
     navigate('/');
+    console.log('playlists when signed out', playlists);
+    console.log('likedMoviesPlaylist when signed out', likedMoviesPlaylist);
+    console.log(userLoadingStatus);
   };
 
   return (
@@ -49,13 +73,17 @@ const Sidebar = () => {
 
           <ProfileDiv>
             <Profile />
-            <span>{null ? '' : email}</span>
+            <span>{null ? '' : currentUser?.email}</span>
 
             <Tooltip id='tooltip'>
-              <div onClick={handleSignout}>
+              {/* <Password onClick={undefined}>
+                <FontAwesomeIcon icon={faKey} />
+                <p>Change Password</p>
+              </Password> */}
+              <SignOut onClick={handleSignout}>
                 <FontAwesomeIcon icon={faRightFromBracket} />
                 <p>Sign Out</p>
-              </div>
+              </SignOut>
             </Tooltip>
           </ProfileDiv>
         </ContentDiv>

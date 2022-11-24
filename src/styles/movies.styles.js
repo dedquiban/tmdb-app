@@ -1,3 +1,4 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styled, { css } from 'styled-components';
 
 const tooltipGrey = '#1a1a1a';
@@ -111,6 +112,7 @@ export const Overview = styled.div`
   text-align: left;
   padding: 32px 22px;
   height: 50%;
+  position: relative;
 
   #overview {
     height: 100%;
@@ -142,6 +144,7 @@ export const Overview = styled.div`
     }
   }
 `;
+
 export const Options = styled.div`
   max-width: 160px;
   position: absolute;
@@ -152,16 +155,23 @@ export const Options = styled.div`
   padding: 12px;
   margin-left: 4px;
   z-index: 1;
-
-  #add {
-    cursor: pointer;
-  }
-  #added {
-    cursor: pointer;
-    color: red;
-  }
 `;
 
+const colorRed = css`
+  color: #e22525;
+`;
+
+export const FaHeart = styled(FontAwesomeIcon)`
+  cursor: pointer;
+  color: grey;
+  ${({ isLiked }) => isLiked && colorRed}
+`;
+
+export const FaPlus = styled(FontAwesomeIcon)`
+  cursor: pointer;
+  color: #8c26cb;
+  margin-left: 12px;
+`;
 export const Info = styled.div`
   position: absolute;
   top: 200px;
@@ -171,7 +181,6 @@ export const Info = styled.div`
   align-items: center;
   width: 81%;
   padding: 12px 0 12px 2px;
-  // border: 1px solid #fff;
   background: transparent;
 
   transform: translateY(0);
@@ -202,10 +211,6 @@ export const Info = styled.div`
     display: flex;
     top: 48px;
   }
-
-  // #hd {
-  //   color: rgba(26, 26, 26, 0.95);
-  // }
 `;
 
 export const Tooltip = styled.div`
@@ -255,4 +260,8 @@ export const Tooltip = styled.div`
   &:hover {
     opacity: 0.95;
   }
+`;
+
+const visible = css`
+  display: flex;
 `;

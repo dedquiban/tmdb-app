@@ -1,6 +1,5 @@
 import styled, { css } from 'styled-components';
 
-const primaryGold = '#e4a300';
 const primaryGrey = 'grey';
 
 const shrinkLabelStyles = css`
@@ -8,17 +7,22 @@ const shrinkLabelStyles = css`
   font-size: 12px;
   padding: 0 8px;
   background-color: black;
-  color: ${primaryGold};
+  color: white;
 `;
 
 const activeInputStyles = css`
-  outline: 2px solid ${primaryGold};
+  outline: 2px solid white;
+`;
+
+const width = css`
+  width: 100%;
 `;
 
 export const Group = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   width: 100%;
   position: relative;
 `;
@@ -26,7 +30,7 @@ export const Group = styled.div`
 export const Label = styled.label`
   position: absolute;
   pointer-events: none;
-  left: 175px;
+  left: 20px;
   top: 25px;
   font-size: 12px;
   color: ${primaryGrey};
@@ -36,7 +40,7 @@ export const Label = styled.label`
 `;
 
 export const Input = styled.input`
-  width: 50%;
+  width: 100%;
   margin: 12px 0;
   padding: 12px;
   border: none;
@@ -46,9 +50,13 @@ export const Input = styled.input`
   background-color: transparent;
   outline: 2px solid ${primaryGrey};
 
+  padding-right: 44px;
+
   ${({ active }) => active && activeInputStyles}
 
-  &:focus ~ ${Label} {
-    ${shrinkLabelStyles}
+  &:focus {
+    ${Label} {
+      ${({ active }) => active && shrinkLabelStyles}
+    }
   }
 `;

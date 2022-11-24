@@ -1,20 +1,17 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { selectUser, getView, SET_VIEW } from '../../store/user/user.slice';
 import {
   CREATE_PLAYLIST,
-  DELETE_PLAYLIST,
-  selectedPlaylist,
   FETCH_PLAYLISTS,
-  SET_CURRENT_PLAYLIST,
   selectAllPlaylists,
 } from '../../store/mylist/mylist.slice';
+import { selectLikedMoviesPlaylist } from '../../store/movies/movies.slice';
 import Sidebar from '../sidebar/Sidebar';
 import {
   MyListContainer,
   Group,
-  PlaylistsDiv,
   ContentDiv,
-  IconDiv,
   ToggleDiv,
   Div,
   Movies,
@@ -23,22 +20,20 @@ import {
   Input,
   Button,
   Name,
-  Choices,
+  FaXmark,
 } from '../../styles/mylist-page.styles';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-  faPlus,
-  faTableCellsLarge,
   faXmark,
-  faEllipsis,
+  faTableCellsLarge,
   faChevronLeft,
   faChevronRight,
 } from '@fortawesome/free-solid-svg-icons';
 import { faSquare } from '@fortawesome/free-regular-svg-icons';
-import Playlists from '../Playlists';
 import MyMovies from '../MyMovies';
-import { selectUser } from '../../store/user/user.slice';
-import { CHOICES_ICONS } from '../sidebar/sidebar.icons';
+import { AppContext } from '../../context/AppContext';
+import LeftPane from '../LeftPane';
+import CurrentPlaylistMenu from '../CurrentPlaylistMenu';
 
 const initialValues = {
   playlistName: '',
@@ -47,12 +42,17 @@ const initialValues = {
 const MyListPage = () => {
   const dispatch = useDispatch();
   const playlists = useSelector(selectAllPlaylists);
-  const currentPlaylist = useSelector(selectedPlaylist);
+  const likedMoviesPlaylist = useSelector(selectLikedMoviesPlaylist);
   const currentUser = useSelector(selectUser);
-  const { name } = currentPlaylist;
+  const userView = useSelector(getView);
 
   const ref = useRef(null);
-  const [isActive, setIsActive] = useState(false);
+  const {
+    isModalActive,
+    setIsModalActive,
+    currentPlaylist,
+    setCurrentPlaylist,
+  } = useContext(AppContext);
 
   const [formField, setFormField] = useState(initialValues);
   const { playlistName } = formField;
@@ -65,24 +65,21 @@ const MyListPage = () => {
     setFormField(newFormField);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
-    setIsActive(false);
-    dispatch(CREATE_PLAYLIST({ currentUser, playlistName }));
-    dispatch(FETCH_PLAYLISTS({ currentUser }));
-  };
-
-  const handleDeletePlaylist = (event) => {
-    dispatch(DELETE_PLAYLIST({ currentUser, currentPlaylist }));
-    dispatch(FETCH_PLAYLISTS({ currentUser }));
-    dispatch(SET_CURRENT_PLAYLIST({}));
+    setIsModalActive(false);
+    const res = await dispatch(CREATE_PLAYLIST({ currentUser, playlistName }));
+    console.log('res', res);
+    dispatch(FETCH_PLAYLISTS({ currentUser })).then(
+      console.log('dispatched FETCH_PLAYLISTS')
+    );
   };
 
   useEffect(() => {
     const handler = (event) => {
       if (!ref.current.contains(event.target)) {
-        setIsActive(false);
+        setIsModalActive(false);
         setFormField(initialValues);
       }
     };
@@ -93,10 +90,13 @@ const MyListPage = () => {
   useEffect(() => {
     playlists.map((playlist, index) => {
       if (playlist.id === currentPlaylist.id) {
-        dispatch(SET_CURRENT_PLAYLIST(index));
+        setCurrentPlaylist(playlist);
       }
     });
-  }, [playlists]);
+    if (currentPlaylist.id === likedMoviesPlaylist.id) {
+      setCurrentPlaylist(likedMoviesPlaylist);
+    }
+  }, [playlists, likedMoviesPlaylist]);
 
   const scrollLeft = () => {
     let amount = document.getElementById(`moviesDiv`).offsetWidth;
@@ -114,37 +114,18 @@ const MyListPage = () => {
   };
 
   return (
-    <MyListContainer>
+    <MyListContainer value={userView}>
       <Sidebar />
-      <Group>
-        <PlaylistsDiv>
-          <IconDiv onClick={() => setIsActive(true)}>
-            <FontAwesomeIcon icon={faPlus} />
-            <p>Create Playlist</p>
-          </IconDiv>
-          <Playlists />
-        </PlaylistsDiv>
+      <Group value={userView}>
+        <LeftPane />
+
         <ContentDiv>
           <ToggleDiv>
-            <Name value={name?.length}>
-              <h3>{null ? '' : name}</h3>
-              <FontAwesomeIcon icon={faEllipsis} id='choices' />
-              <Choices>
-                {CHOICES_ICONS.map((choice, index) => (
-                  <div
-                    key={index}
-                    id={choice.id}
-                    onClick={
-                      choice.id &&
-                      (() =>
-                        handleDeletePlaylist({ currentUser, currentPlaylist }))
-                    }
-                  >
-                    <FontAwesomeIcon icon={choice.tag} />
-                    <p>{choice.name}</p>
-                  </div>
-                ))}
-              </Choices>
+            <Name value={currentPlaylist.name}>
+              <h3>{null ? '' : currentPlaylist.name}</h3>
+              {currentPlaylist?.id !== likedMoviesPlaylist?.id && (
+                <CurrentPlaylistMenu />
+              )}
             </Name>
 
             <Div>
@@ -159,18 +140,26 @@ const MyListPage = () => {
                 id='right'
               />
 
-              <FontAwesomeIcon icon={faSquare} id='scroll' />
-              <FontAwesomeIcon icon={faTableCellsLarge} id='grid' />
+              <FontAwesomeIcon
+                icon={faSquare}
+                id='scroll'
+                onClick={() => dispatch(SET_VIEW('scroll'))}
+              />
+              <FontAwesomeIcon
+                icon={faTableCellsLarge}
+                id='grid'
+                onClick={() => dispatch(SET_VIEW('grid'))}
+              />
             </Div>
           </ToggleDiv>
-          <Movies>
-            <MyMovies id='myMovies' />
+          <Movies value={userView}>
+            <MyMovies />
           </Movies>
         </ContentDiv>
       </Group>
 
-      <Overlay isActive={isActive}>
-        <Modal ref={ref} isActive={isActive}>
+      <Overlay isActive={isModalActive}>
+        <Modal ref={ref} isActive={isModalActive}>
           <form onSubmit={handleSubmit}>
             <h3>Create playlist</h3>
             <Input
@@ -184,12 +173,11 @@ const MyListPage = () => {
             <Button
               type={playlistName ? 'submit' : 'reset'}
               value={playlistName}
-              onClick={!playlistName ? () => setIsActive(false) : undefined}
+              onClick={
+                !playlistName ? () => setIsModalActive(false) : undefined
+              }
             >
-              <p id='xmark' value={playlistName}>
-                x
-              </p>
-              {/* <FontAwesomeIcon icon={faXmark} id='xmark' value={playlistName} /> */}
+              <FaXmark icon={faXmark} value={playlistName} />
               <p>{playlistName ? 'Create' : ''}</p>
             </Button>
           </form>

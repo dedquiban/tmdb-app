@@ -1,27 +1,27 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  FETCH_PLAYLISTS,
-  selectAllPlaylists,
-  SET_CURRENT_PLAYLIST,
-} from '../store/mylist/mylist.slice';
-import { selectUser } from '../store/user/user.slice';
+import React, { useEffect, useContext } from 'react';
+import { useSelector } from 'react-redux';
+import { AppContext } from '../context/AppContext';
+import { selectLikedMoviesPlaylist } from '../store/movies/movies.slice';
+import { selectAllPlaylists } from '../store/mylist/mylist.slice';
+import { getView } from '../store/user/user.slice';
 import { PlaylistsContainer } from '../styles/playlists.styles';
 
 const Playlists = () => {
-  const dispatch = useDispatch();
+  const likedMoviesPlaylist = useSelector(selectLikedMoviesPlaylist);
+  const userView = useSelector(getView);
   const playlists = useSelector(selectAllPlaylists);
+  const { setCurrentPlaylist } = useContext(AppContext);
 
   useEffect(() => {
     console.log(playlists);
   }, []);
 
   return (
-    <PlaylistsContainer>
+    <PlaylistsContainer value={userView}>
       {playlists.map((playlist, index) => (
-        <h3 key={index} onClick={() => dispatch(SET_CURRENT_PLAYLIST(index))}>
+        <p key={index} onClick={() => setCurrentPlaylist(playlist)}>
           {playlist.name}
-        </h3>
+        </p>
       ))}
     </PlaylistsContainer>
   );

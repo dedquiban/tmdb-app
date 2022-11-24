@@ -1,23 +1,32 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   createAuthUserFromEmailAndPassword,
   createUserDocumentFromAuth,
+  createLikedMoviesDoc,
+  sendAuthEmailVerification,
 } from '../../utils/firebase.utils';
-
-import Button from '../Button';
-
+import { CREATE_LIKED_MOVIES_PLAYLIST } from '../../store/movies/movies.slice';
 import {
   Form,
   Group,
-  Input,
-  Label,
   Div,
   ErrorMessage,
 } from '../../styles/signup-form.styles';
+import {
+  selectUser,
+  selectUserLoadingStatus,
+} from '../../store/user/user.slice';
+import { SignInBtn } from '../../styles/button.styles';
+import FormInput from '../FormInput';
+import Loader from '../Loader';
 
 const SignupForm = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const currentUser = useSelector(selectUser);
+  const userLoadingStatus = useSelector(selectUserLoadingStatus);
 
   const initialValues = {
     email: '',
@@ -46,9 +55,10 @@ const SignupForm = () => {
 
   const [formErrors, setFormErrors] = useState(init);
 
-  const [touched, setTouched] = useState(initial);
+  const { email, confirmPassword } = formErrors;
+  const { empty, min, upper, number, char } = formErrors.password;
 
-  //const [isSubmit, setIsSubmit] = useState(false);
+  const [touched, setTouched] = useState(initial);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -78,9 +88,6 @@ const SignupForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const { email, confirmPassword } = formErrors;
-    const { empty, min, upper, number, char } = formErrors.password;
-
     if (
       !email &&
       !confirmPassword &&
@@ -96,8 +103,15 @@ const SignupForm = () => {
           formValues.password
         );
 
-        const response = await createUserDocumentFromAuth(user);
-        console.log(response);
+        console.log('user', user);
+        const res = await createUserDocumentFromAuth(user);
+        console.log('createUserDocFromAuth res', res);
+
+        const newLikedMoviesPlaylist = await createLikedMoviesDoc(user);
+        console.log('newLikedMoviesPlaylist', newLikedMoviesPlaylist);
+        dispatch(
+          CREATE_LIKED_MOVIES_PLAYLIST({ currentUser, newLikedMoviesPlaylist })
+        );
         navigate('/home');
       } catch (error) {
         switch (error.code) {
@@ -225,12 +239,12 @@ const SignupForm = () => {
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
+    <Form onSubmit={handleSubmit} noValidate>
       <Group>
         <Div>
-          <Label>Email</Label>
-          <Input
+          <FormInput
             required
+            label='Email'
             type='email'
             value={formValues.email}
             name='email'
@@ -245,14 +259,15 @@ const SignupForm = () => {
 
       <Group>
         <Div>
-          <Label>Password</Label>
-          <Input
+          <FormInput
             required
+            label='Password'
             type='password'
             value={formValues.password}
             name='password'
             onInput={handleChange}
             onChange={handleTouch}
+            id='signupPwInput'
           />
           {Object.values(formErrors.password).map((value, index) => (
             <ErrorMessage key={index} error={value} touch={touched.password}>
@@ -264,14 +279,15 @@ const SignupForm = () => {
 
       <Group>
         <Div>
-          <Label>Confirm Password</Label>
-          <Input
+          <FormInput
             required
+            label='Confirm Password'
             type='password'
             value={formValues.confirmPassword}
             name='confirmPassword'
             onInput={handleChange}
             onChange={handleTouch}
+            id='confirmPwInput'
           />
           <ErrorMessage
             error={formErrors.confirmPassword}
@@ -282,7 +298,10 @@ const SignupForm = () => {
         </Div>
       </Group>
 
-      <Button type='submit'>Sign Up</Button>
+      <SignInBtn type='submit' value={userLoadingStatus}>
+        <p>Sign Up</p>
+        <Loader id='signup' />
+      </SignInBtn>
     </Form>
   );
 };

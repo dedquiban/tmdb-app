@@ -1,16 +1,33 @@
 import styled, { css } from 'styled-components';
 
-const primaryGold = '#e4a300';
+const enableLogin = css`
+  color: rgba(0, 0, 0, 1);
+  background: #426cba;
 
+  animation: 0.6s scaleLoginBtn ease;
+`;
 export const BaseButton = styled.button`
-  border-radius: 4px;
-  background-color: ${primaryGold};
+  border-radius: 9999px;
+  background: rgba(86, 115, 169, 0.5);
   font-weight: bold;
-  color: #0c0c0c;
-  width: 50%;
-  padding: 12px;
+  color: rgba(86, 115, 169, 0);
+  width: 100%;
+  padding: 18px 12px;
   margin: 12px 0;
-  border: none;
+  border: 2px solid #5673a9;
+
+  transition: 0.3s all ease;
+
+  @keyframes scaleLoginBtn {
+    55% {
+      transform: scaleX(1.05);
+    }
+    100% {
+      width: 100%;
+    }
+  }
+
+  ${({ value }) => value && enableLogin}
 
   &:hover {
     cursor: pointer;
@@ -19,6 +36,32 @@ export const BaseButton = styled.button`
   &:active {
     transform: translateY(2px);
     transition: all 100ms ease;
+  }
+`;
+const invisible = css`
+  display: none;
+`;
+
+export const SignInBtn = styled.button`
+  border-radius: 9999px;
+  font-weight: bold;
+  color: rgba(86, 115, 169, 0);
+  padding: 18px 12px;
+  background: rgba(228, 163, 0, 1);
+  border: 2px solid #e4a300;
+
+  transition: 0.3s all ease;
+
+  background: rgba(228, 163, 0, 1);
+  border: 2px solid #e4a300;
+  width: 50%;
+
+  p {
+    color: black;
+
+    ${({ value }) =>
+      (value === 'loading' || value === 'succeeded' || value === 'idle') &&
+      invisible}
   }
 `;
 
@@ -38,8 +81,8 @@ export const GoogleSigninButton = styled.button`
 
   &:hover {
     cursor: pointer;
-    border: 2px solid ${primaryGold};
-    color: ${primaryGold};
+    border: 2px solid #8b6f94;
+    color: #8b6f94;
   }
 `;
 

@@ -1,11 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from '../axios';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   FETCH_PLAYLISTS,
+  EDIT_PLAYLIST,
   ADD_MOVIE_TO_PLAYLIST,
   selectAllPlaylists,
 } from '../store/mylist/mylist.slice';
+import {
+  ADD_TO_LIKED_MOVIES,
+  REMOVE_FROM_LIKED_MOVIES,
+  selectLikedMoviesPlaylist,
+  FETCH_LIKED_MOVIES,
+} from '../store/movies/movies.slice';
 import {
   MoviesContainer,
   MoviesDiv,
@@ -17,21 +24,23 @@ import {
   MoviesWrapper,
   Header,
   Navigate,
+  FaHeart,
+  FaPlus,
+  EmailVerified,
 } from '../styles/movies.styles';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHeart } from '@fortawesome/free-regular-svg-icons';
+
 import {
   faStar,
   faChevronLeft,
   faChevronRight,
-  faHeart as added,
+  faPlus,
+  faHeart,
 } from '@fortawesome/free-solid-svg-icons';
-import {
-  FETCH_LIKED_MOVIES,
-  ADD_TO_LIKED_MOVIES,
-  getLikedMovies,
-} from '../store/movies/movies.slice';
+
 import { selectUser } from '../store/user/user.slice';
+import { AppContext } from '../context/AppContext';
+import EmailVerifiedOverlay from './EmailVerifiedOverlay';
 
 const base_url = 'https://image.tmdb.org/t/p/original/';
 
@@ -40,13 +49,17 @@ const Movies = ({ header, fetchUrl, idx }) => {
 
   const currentUser = useSelector(selectUser);
 
-  const likedMovies = useSelector(getLikedMovies);
+  const likedMoviesPlaylist = useSelector(selectLikedMoviesPlaylist);
+  const likedMovies = likedMoviesPlaylist?.movies;
 
   const playlists = useSelector(selectAllPlaylists);
 
-  const [isActive, setIsActive] = useState(false);
+  const [isActive, setIsActive] = useState(null);
+  const { isEmailOverlayActive, setIsEmailOverlayActive } =
+    useContext(AppContext);
 
   const [movies, setMovies] = useState([]);
+  const { isLiked } = movies;
 
   useEffect(() => {
     async function fetchData() {
@@ -55,11 +68,11 @@ const Movies = ({ header, fetchUrl, idx }) => {
 
       const newMovies = movies.map((movie) => {
         let filteredMovie = {};
-        likedMovies.forEach((likedMovie) => {
-          let vote_sliced = movie.vote_average;
-          vote_sliced = movie.vote_average.toFixed(1);
+        likedMovies?.forEach((likedMovie) => {
+          let vote_sliced = movie.vote_average.toFixed(1);
           let release_sliced = movie.release_date || movie.first_air_date;
           release_sliced = release_sliced.slice(0, 4);
+
           if (movie.id === likedMovie.id) {
             filteredMovie = {
               ...movie,
@@ -69,8 +82,8 @@ const Movies = ({ header, fetchUrl, idx }) => {
             };
           }
         });
-        let vote_sliced = movie.vote_average;
-        vote_sliced = movie.vote_average.toFixed(1);
+
+        let vote_sliced = movie.vote_average.toFixed(1);
         let release_sliced = movie.release_date || movie.first_air_date;
         release_sliced = release_sliced.slice(0, 4);
         if (movie.id === filteredMovie.id) {
@@ -84,13 +97,12 @@ const Movies = ({ header, fetchUrl, idx }) => {
           };
         }
       });
-
       setMovies(newMovies);
-      console.log(newMovies);
+      console.log('Movies', newMovies);
       return movies;
     }
     fetchData();
-  }, [fetchUrl, likedMovies]);
+  }, [fetchUrl, likedMoviesPlaylist]);
 
   const scrollLeft = () => {
     let amount = document.getElementById(`moviesDiv${idx}`).offsetWidth;
@@ -107,13 +119,115 @@ const Movies = ({ header, fetchUrl, idx }) => {
     moviesDiv.scrollBy(amount, 0);
   };
 
-  const handleAddMovie = ({ currentUser, movieToAdd, selectedPlaylist }) => {
-    dispatch(ADD_TO_LIKED_MOVIES({ currentUser, movieToAdd }));
-    dispatch(FETCH_LIKED_MOVIES({ currentUser }));
-    dispatch(
+  const handleAddToPlaylistIfVerified = () => {
+    if (!currentUser.emailVerified) {
+      console.log('currentUser.emailVerified', currentUser.emailVerified);
+      setIsEmailOverlayActive(true);
+    } else {
+      setIsActive(true);
+    }
+  };
+
+  const handleAddMovieToPlaylist = async ({
+    currentUser,
+    movieToAdd,
+    selectedPlaylist,
+  }) => {
+    await dispatch(
       ADD_MOVIE_TO_PLAYLIST({ currentUser, movieToAdd, selectedPlaylist })
     );
     dispatch(FETCH_PLAYLISTS({ currentUser }));
+    setIsActive(false);
+  };
+
+  const handleLikeBtnOnClick = async ({
+    clickedMovie,
+    currentUser,
+    likedMoviesPlaylist,
+  }) => {
+    if (!currentUser.emailVerified) {
+      console.log('currentUser.emailVerified', currentUser.emailVerified);
+      setIsEmailOverlayActive(true);
+    } else {
+      console.log('clicked handleLikeBtn');
+      console.log('clickedMovie', clickedMovie);
+
+      if (clickedMovie.isLiked) {
+        await dispatch(
+          REMOVE_FROM_LIKED_MOVIES({
+            currentUser,
+            likedMovieToRemove: clickedMovie,
+            likedMoviesPlaylist,
+          })
+        );
+        await dispatch(FETCH_LIKED_MOVIES({ currentUser }));
+
+        const newPlaylists = playlists.map((playlist) => {
+          const newMovies = playlist.movies.map((movie) => {
+            if (clickedMovie.id === movie.id) {
+              movie = { ...movie, isLiked: false };
+              console.log('if', movie);
+            } else {
+              movie = { ...movie };
+              console.log('else', movie);
+            }
+            return movie;
+          });
+          return { ...playlist, movies: newMovies };
+        });
+        console.log('newPlaylists', newPlaylists);
+
+        const resAll = async (playlists) => {
+          await playlists.reduce(async (acc, playlist) => {
+            await acc;
+            let res = await dispatch(
+              EDIT_PLAYLIST({ currentUser, currentPlaylist: playlist })
+            );
+            console.log('res', res);
+          }, Promise.resolve());
+          console.log('resAll', resAll);
+          dispatch(FETCH_PLAYLISTS({ currentUser }));
+        };
+        resAll(newPlaylists);
+      } else {
+        await dispatch(
+          ADD_TO_LIKED_MOVIES({
+            currentUser,
+            movieToAdd: clickedMovie,
+            likedMoviesPlaylist,
+          })
+        );
+        await dispatch(FETCH_LIKED_MOVIES({ currentUser }));
+
+        const newPlaylists = playlists.map((playlist) => {
+          const newMovies = playlist.movies.map((movie) => {
+            if (clickedMovie.id === movie.id) {
+              movie = { ...movie, isLiked: true };
+              console.log('if', movie);
+            } else {
+              movie = { ...movie };
+              console.log('else', movie);
+            }
+            return movie;
+          });
+          return { ...playlist, movies: newMovies };
+        });
+        console.log('newPlaylists', newPlaylists);
+
+        const resAll = async (playlists) => {
+          await playlists.reduce(async (acc, playlist) => {
+            await acc;
+            let res = await dispatch(
+              EDIT_PLAYLIST({ currentUser, currentPlaylist: playlist })
+            );
+            console.log('res', res);
+          }, Promise.resolve());
+          console.log('resAll', resAll);
+          dispatch(FETCH_PLAYLISTS({ currentUser }));
+        };
+        resAll(newPlaylists);
+      }
+    }
   };
 
   return (
@@ -155,7 +269,7 @@ const Movies = ({ header, fetchUrl, idx }) => {
                           key={index}
                           id='playlists'
                           onClick={() =>
-                            handleAddMovie({
+                            handleAddMovieToPlaylist({
                               currentUser: currentUser,
                               movieToAdd: movie,
                               selectedPlaylist: playlist,
@@ -169,20 +283,22 @@ const Movies = ({ header, fetchUrl, idx }) => {
                   )}
                 </Overview>
 
-                <Options>
-                  {movie.isLiked ? (
-                    <FontAwesomeIcon
-                      icon={added}
-                      id='added'
-                      onClick={() => setIsActive(true)}
-                    />
-                  ) : (
-                    <FontAwesomeIcon
-                      icon={faHeart}
-                      id='add'
-                      onClick={() => setIsActive(true)}
-                    />
-                  )}
+                <Options value={isLiked}>
+                  <FaHeart
+                    icon={faHeart}
+                    isLiked={movie.isLiked}
+                    onClick={() =>
+                      handleLikeBtnOnClick({
+                        clickedMovie: movie,
+                        currentUser,
+                        likedMoviesPlaylist,
+                      })
+                    }
+                  />
+                  <FaPlus
+                    icon={faPlus}
+                    onClick={() => handleAddToPlaylistIfVerified()}
+                  />
                 </Options>
                 <Info>
                   <p id='vote'>
@@ -197,6 +313,7 @@ const Movies = ({ header, fetchUrl, idx }) => {
           ))}
         </MoviesDiv>
       </MoviesWrapper>
+      {/* <EmailVerifiedOverlay /> */}
     </MoviesContainer>
   );
 };

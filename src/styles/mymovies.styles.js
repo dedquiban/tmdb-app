@@ -1,6 +1,5 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styled, { css } from 'styled-components';
-
-const tooltipGrey = '#1a1a1a';
 
 const gradientBorder = css`
   background: linear-gradient(#1a1a1a, #1a1a1a) padding-box,
@@ -25,7 +24,8 @@ const gradientBorder = css`
   border: 2px solid transparent;
 `;
 
-export const MoviesDiv = styled.div`
+//MoviesDiv
+const scrollView = css`
   &::-webkit-scrollbar {
     display: none;
   }
@@ -33,16 +33,38 @@ export const MoviesDiv = styled.div`
   display: flex;
   overflow-x: scroll;
   overflow-y: hidden;
+  flex: 1;
+  transition: 0.4s flex linear;
 
   h1 {
     color: rgb(87, 87, 87);
-    position: absolute;
-    top: 120px;
-    left: 30%;
   }
 `;
 
-export const Group = styled.div`
+const gridView = css`
+  display: flex;
+  overflow-x: hidden;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+  @keyframes scaleY {
+    0% {
+      transform: scale(0.6, 0.6);
+    }
+
+    100% {
+      transform: scale(1, 1);
+    }
+  }
+  animation: 0.6s scaleY ease;
+
+  h1 {
+    color: rgb(87, 87, 87);
+  }
+`;
+
+//Group
+const scrollType = css`
   position: relative;
   padding: 0 14px;
 
@@ -54,15 +76,58 @@ export const Group = styled.div`
   }
 `;
 
-// const fullHeight = css`
-//   height: 100%;
-// `;
+const gridType = css`
+  position: relative;
+  padding: 8px 10px;
 
-// const position = css`
-//   top: 304px;
-// `;
+  img {
+    object-fit: cover;
+    width: 210px;
+    height: 320px;
+    border-radius: 4px;
+  }
+`;
+export const Group = styled.div``;
 
-export const Overview = styled.div`
+//Overview
+const gridOverview = css`
+  ${gradientBorder};
+  text-align: left;
+  padding: 32px 22px;
+  height: 60%;
+
+  #overview {
+    height: 100%;
+    overflow-y: scroll;
+    font-size: 14px;
+    font-family: 'Inter', sans-serif;
+  }
+
+  #playlist-div {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+  }
+
+  #playlists {
+    font-weight: bold;
+    font-size: 14px;
+    padding: 2px 0;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow-x: clip;
+
+    transition: 0.3s all ease;
+    &:hover {
+      cursor: pointer;
+      color: rgb(160, 160, 160);
+    }
+  }
+`;
+
+const scrollOverview = css`
   ${gradientBorder};
   text-align: left;
   padding: 32px 22px;
@@ -98,43 +163,81 @@ export const Overview = styled.div`
     }
   }
 `;
-export const Options = styled.div`
-  max-width: 160px;
+
+export const Overview = styled.div``;
+
+//LikeBtn
+const red = css`
+  color: #e22525;
+`;
+
+export const LikeBtn = styled(FontAwesomeIcon)`
+  cursor: pointer;
+  color: grey;
+
+  ${({ isLiked }) => isLiked && red}
+`;
+
+const gridSizeDeleteBtn = css`
+  font-size: 14px;
+`;
+
+const scrollSizeDeleteBtn = css`
+  font-size: 16px;
+`;
+export const DeleteBtn = styled(LikeBtn)`
+  margin-left: 12px;
+
+  transition: 0.3s all ease;
+  &:hover {
+    color: red;
+  }
+`;
+
+//Options
+const gridOptions = css`
+  max-width: fit-content;
+  display: flex;
+  align-items: center;
+  position: absolute;
+  top: 166px;
+  left: 36px;
+  font-size: 16px;
+  background: #1a1a1a;
+  padding: 12px;
+  z-index: 1;
+`;
+
+const scrollOptions = css`
+  max-width: fit-content;
+  display: flex;
+  align-items: center;
   position: absolute;
   top: 154px;
   left: 36px;
   font-size: 18px;
   background: #1a1a1a;
   padding: 12px;
-  margin-left: 4px;
   z-index: 1;
-
-  #add {
-    cursor: pointer;
-  }
-  #added {
-    cursor: pointer;
-    color: red;
-  }
 `;
+export const Options = styled.div``;
 
-export const Info = styled.div`
+//Info
+const gridInfo = css`
   position: absolute;
   top: 200px;
-  left: 22px;
+  left: 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 81%;
+  width: 80%;
   padding: 12px 0 12px 2px;
-  // border: 1px solid #fff;
   background: transparent;
 
   transform: translateY(0);
   opacity: 1;
 
   p {
-    color: linear-gradient(to right bottom, #697f85, #516d75, #516d75, #697f85);
     font-size: 12px;
     font-family: 'Ubuntu', sans-serif;
     background: linear-gradient(
@@ -152,7 +255,54 @@ export const Info = styled.div`
       #4e382c,
       #523c31
     );
-    // background: rgba(18, 18, 18, 1);
+
+    font-weight: bold;
+    border-radius: 4px;
+    padding: 6px 13.5px;
+  }
+
+  #star {
+    margin-right: 4px;
+    color: #e4a300;
+  }
+  #vote {
+    display: flex;
+    top: 48px;
+  }
+`;
+
+const scrollInfo = css`
+  position: absolute;
+  top: 190px;
+  left: 22px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 81%;
+  padding: 12px 0 12px 2px;
+  background: transparent;
+
+  transform: translateY(0);
+  opacity: 1;
+
+  p {
+    font-size: 12px;
+    font-family: 'Ubuntu', sans-serif;
+    background: linear-gradient(
+      to left top,
+      #2c272c,
+      #31262c,
+      #352629,
+      #392525,
+      #3b2620,
+      #3d2820,
+      #3f2b1f,
+      #402d1f,
+      #453123,
+      #493428,
+      #4e382c,
+      #523c31
+    );
 
     font-weight: bold;
     border-radius: 4px;
@@ -169,17 +319,50 @@ export const Info = styled.div`
   }
 `;
 
-export const Tooltip = styled.div`
+export const Info = styled.div``;
+
+//Tooltip
+const gridTooltip = css`
   display: flex;
   flex-direction: column;
   opacity: 0;
-  background-color: ${tooltipGrey};
+  background-color: #1a1a1a;
   color: #fff;
   border-radius: 4px;
   padding: 24px 20px;
 
   position: absolute;
-  top: 0;
+  top: 8px;
+  left: 10px;
+  width: 210px;
+  height: 320px;
+
+  h3 {
+    max-width: 136px;
+    position: absolute;
+    top: 6px;
+    left: 36px;
+    font-size: 16px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    background: #1a1a1a;
+    padding: 12px;
+    z-index: 1;
+  }
+`;
+
+const scrollTooltip = css`
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  background-color: #1a1a1a;
+  color: #fff;
+  border-radius: 4px;
+  padding: 24px 20px;
+
+  position: absolute;
+  top: 0px;
   left: 14px;
   width: 240px;
   height: 350px;
@@ -197,16 +380,43 @@ export const Tooltip = styled.div`
     padding: 12px;
     z-index: 1;
   }
+`;
+
+export const Tooltip = styled.div``;
+
+export const MoviesDiv = styled.div`
+  ${({ value }) => (value === 'scroll' ? scrollView : gridView)};
+
+  ${Group} {
+    ${({ value }) => (value === 'grid' ? gridType : scrollType)}
+  }
 
   ${Overview} {
-    transition: 0.6s height ease;
+    ${({ value }) => (value === 'grid' ? gridOverview : scrollOverview)}
   }
 
   ${Options} {
+    ${({ value }) => (value === 'grid' ? gridOptions : scrollOptions)}
+    ${DeleteBtn} {
+      ${({ value }) =>
+        value === 'grid' ? gridSizeDeleteBtn : scrollSizeDeleteBtn}
+    }
   }
 
-  transition: 0.3s all ease;
-  &:hover {
-    opacity: 0.95;
+  ${Info} {
+    ${({ value }) => (value === 'grid' ? gridInfo : scrollInfo)}
+  }
+
+  ${Tooltip} {
+    ${({ value }) => (value === 'grid' ? gridTooltip : scrollTooltip)}
+
+    transition: 0.3s all ease;
+    &:hover {
+      opacity: 0.95;
+    }
+
+    ${Overview} {
+      transition: 0.6s height ease;
+    }
   }
 `;

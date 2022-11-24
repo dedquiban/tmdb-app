@@ -12,28 +12,29 @@ const z = css`
 `;
 
 const gradientText = css`
-  background: linear-gradient(
+  background-image: linear-gradient(
     to right bottom,
-    #c441c4,
-    #de379f,
-    #e73f7d,
-    #e45160,
-    #d9654c,
-    #d36c46,
-    #cc7342,
-    #c5793f,
-    #c7763f,
-    #c8743f,
-    #ca713f,
-    #cb6e3f
+    #ff6e6e,
+    #ff718b,
+    #fd78a6,
+    #f382bf,
+    #e58ed4,
+    #d692db,
+    #c796e1,
+    #b79ae4,
+    #a797df,
+    #9793d9,
+    #8890d2,
+    #798ccb
   );
+
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 `;
 
 const gradientBorder = css`
   background: linear-gradient(black, black) padding-box,
-    linear-gradient(to right, #fc575e, #f7b42c) border-box;
+    linear-gradient(to right, #ff6e6e, #798ccb) border-box;
   border-radius: 8px;
   border: 1px solid transparent;
 `;
@@ -79,7 +80,7 @@ export const IconDiv = styled.div`
   align-items: center;
   cursor: pointer;
   font-size: 14px;
-  padding: 12px;
+  padding: 12px 24px;
   color: rgb(87, 87, 87);
 
   transition: 0.3s ease all;
@@ -95,40 +96,74 @@ export const IconDiv = styled.div`
   }
 `;
 
+export const Password = styled.div`
+  font-weight: bold;
+  cursor: pointer;
+  padding: 12px 18px;
+  display: flex;
+  font-size: 16px;
+  color: #d9d0d0;
+  background-image: linear-gradient(
+    to left top,
+    #1a1a1a,
+    #1f1f20,
+    #252526,
+    #2a2a2d,
+    #2f3033,
+    #323338,
+    #35363c,
+    #383941,
+    #3b3a44,
+    #403a47,
+    #463949,
+    #4c3949
+  );
+
+  width: 100%;
+  border-radius: 8px;
+  margin-bottom: 12px;
+
+  font-size: 12px;
+
+  transition: 0.6s all ease;
+  &:hover {
+    transform: scale(1.1);
+  }
+
+  p {
+    margin-left: 18px;
+  }
+`;
+
+export const SignOut = styled(Password)``;
+
 export const Tooltip = styled.div`
   color: rgb(87, 87, 87);
   display: none;
   position: absolute;
   flex-direction: column;
   top: calc(100%);
-  left: 54px;
-  background: transparent;
-  border-radius: 8px;
-  // width: 210px;
-  // height: 40px;
+  left: 8px;
+  // background: rgba(26, 26, 26, 1);
 
+  // background-image: linear-gradient(
+  //   to right top,
+  //   #413a44,
+  //   #443b47,
+  //   #463c4b,
+  //   #493d4e,
+  //   #4c3e52
+  // );
+  // opacity: 0.8;
+
+  border-radius: 8px;
+  width: 91%;
+
+  padding: 12px;
   transition: 0.3s all ease;
 
   &:hover {
     display: flex;
-  }
-
-  div {
-    cursor: pointer;
-    margin-top: 12px;
-    display: flex;
-    font-size: 16px;
-    color: rgb(87, 87, 87);
-
-    &:hover {
-      color: rgb(160, 160, 160);
-      transform: translateY(-1px);
-    }
-  }
-
-  p {
-    margin-left: 10px;
-    font-size: 14px;
   }
 `;
 
@@ -138,8 +173,11 @@ export const ProfileDiv = styled.div`
   justify-content: center;
   align-items: center;
 
+  padding: 12px 22px;
+  padding-bottom: 18px;
+
   min-width: 150px;
-  transition: 0.3s ease all;
+  transition: 0.3s all ease;
   &:hover {
     ${Tooltip} {
       display: flex;
@@ -151,7 +189,7 @@ export const ProfileDiv = styled.div`
     cursor: pointer;
     font-weight: bold;
     font-size: 14px;
-    padding: 4px 20px;
+    padding: 0px 16px;
 
     &:hover {
       #tooltip {
@@ -163,8 +201,7 @@ export const ProfileDiv = styled.div`
 
 export const Profile = styled.div`
   cursor: pointer;
-  height: 24px;
-  width: 24px;
-  margin: 10px 0 10px 8px;
+  height: 20px;
+  width: 20px;
   ${gradientBorder};
 `;

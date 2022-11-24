@@ -8,6 +8,8 @@ import {
   signInWithEmailAndPassword,
   signOut,
   onAuthStateChanged,
+  sendEmailVerification,
+  sendPasswordResetEmail,
 } from 'firebase/auth';
 
 import {
@@ -22,17 +24,23 @@ import {
   orderBy,
   query,
   arrayUnion,
+  arrayRemove,
   deleteDoc,
-  where,
 } from 'firebase/firestore';
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyCxWbFP3vXUXocpZmixWfJ7J_agPiFOGrs',
-  authDomain: 'tmdb-redux-db.firebaseapp.com',
-  projectId: 'tmdb-redux-db',
-  storageBucket: 'tmdb-redux-db.appspot.com',
-  messagingSenderId: '205216283447',
-  appId: '1:205216283447:web:65a7d098bfdac5de8fb8b2',
+  // apiKey: 'AIzaSyCxWbFP3vXUXocpZmixWfJ7J_agPiFOGrs',
+  // authDomain: 'tmdb-redux-db.firebaseapp.com',
+  // projectId: 'tmdb-redux-db',
+  // storageBucket: 'tmdb-redux-db.appspot.com',
+  // messagingSenderId: '205216283447',
+  // appId: '1:205216283447:web:65a7d098bfdac5de8fb8b2',
+  apiKey: 'AIzaSyDafdYhuccV4_mFZGB7JW82vWO6HYIZmJA',
+  authDomain: 'tmdb-api-8dab7.firebaseapp.com',
+  projectId: 'tmdb-api-8dab7',
+  storageBucket: 'tmdb-api-8dab7.appspot.com',
+  messagingSenderId: '886691419178',
+  appId: '1:886691419178:web:96ae8890e622c9622a9f53',
 };
 
 // Initialize Firebase
@@ -50,45 +58,64 @@ export const auth = getAuth(firebaseApp);
 export const signInWithGooglePopup = () =>
   signInWithPopup(auth, googleProvider);
 
-export const signInWithGoogleRedirect = () => {
-  signInWithRedirect(auth, googleProvider);
+export const signInWithGoogleRedirect = async () => {
+  console.log('triggered signInWithGoogleRedirect');
+  await signInWithRedirect(auth, googleProvider);
 };
 
 export const createUserDocumentFromAuth = async (userAuth) => {
   if (!userAuth) return;
 
   const userDocRef = doc(db, 'users', userAuth.uid);
-
   const userSnapshot = await getDoc(userDocRef);
 
   if (!userSnapshot.exists()) {
-    const { displayName, email } = userAuth;
+    const { displayName, email, emailVerified } = userAuth;
     const createdAt = new Date();
 
-    try {
-      await setDoc(userDocRef, {
-        displayName,
-        email,
-        createdAt,
-      });
-    } catch (error) {
-      console.log('error creating the user', error.message);
-    }
+    await setDoc(userDocRef, {
+      displayName,
+      email,
+      createdAt,
+      emailVerified,
+    });
   }
+};
 
-  return userDocRef;
+export const sendAuthEmailVerification = async (userAuth) => {
+  return await sendEmailVerification(userAuth);
 };
 
 export const createAuthUserFromEmailAndPassword = async (email, password) => {
   if (!email || !password) return;
 
-  return await createUserWithEmailAndPassword(auth, email, password);
+  const user = await createUserWithEmailAndPassword(auth, email, password);
+  console.log(user);
+
+  var actionCodeSettings = {
+    url:
+      'http://localhost:3000/tmdb-app#/home/?email=' + auth.currentUser.email,
+  };
+
+  await sendEmailVerification(user.user, actionCodeSettings).then(() => {
+    console.log('email verified');
+  });
+
+  return user;
 };
 
 export const signInAuthUserFromEmailAndPassword = async (email, password) => {
   if (!email || !password) return;
 
   return await signInWithEmailAndPassword(auth, email, password);
+};
+
+export const sendUserPasswordResetEmail = async (auth, email) => {
+  var actionCodeSettings = {
+    url: 'http://localhost:3000/tmdb-app#/',
+  };
+
+  return await sendPasswordResetEmail(auth, email, actionCodeSettings);
 };
 
 export const signOutUser = async () => {
@@ -98,59 +125,6 @@ export const signOutUser = async () => {
 export const onAuthStateChangedListener = (callback) => {
   onAuthStateChanged(auth, callback);
 };
-
-// export const createCurrentPlaylistDoc = async (
-//   currentUser,
-//   currentPlaylist
-// ) => {
-//   if (!currentUser) return;
-
-// const docRef = doc(db, 'users', currentUser.uid);
-// const colRef = collection(docRef, 'currentPlaylist');
-// console.log(currentPlaylist);
-// const q = query(colRef, where('currentPlaylist', '==', currentPlaylist.id));
-// console.log(q);
-// const querySnapshot = await getDocs(q);
-
-// if (!querySnapshot.empty) {
-//   const ref = doc(docRef, 'currentPlaylist', currentPlaylist.id);
-
-//   let c = {};
-//   await setDoc(ref, { ...currentPlaylist });
-//   const snapshot = await getDocs(q);
-//   snapshot.forEach((doc) => {
-//     c = { ...doc.data() };
-//   });
-//     return c;
-//   } else {
-//     const newDoc = await addDoc(colRef, {
-//       ...currentPlaylist,
-//     });
-//     await updateDoc(newDoc, { id: newDoc.id });
-//     const snapshot = await getDocs(newDoc);
-//     let c = {};
-//     snapshot.forEach((doc) => {
-//       c = { ...doc.data() };
-//     });
-
-//     return c;
-//   }
-// };
-
-// export const setCurrentPlaylistDoc = async (currentUser, currentPlaylist) => {
-//   // const docRef = doc(db, 'users', currentUser.uid);
-//   const docRef = doc(
-//     db,
-//     'users',
-//     currentUser.uid,
-//     'currentPlaylist',
-//     currentPlaylist.id
-//   );
-//   console.log(currentPlaylist);
-//   const docSnapshot = await getDoc(docRef);
-//   let c = {};
-//   return (c = docSnapshot.data());
-// };
 
 export const createPlaylistDoc = async (currentUser, playlist) => {
   if (!currentUser) return;
@@ -163,6 +137,19 @@ export const createPlaylistDoc = async (currentUser, playlist) => {
   });
 
   await updateDoc(newDoc, { id: newDoc.id });
+};
+
+export const editPlaylistDoc = async (currentUser, playlist) => {
+  if (!currentUser) return;
+
+  const docRef = doc(db, 'users', currentUser.uid);
+  const playlistRef = doc(docRef, 'playlists', playlist.id);
+
+  // const newDoc = await addDoc(colRef, {
+  //   ...playlist,
+  // });
+
+  await updateDoc(playlistRef, { ...playlist });
 };
 
 export const deletePlaylistDoc = async (currentUser, playlist) => {
@@ -178,33 +165,6 @@ export const deletePlaylistDoc = async (currentUser, playlist) => {
 export const fetchPlaylists = async (currentUser) => {
   if (!currentUser) return;
 
-  /*    */
-  // const playlistsRef = collection(db, 'users', currentUser.uid, 'playlists');
-  // const q = query(playlistsRef, orderBy('createDate', 'desc'));
-
-  // let p = [];
-  // const p = onSnapshot(q, (querySnapshot) => {
-  //   querySnapshot.docs.map((doc) => {
-  //     console.log(doc.id, ' => ', doc.data());
-  //     const newDoc = doc.data();
-
-  //     let firestoreTimestamp = doc.get('createDate');
-  //     firestoreTimestamp = firestoreTimestamp.toDate();
-  //     newDoc.createDate = firestoreTimestamp;
-
-  //     // p.push({
-  //     //   ...doc.data(),
-  //     //   id: doc.id,
-  //     //   createDate: JSON.stringify(firestoreTimestamp),
-  //     // });
-
-  //     console.log(newDoc);
-  //     return newDoc;
-  //   });
-  // });
-  // console.log('p', p);
-
-  /*       */
   let p = [];
   const playlistsRef = collection(db, 'users', currentUser.uid, 'playlists');
   const q = query(playlistsRef, orderBy('createDate', 'desc'));
@@ -223,7 +183,7 @@ export const fetchPlaylists = async (currentUser) => {
       createDate: firestoreTimestamp,
     });
   });
-  console.log(p);
+  console.log('playlists', p);
 
   return p;
 };
@@ -246,21 +206,96 @@ export const addMovieToPlaylist = async (
   });
 };
 
-export const createLikedMovieDoc = async (currentUser, likedMovie) => {
+export const deleteMovieFromPlaylist = async (
+  currentUser,
+  movieToDelete,
+  selectedPlaylist
+) => {
+  if (!currentUser) return;
+
+  const docRef = doc(db, 'users', currentUser.uid);
+
+  const playlistRef = doc(docRef, 'playlists', selectedPlaylist.id);
+  console.log('movieToDelete', movieToDelete);
+  console.log('selectedPlaylist', selectedPlaylist);
+
+  await updateDoc(playlistRef, {
+    movies: arrayRemove(movieToDelete),
+  });
+};
+
+export const createLikedMoviesDoc = async (currentUser) => {
   if (!currentUser) return;
 
   const docRef = doc(db, 'users', currentUser.uid);
   const colRef = collection(docRef, 'likedMovies');
 
-  addDoc(colRef, {
-    ...likedMovie,
+  const newDoc = await addDoc(colRef, {
+    id: '',
+    name: 'Liked Movies',
+    createDate: new Date(),
+    movies: [],
+  });
+
+  await updateDoc(newDoc, { id: newDoc.id });
+
+  const docSnapshot = await getDocs(colRef);
+
+  let likedMoviesPlaylist = {};
+  docSnapshot.forEach((doc) => {
+    console.log(doc.id, ' => ', doc.data());
+    let firestoreTime = doc.get('createDate');
+    let firestoreTimestamp = firestoreTime.toDate();
+    firestoreTimestamp = firestoreTimestamp.toISOString();
+    likedMoviesPlaylist = {
+      ...doc.data(),
+      id: doc.id,
+      createDate: firestoreTimestamp,
+    };
+  });
+  return likedMoviesPlaylist;
+};
+
+export const addToLikedMovies = async (
+  currentUser,
+  likedMovie,
+  likedMoviesPlaylist
+) => {
+  if (!currentUser) return;
+  console.log('currentUser', currentUser);
+  console.log('likedMovie', likedMovie);
+  console.log('likedMoviesPlaylist', likedMoviesPlaylist);
+
+  const docRef = doc(db, 'users', currentUser.uid);
+  const colRef = doc(docRef, 'likedMovies', likedMoviesPlaylist.id);
+
+  await updateDoc(colRef, {
+    movies: arrayUnion(likedMovie),
+  });
+};
+
+export const removeFromLikedMovies = async (
+  currentUser,
+  likedMovieToRemove,
+  likedMoviesPlaylist
+) => {
+  if (!currentUser) return;
+  console.log('currentUser', currentUser);
+  console.log('likedMovieRemoved', likedMovieToRemove);
+  console.log('likedMoviesPlaylist', likedMoviesPlaylist);
+
+  const docRef = doc(db, 'users', currentUser.uid);
+  const colRef = doc(docRef, 'likedMovies', likedMoviesPlaylist.id);
+
+  await updateDoc(colRef, {
+    movies: arrayRemove(likedMovieToRemove),
   });
 };
 
 export const fetchLikedMovies = async (currentUser) => {
   if (!currentUser) return;
 
-  let likedMovies = [];
+  let likedMovies = {};
   const likedMoviesRef = collection(
     db,
     'users',
@@ -271,8 +306,15 @@ export const fetchLikedMovies = async (currentUser) => {
   //console.log(docSnapshot);
 
   docSnapshot.forEach((doc) => {
-    // console.log(doc.id, ' => ', doc.data());
-    likedMovies.push(doc.data());
+    console.log(doc.id, ' => ', doc.data());
+    let firestoreTime = doc.get('createDate');
+    let firestoreTimestamp = firestoreTime.toDate();
+    firestoreTimestamp = firestoreTimestamp.toISOString();
+    likedMovies = {
+      ...doc.data(),
+      id: doc.id,
+      createDate: firestoreTimestamp,
+    };
   });
   return likedMovies;
 };
