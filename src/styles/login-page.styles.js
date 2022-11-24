@@ -50,6 +50,10 @@ export const Form = styled.form`
       text-decoration: underline;
     }
   }
+
+  @media (max-width: 445px) {
+    width: 75%;
+  }
 `;
 
 export const OtherAcctsContainer = styled.div`
