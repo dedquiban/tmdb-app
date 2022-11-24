@@ -93,8 +93,7 @@ export const createAuthUserFromEmailAndPassword = async (email, password) => {
   console.log(user);
 
   var actionCodeSettings = {
-    url:
-      'http://localhost:3000/tmdb-app#/home/?email=' + auth.currentUser.email,
+    url: 'https://dedquiban.github.io/tmdb-app/#/home' + auth.currentUser.email,
   };
 
   await sendEmailVerification(user.user, actionCodeSettings).then(() => {
@@ -112,7 +111,7 @@ export const signInAuthUserFromEmailAndPassword = async (email, password) => {
 
 export const sendUserPasswordResetEmail = async (auth, email) => {
   var actionCodeSettings = {
-    url: 'http://localhost:3000/tmdb-app#/',
+    url: 'https://dedquiban.github.io/tmdb-app/#/',
   };
 
   return await sendPasswordResetEmail(auth, email, actionCodeSettings);
