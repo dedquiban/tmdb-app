@@ -93,7 +93,9 @@ export const createAuthUserFromEmailAndPassword = async (email, password) => {
   console.log(user);
 
   var actionCodeSettings = {
-    url: 'https://dedquiban.github.io/tmdb-app/#/home' + auth.currentUser.email,
+    url:
+      'https://dedquiban.github.io/tmdb-app/#/home/?email=' +
+      auth.currentUser.email,
   };
 
   await sendEmailVerification(user.user, actionCodeSettings).then(() => {
