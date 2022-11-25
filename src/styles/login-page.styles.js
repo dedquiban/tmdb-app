@@ -8,9 +8,12 @@ export const LoginContainer = styled.div`
   justify-content: center;
   background-color: black;
   align-items: center;
+  padding: 36px 12px;
 
-  min-height: 445px;
+  height: 100vh;
+  min-height: 600px;
   min-width: 750px;
+  overflow: scroll;
 
   p,
   h2 {
@@ -51,8 +54,8 @@ export const Form = styled.form`
     }
   }
 
-  @media (max-width: 445px) {
-    width: 75%;
+  @media (max-width: 981px) {
+    width: 35%;
   }
 `;
 
@@ -66,19 +69,33 @@ export const OtherAcctsContainer = styled.div`
   color: #ffe39c;
 `;
 
+export const Group = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  padding: 48px 0px 16px 0px;
+  width: 100%;
+`;
+
 export const Divider = styled.div`
-  position: absolute;
-  bottom: 322px;
-  width: 25%;
   border: 0.5px solid rgb(160, 160, 160);
+  width: 25%;
+
+  @media (max-width: 981px) {
+    width: 35%;
+  }
 `;
 
 export const Span = styled.span`
   display: flex;
+  align-items: center;
+  justify-content: center;
 
+  position: absolute;
   color: #fff;
-  padding: 12px 16px;
-  margin-top: 26px;
   background: black;
+
+  padding: 12px;
   z-index: 1;
 `;

@@ -84,6 +84,10 @@ export const GoogleSigninButton = styled.button`
     border: 2px solid #8b6f94;
     color: #8b6f94;
   }
+
+  @media (max-width: 981px) {
+    width: 70%;
+  }
 `;
 
 // MenuButton
