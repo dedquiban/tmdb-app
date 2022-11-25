@@ -46,13 +46,6 @@ function App() {
       unsubscribe = onAuthStateChangedListener(async (user) => {
         if (!user) {
           console.log('no currentUser');
-          await dispatch(
-            SET_CURRENT_USER({
-              uid: 0,
-              email: 'Guest',
-              emailVerified: false,
-            })
-          );
         } else {
           const userAuth = user;
 
