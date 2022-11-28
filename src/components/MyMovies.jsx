@@ -46,10 +46,10 @@ const MyMovies = () => {
       const newMovies = playlist.movies.map((movie) => {
         likedMoviesPlaylist?.movies?.forEach((likedMovie) => {
           if (likedMovie.id === movie.id) {
-            movie = { ...movie, isLiked: true };
+            movie = { ...movie, isLiked: false };
             console.log('if', movie);
           } else {
-            movie = { ...movie, isLiked: false };
+            movie = { ...movie };
             console.log('else', movie);
           }
         });
