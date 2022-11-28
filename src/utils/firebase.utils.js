@@ -148,7 +148,7 @@ export const editPlaylistDoc = async (currentUser, playlist) => {
   // const newDoc = await addDoc(colRef, {
   //   ...playlist,
   // });
-
+  console.log('playlist', playlist);
   await updateDoc(playlistRef, { ...playlist });
 };
 

@@ -57,6 +57,7 @@ export const EDIT_PLAYLIST = createAsyncThunk(
       ...currentPlaylist,
       createDate: new Date(createDate),
     };
+    console.log('playlist', playlist);
     await editPlaylistDoc(currentUser, playlist);
   }
 );
