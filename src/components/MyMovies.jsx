@@ -87,7 +87,7 @@ const MyMovies = () => {
       );
       await dispatch(FETCH_LIKED_MOVIES({ currentUser }));
 
-      const newPlaylists = playlists.map((playlist) => {
+      const newPlaylists = currentPlaylist.map((playlist) => {
         const newMovies = playlist.movies.map((movie) => {
           if (clickedMovie.id === movie.id) {
             movie = { ...movie, isLiked: false };
@@ -124,7 +124,7 @@ const MyMovies = () => {
       );
       await dispatch(FETCH_LIKED_MOVIES({ currentUser }));
 
-      const newPlaylists = playlists.map((playlist) => {
+      const newPlaylists = currentPlaylist.map((playlist) => {
         const newMovies = playlist.movies.map((movie) => {
           if (clickedMovie.id === movie.id) {
             movie = { ...movie, isLiked: true };
