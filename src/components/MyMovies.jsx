@@ -125,6 +125,7 @@ const MyMovies = () => {
 
       await dispatch(EDIT_PLAYLIST({ currentUser, currentPlaylist: playlist }));
       dispatch(FETCH_PLAYLISTS({ currentUser }));
+    }
   };
 
   const handleDeleteMovieFromPlaylist = async ({
