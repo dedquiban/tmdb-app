@@ -87,33 +87,20 @@ const MyMovies = () => {
       );
       await dispatch(FETCH_LIKED_MOVIES({ currentUser }));
 
-      const newPlaylists = currentPlaylist.map((playlist) => {
-        const newMovies = playlist.movies.map((movie) => {
-          if (clickedMovie.id === movie.id) {
-            movie = { ...movie, isLiked: false };
-            console.log('if', movie);
-          } else {
-            movie = { ...movie };
-            console.log('else', movie);
-          }
-          return movie;
-        });
-        return { ...playlist, movies: newMovies };
+      const playlist = currentPlaylist.movies.map((movie) => {
+        if (clickedMovie.id === movie.id) {
+          movie = { ...movie, isLiked: false };
+          console.log('if', movie);
+        } else {
+          movie = { ...movie };
+          console.log('else', movie);
+        }
+        return movie;
       });
-      console.log('newPlaylists', newPlaylists);
+      console.log('playlist', playlist);
 
-      const resAll = async (playlists) => {
-        await playlists.reduce(async (acc, playlist) => {
-          await acc;
-          let res = await dispatch(
-            EDIT_PLAYLIST({ currentUser, currentPlaylist: playlist })
-          );
-          console.log('res', res);
-        }, Promise.resolve());
-        console.log('resAll', resAll);
-        dispatch(FETCH_PLAYLISTS({ currentUser }));
-      };
-      resAll(newPlaylists);
+      await dispatch(EDIT_PLAYLIST({ currentUser, currentPlaylist: playlist }));
+      dispatch(FETCH_PLAYLISTS({ currentUser }));
     } else {
       await dispatch(
         ADD_TO_LIKED_MOVIES({
@@ -124,34 +111,20 @@ const MyMovies = () => {
       );
       await dispatch(FETCH_LIKED_MOVIES({ currentUser }));
 
-      const newPlaylists = currentPlaylist.map((playlist) => {
-        const newMovies = playlist.movies.map((movie) => {
-          if (clickedMovie.id === movie.id) {
-            movie = { ...movie, isLiked: true };
-            console.log('if', movie);
-          } else {
-            movie = { ...movie };
-            console.log('else', movie);
-          }
-          return movie;
-        });
-        return { ...playlist, movies: newMovies };
+      const playlist = currentPlaylist.movies.map((movie) => {
+        if (clickedMovie.id === movie.id) {
+          movie = { ...movie, isLiked: true };
+          console.log('if', movie);
+        } else {
+          movie = { ...movie };
+          console.log('else', movie);
+        }
+        return movie;
       });
-      console.log('newPlaylists', newPlaylists);
+      console.log('playlist', playlist);
 
-      const resAll = async (playlists) => {
-        await playlists.reduce(async (acc, playlist) => {
-          await acc;
-          let res = await dispatch(
-            EDIT_PLAYLIST({ currentUser, currentPlaylist: playlist })
-          );
-          console.log('res', res);
-        }, Promise.resolve());
-        console.log('resAll', resAll);
-        dispatch(FETCH_PLAYLISTS({ currentUser }));
-      };
-      resAll(newPlaylists);
-    }
+      await dispatch(EDIT_PLAYLIST({ currentUser, currentPlaylist: playlist }));
+      dispatch(FETCH_PLAYLISTS({ currentUser }));
   };
 
   const handleDeleteMovieFromPlaylist = async ({
