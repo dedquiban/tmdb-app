@@ -68,18 +68,18 @@ function App() {
     // eslint-disable-next-line
   }, [currentUser]);
 
-  useEffect(() => {
-    let unsubscribe;
+  // useEffect(() => {
+  //   let unsubscribe;
 
-    const getUser = () => {
-      unsubscribe = onAuthStateChangedListener(async (user) => {
-        if (user) {
-          navigate('/home');
-        }
-      });
-    };
-    getUser();
-  }, []);
+  //   const getUser = () => {
+  //     unsubscribe = onAuthStateChangedListener(async (user) => {
+  //       if (user) {
+  //         navigate('/home');
+  //       }
+  //     });
+  //   };
+  //   getUser();
+  // }, []);
 
   useEffect(() => {
     console.log('likedMoviesPlaylist', likedMoviesPlaylist);
