@@ -67,9 +67,9 @@ const MyMovies = () => {
         console.log('res', res);
       }, Promise.resolve());
       console.log('resAll', resAll);
-      dispatch(FETCH_PLAYLISTS({ currentUser }));
     };
     resAll(newPlaylists);
+    dispatch(FETCH_PLAYLISTS({ currentUser }));
   }, [likedMoviesPlaylist]);
 
   const handleLikeBtnOnClick = async (clickedMovie, playlist) => {

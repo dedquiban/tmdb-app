@@ -53,7 +53,7 @@ export const EDIT_PLAYLIST = createAsyncThunk(
   'mylist/EDIT_PLAYLIST',
   async ({ currentUser, currentPlaylist }) => {
     const { createDate } = currentPlaylist;
-    const playlist = {
+    let playlist = {
       ...currentPlaylist,
       createDate: new Date(createDate),
     };
