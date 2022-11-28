@@ -9,6 +9,7 @@ import {
   signInWithGoogleRedirect,
   createLikedMoviesDoc,
   sendUserPasswordResetEmail,
+  onAuthStateChangedListener,
 } from '../../utils/firebase.utils';
 import { getRedirectResult } from 'firebase/auth';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
@@ -41,6 +42,19 @@ const LoginPage = () => {
 
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { email, password } = formFields;
+
+  useEffect(() => {
+    let unsubscribe;
+
+    const getUser = () => {
+      unsubscribe = onAuthStateChangedListener(async (user) => {
+        if (user) {
+          navigate('/home');
+        }
+      });
+    };
+    getUser();
+  }, []);
 
   useEffect(() => {
     let response;

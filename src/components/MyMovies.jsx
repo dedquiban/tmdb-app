@@ -52,8 +52,8 @@ const MyMovies = () => {
             movie = { ...movie, isLiked: false };
             console.log('else', movie);
           }
-          return movie;
         });
+        return movie;
       });
       return { ...playlist, movies: newMovies };
     });
