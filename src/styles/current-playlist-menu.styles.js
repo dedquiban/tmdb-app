@@ -1,19 +1,50 @@
 import styled, { css } from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-export const Choices = styled.div`
-  padding: 8px 20px;
+export const Group = styled.div`
   display: none;
-  flex-direction: column;
   position: absolute;
-  top: 2px;
+  top: -1px;
   left: calc(100%);
-  background: rgba(26, 26, 26, 0.75);
-  border-radius: 8px;
 
   &:hover {
     display: flex;
     z-index: 99;
+  }
+`;
+
+export const Ellipsis = styled(FontAwesomeIcon)`
+  display: flex;
+  align-itens: center;
+  justify-content: center;
+  margin-left: 4px;
+
+  cursor: pointer;
+  color: rgb(87, 87, 87);
+  padding: 2px 6px;
+  position: relative;
+
+  &:hover {
+    border-radius: 4px;
+    background: rgba(26, 26, 26, 1);
+  }
+`;
+
+export const Choices = styled.div`
+  display: flex;
+  flex-direction: column;
+  background: rgba(26, 26, 26, 1);
+  border-radius: 4px;
+  margin-left: 4px;
+  // border: 0.5px solid rgb(36, 36, 36);
+
+  & div:first-child {
+    border-bottom: 0.5px solid rgb(36, 36, 36);
+    border-radius: 4px 4px 0 0;
+  }
+
+  & div:last-child {
+    border-radius: 0 0 4px 4px;
   }
 
   #delete {
@@ -28,19 +59,13 @@ export const Choices = styled.div`
     rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px,
     rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
 `;
-
 export const CurrentPlaylistMenuContainer = styled.div`
   display: flex;
+  position: relative;
 
-  #choices {
-    display: block;
-    margin-left: 16px;
-    cursor: pointer;
-    color: rgb(87, 87, 87);
-    padding-right: 20px;
-
+  ${Ellipsis} {
     &:hover {
-      ~ ${Choices} {
+      ~ ${Group} {
         display: flex;
         z-index: 99;
       }
@@ -49,15 +74,16 @@ export const CurrentPlaylistMenuContainer = styled.div`
 `;
 
 export const Rename = styled.div`
-  padding: 8px 0;
   cursor: pointer;
   display: flex;
   color: rgb(87, 87, 87);
-  padding-bottom: 10px;
   font-size: 12px;
   font-family: 'Inter', sans-serif;
 
+  padding: 10px 24px 10px 12px;
+
   &:hover {
+    background: rgb(36, 36, 36);
     color: rgb(160, 160, 160);
   }
 
@@ -69,6 +95,10 @@ export const Rename = styled.div`
 export const Delete = styled(Rename)`
   &:hover {
     color: red;
+  }
+
+  #faTrash {
+    margin-right: 2px;
   }
 `;
 

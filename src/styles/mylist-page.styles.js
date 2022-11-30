@@ -112,19 +112,18 @@ const hide = css`
 `;
 
 export const Name = styled.div`
-  position: relative;
-
   ${({ value }) => !value && hide}
   display: flex;
-  justify-content: space-between;
   align-items: center;
 
   transition: 1s ease all;
 
+  width: 75%;
+
   h3 {
-    width: 100%;
     text-overflow: ellipsis;
-    overflow-x: clip;
+    // overflow-wrap: break-word;
+    overflow-x: hidden;
     margin-left: 16px;
   }
 `;

@@ -252,7 +252,6 @@ export const Tooltip = styled.div`
 
   ${Info} {
     transition: transform 0.6s, opacity 0.7s ease;
-    // transition: opacity 1s ease;
     ${({ isActive }) => isActive && noHeight};
   }
 

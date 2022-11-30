@@ -25,6 +25,8 @@ import {
   Input,
   Button,
   FaXmark,
+  Ellipsis,
+  Group,
 } from '../styles/current-playlist-menu.styles';
 
 const CurrentPlaylistMenu = () => {
@@ -86,33 +88,35 @@ const CurrentPlaylistMenu = () => {
   };
   return (
     <CurrentPlaylistMenuContainer>
-      <FontAwesomeIcon icon={faEllipsis} id='choices' />
-      <Choices>
-        <Rename
-          onClick={() =>
-            handleEditPlaylistName({
-              currentUser,
-              currentPlaylist,
-              playlistName,
-            })
-          }
-        >
-          <FontAwesomeIcon icon={faPenToSquare} />
-          <p>Rename</p>
-        </Rename>
+      <Ellipsis id='ellipsis' icon={faEllipsis} />
+      <Group>
+        <Choices>
+          <Rename
+            onClick={() =>
+              handleEditPlaylistName({
+                currentUser,
+                currentPlaylist,
+                playlistName,
+              })
+            }
+          >
+            <FontAwesomeIcon icon={faPenToSquare} />
+            <p>Rename</p>
+          </Rename>
 
-        <Delete
-          onClick={() =>
-            handleDeletePlaylist({
-              currentUser,
-              currentPlaylist,
-            })
-          }
-        >
-          <FontAwesomeIcon icon={faTrash} />
-          <p>Delete</p>
-        </Delete>
-      </Choices>
+          <Delete
+            onClick={() =>
+              handleDeletePlaylist({
+                currentUser,
+                currentPlaylist,
+              })
+            }
+          >
+            <FontAwesomeIcon icon={faTrash} id='faTrash' />
+            <p>Delete</p>
+          </Delete>
+        </Choices>
+      </Group>
 
       <Overlay isActive={isEditActive}>
         <Modal ref={ref} isActive={isEditActive}>
