@@ -19,6 +19,14 @@ export const LoginContainer = styled.div`
   h2 {
     color: ${white};
   }
+
+  @media (max-width: 430px) {
+    height: 100vh;
+    min-height: initial;
+    overflow: initial;
+    padding: 0px;
+    width: 100vw;
+  }
 `;
 
 export const SignUp = styled.span`
@@ -53,10 +61,6 @@ export const Form = styled.form`
       text-decoration: underline;
     }
   }
-
-  @media (max-width: 981px) {
-    width: 35%;
-  }
 `;
 
 export const OtherAcctsContainer = styled.div`
@@ -67,6 +71,10 @@ export const OtherAcctsContainer = styled.div`
   margin-top: 24px;
   padding: 12px;
   color: #ffe39c;
+
+  // @media (max-width: 430px) {
+  //   margin-top: 0px;
+  // }
 `;
 
 export const Group = styled.div`
@@ -81,10 +89,6 @@ export const Group = styled.div`
 export const Divider = styled.div`
   border: 0.5px solid rgb(160, 160, 160);
   width: 25%;
-
-  @media (max-width: 981px) {
-    width: 35%;
-  }
 `;
 
 export const Span = styled.span`
