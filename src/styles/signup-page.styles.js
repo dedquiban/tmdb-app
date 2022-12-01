@@ -4,11 +4,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export const SignupContainer = styled.div`
   display: flex;
-  min-height: 445px;
   height: 100vh;
-  min-width: 750px;
   background: black;
-  overflow: scroll;
+
+  position: relative;
+
+  height: 100vh;
+  overflow-y: scroll;
 `;
 
 export const LeftDiv = styled.div`
@@ -16,12 +18,7 @@ export const LeftDiv = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  height: 100%;
   width: 50%;
-
-  h1 {
-    margin-bottom: 24px;
-  }
 `;
 
 export const RightDiv = styled.div`
@@ -29,7 +26,6 @@ export const RightDiv = styled.div`
   justify-content: center;
   align-items: center;
   z-index: 1;
-  height: 100%;
   width: 50%;
   background: url(${bg});
   background-size: cover;

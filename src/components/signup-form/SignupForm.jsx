@@ -5,7 +5,6 @@ import {
   createAuthUserFromEmailAndPassword,
   createUserDocumentFromAuth,
   createLikedMoviesDoc,
-  sendAuthEmailVerification,
 } from '../../utils/firebase.utils';
 import { CREATE_LIKED_MOVIES_PLAYLIST } from '../../store/movies/movies.slice';
 import {
@@ -17,7 +16,6 @@ import {
 import {
   selectUser,
   selectUserLoadingStatus,
-  SET_CURRENT_USER,
 } from '../../store/user/user.slice';
 import { SignInBtn } from '../../styles/button.styles';
 import FormInput from '../FormInput';
@@ -242,6 +240,7 @@ const SignupForm = () => {
 
   return (
     <Form onSubmit={handleSubmit} noValidate>
+      <h1>Sign Up</h1>
       <Group>
         <Div>
           <FormInput

@@ -1,15 +1,10 @@
 import React, { useState, useEffect } from 'react';
-//import { useDispatch, useSelector } from 'react-redux';
 import axios from '../axios';
 import requests from '../utils/requests';
-//import { selectAllMovies, SET_MOVIES } from '../store/movies/movies.slice';
 import { BannerContainer, Description } from '../styles/banner.styles';
 
 const Banner = () => {
-  //const dispatch = useDispatch();
-  //const movies = useSelector(selectAllMovies);
   const [movie, setMovie] = useState([]);
-  // const { name, overview } = movie;
 
   useEffect(() => {
     async function fetchData() {

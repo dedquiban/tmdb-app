@@ -8,24 +8,16 @@ export const LoginContainer = styled.div`
   justify-content: center;
   background-color: black;
   align-items: center;
-  padding: 36px 12px;
+  padding: 36px 40px;
 
-  height: 100vh;
-  min-height: 600px;
-  min-width: 750px;
-  overflow: scroll;
+  min-height: 100vh;
+  height: fit-content;
+
+  overflow-y: scroll;
 
   p,
   h2 {
     color: ${white};
-  }
-
-  @media (max-width: 430px) {
-    height: 100vh;
-    min-height: initial;
-    overflow: initial;
-    padding: 0px;
-    width: 100vw;
   }
 `;
 
@@ -39,7 +31,8 @@ export const Form = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 25%;
+  max-width: 550px;
+  width: 100%;
 
   padding: 32px 48px;
   border-radius: 16px;
@@ -67,14 +60,12 @@ export const OtherAcctsContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 50%;
+  width: 100%;
   margin-top: 24px;
   padding: 12px;
   color: #ffe39c;
 
-  // @media (max-width: 430px) {
-  //   margin-top: 0px;
-  // }
+  max-width: 550px;
 `;
 
 export const Group = styled.div`
@@ -84,11 +75,13 @@ export const Group = styled.div`
   position: relative;
   padding: 48px 0px 16px 0px;
   width: 100%;
+
+  max-width: 550px;
 `;
 
 export const Divider = styled.div`
   border: 0.5px solid rgb(160, 160, 160);
-  width: 25%;
+  width: 100%;
 `;
 
 export const Span = styled.span`

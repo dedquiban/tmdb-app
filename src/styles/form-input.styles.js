@@ -6,7 +6,7 @@ const shrinkLabelStyles = css`
   top: 4px;
   font-size: 12px;
   padding: 0 8px;
-  background-color: black;
+  background-color: #0f0f0f;
   color: white;
 `;
 

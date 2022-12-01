@@ -1,3 +1,4 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styled, { css } from 'styled-components';
 
 const enableLogin = css`
@@ -54,7 +55,9 @@ export const SignInBtn = styled.button`
 
   background: rgba(228, 163, 0, 1);
   border: 2px solid #e4a300;
-  width: 50%;
+  margin-top: 8px;
+  max-width: 220px;
+  width: 100%;
 
   p {
     color: black;
@@ -74,7 +77,7 @@ export const GoogleSigninButton = styled.button`
   border: 2px solid white;
   border-radius: 4px;
   padding: 12px;
-  width: 50%;
+  width: 100%;
   img {
     margin-right: 16px;
   }
@@ -83,10 +86,6 @@ export const GoogleSigninButton = styled.button`
     cursor: pointer;
     border: 2px solid #8b6f94;
     color: #8b6f94;
-  }
-
-  @media (max-width: 981px) {
-    width: 70%;
   }
 `;
 
@@ -143,4 +142,29 @@ export const MenuButton = styled.button`
   }
 
   ${({ isOpen }) => isOpen && openStyles}
+
+  @media (max-width: 480px) {
+    width: %;
+    border-radius: 4px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    padding: 4px 0px;
+    margin: 0px 4px 2px 4px;
+
+    background: #1a1a1a;
+
+    .svg {
+      display: none;
+    }
+
+    .line {
+      display: none;
+    }
+  }
 `;

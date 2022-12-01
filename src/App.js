@@ -1,12 +1,7 @@
 import { useEffect } from 'react';
-import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import './App.css';
-import { toast } from 'react-toastify';
-import {
-  auth,
-  onAuthStateChangedListener,
-  signOutUser,
-} from './utils/firebase.utils';
+import { onAuthStateChangedListener } from './utils/firebase.utils';
 import { useDispatch, useSelector } from 'react-redux';
 import LoginPage from './components/pages/LoginPage';
 import SignupPage from './components/pages/SignupPage';
@@ -37,8 +32,6 @@ function App() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // signOutUser();
-
   useEffect(() => {
     let unsubscribe;
 
@@ -67,19 +60,6 @@ function App() {
     return unsubscribe;
     // eslint-disable-next-line
   }, [currentUser]);
-
-  // useEffect(() => {
-  //   let unsubscribe;
-
-  //   const getUser = () => {
-  //     unsubscribe = onAuthStateChangedListener(async (user) => {
-  //       if (user) {
-  //         navigate('/home');
-  //       }
-  //     });
-  //   };
-  //   getUser();
-  // }, []);
 
   useEffect(() => {
     console.log('likedMoviesPlaylist', likedMoviesPlaylist);

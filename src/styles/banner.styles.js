@@ -14,6 +14,12 @@ export const BannerContainer = styled.div`
     ),
     url('https://image.tmdb.org/t/p/original/${({ movie }) =>
       movie ? movie?.backdrop_path : 'no pics'}');
+
+  @media (max-width: 480px) {
+    min-height: 60vh;
+
+    box-shadow: inset 0px -68px 58px -35px rgba(0, 0, 0, 1);
+  }
 `;
 
 export const Description = styled.div`
@@ -27,5 +33,11 @@ export const Description = styled.div`
     max-width: 700px;
     color: rgb(87, 87, 87);
     font-family: 'Inter', sans-serif;
+  }
+
+  @media (max-width: 480px) {
+    h1 {
+      font-size: 24px;
+    }
   }
 `;

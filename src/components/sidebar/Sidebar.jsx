@@ -1,12 +1,7 @@
 import React, { useState } from 'react';
-import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
-import {
-  auth,
-  sendUserPasswordResetEmail,
-  signOutUser,
-} from '../../utils/firebase.utils';
+import { signOutUser } from '../../utils/firebase.utils';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   SidebarContainer,
@@ -17,12 +12,16 @@ import {
   Overlay,
   Profile,
   SignOut,
-  Password,
+  MobileIcons,
+  MobileProfileIcon,
+  Icon,
+  MobileTooltip,
+  MobileProfileDiv,
 } from '../../styles/sidebar.styles';
 import Button, { BUTTON_TYPE_CLASSES } from '../Button';
 import { SIDEBAR_ICONS } from './sidebar.icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faRightFromBracket, faKey } from '@fortawesome/free-solid-svg-icons';
+import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import {
   selectUser,
   selectUserLoadingStatus,
@@ -76,10 +75,6 @@ const Sidebar = () => {
             <span>{null ? '' : currentUser?.email}</span>
 
             <Tooltip id='tooltip'>
-              {/* <Password onClick={undefined}>
-                <FontAwesomeIcon icon={faKey} />
-                <p>Change Password</p>
-              </Password> */}
               <SignOut onClick={handleSignout}>
                 <FontAwesomeIcon icon={faRightFromBracket} />
                 <p>Sign Out</p>
@@ -94,7 +89,7 @@ const Sidebar = () => {
         onClick={handleClick}
         isOpen={isOpen}
       >
-        <svg width='28' height='28' viewBox='0 0 100 100'>
+        <svg className='svg' width='28' height='28' viewBox='0 0 100 100'>
           <path
             className='line line1'
             d='M 20,29.000046 H 80.000231 C 80.000231,29.000046 94.498839,28.817352 94.532987,66.711331 94.543142,77.980673 90.966081,81.670246 85.259173,81.668997 79.552261,81.667751 75.000211,74.999942 75.000211,74.999942 L 25.000021,25.000058'
@@ -105,6 +100,22 @@ const Sidebar = () => {
             d='M 20,70.999954 H 80.000231 C 80.000231,70.999954 94.498839,71.182648 94.532987,33.288669 94.543142,22.019327 90.966081,18.329754 85.259173,18.331003 79.552261,18.332249 75.000211,25.000058 75.000211,25.000058 L 25.000021,74.999942'
           />
         </svg>
+
+        {SIDEBAR_ICONS.map((icon, index) => (
+          <MobileIcons key={icon.id} onClick={() => navigate(`${icon.nav}`)}>
+            <Icon icon={icon.tag} />
+            <h3>{icon.name}</h3>
+          </MobileIcons>
+        ))}
+        <MobileProfileDiv>
+          <MobileProfileIcon />
+          <MobileTooltip>
+            <SignOut onClick={handleSignout}>
+              <FontAwesomeIcon icon={faRightFromBracket} />
+              <p>Sign Out</p>
+            </SignOut>
+          </MobileTooltip>
+        </MobileProfileDiv>
       </Button>
     </>
   );

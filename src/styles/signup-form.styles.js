@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import { SignInBtn } from './button.styles';
 
 const darkGrey = 'rgb(59, 59, 59)';
 const primaryGrey = 'grey';
@@ -15,9 +16,34 @@ const invisible = css`
 export const Form = styled.form`
   display: flex;
   align-items: center;
+  justify-content: center;
   flex-direction: column;
-  width: 50%;
-  position: relative;
+
+  position: absolute;
+  top: 0;
+  bottom 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  z-index: 1;
+
+  border-radius: 16px;
+
+  box-shadow: -13px 22px 44px 0px rgba(20,20,20,1),inset -45px 17px 88px -97px rgba(228, 163, 0, 1);
+  width: 85%;
+  max-width: 550px;
+
+  min-height: 550px;
+  max-height: 550px;
+
+  background: #0f0f0f;
+
+  overflow-y: scroll;
+
+  h1 {
+    margin-bottom: 24px;
+  }
+
 `;
 
 export const Group = styled.div`
@@ -52,10 +78,6 @@ export const Span = styled.span`
   color: ${lightRed};
   border-radius: 16px;
   margin-left: 16px;
-`;
-
-const paddingRight = css`
-  margin-right: 42px;
 `;
 
 export const Input = styled.input`

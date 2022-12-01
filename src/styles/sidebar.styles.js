@@ -1,3 +1,4 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styled, { css } from 'styled-components';
 
 const visible = css`
@@ -51,6 +52,10 @@ export const SidebarContainer = styled.div`
 
   background: black;
   box-shadow: 50px 50px 905px 305px black;
+
+  @media (max-width: 480px) {
+    display: none;
+  }
 `;
 
 export const Overlay = styled.div`
@@ -65,6 +70,10 @@ export const Overlay = styled.div`
   z-index: 99;
 
   ${({ isOpen }) => isOpen && visible};
+
+  @media (max-width: 480px) {
+    display: none;
+  }
 `;
 
 export const ContentDiv = styled.div`
@@ -96,7 +105,7 @@ export const IconDiv = styled.div`
   }
 `;
 
-export const Password = styled.div`
+export const SignOut = styled.div`
   font-weight: bold;
   cursor: pointer;
   padding: 12px 18px;
@@ -133,9 +142,25 @@ export const Password = styled.div`
   p {
     margin-left: 18px;
   }
-`;
 
-export const SignOut = styled(Password)``;
+  @media (max-width: 480px) {
+    background: linear-gradient(
+      to right bottom,
+      #1a1a1a,
+      #1b1b1b,
+      #1c1c1d,
+      #1e1d1e,
+      #1f1e1f,
+      #232023,
+      #272326,
+      #2c2529,
+      #342a30,
+      #3c2f38,
+      #443440,
+      #4c3949
+    );
+  }
+`;
 
 export const Tooltip = styled.div`
   color: rgb(87, 87, 87);
@@ -144,17 +169,6 @@ export const Tooltip = styled.div`
   flex-direction: column;
   top: calc(100%);
   left: 8px;
-  // background: rgba(26, 26, 26, 1);
-
-  // background-image: linear-gradient(
-  //   to right top,
-  //   #413a44,
-  //   #443b47,
-  //   #463c4b,
-  //   #493d4e,
-  //   #4c3e52
-  // );
-  // opacity: 0.8;
 
   border-radius: 8px;
   width: 91%;
@@ -204,4 +218,74 @@ export const Profile = styled.div`
   height: 20px;
   width: 20px;
   ${gradientBorder};
+`;
+
+export const MobileTooltip = styled.div`
+  display: none;
+  position: absolute;
+  bottom: 54px;
+  right: 4px;
+
+  &:hover {
+    display: flex;
+  }
+`;
+
+export const MobileProfileDiv = styled.div`
+  @media (max-width: 480px) {
+    display: block;
+    padding: 12px 0px;
+
+    &:hover {
+      ${MobileTooltip} {
+        display: flex;
+      }
+    }
+  }
+`;
+
+export const MobileProfileIcon = styled(Profile)`
+  display: none;
+  position: relative;
+
+  @media (max-width: 480px) {
+    display: flex;
+    color: rgb(160, 160, 160);
+    height: 28px;
+    width: 26px;
+
+    background: linear-gradient(#1a1a1a, #1a1a1a) padding-box,
+      linear-gradient(to right, #ff6e6e, #798ccb) border-box;
+    border-radius: 8px;
+    border: 1px solid transparent;
+
+    &:hover {
+      ~ ${MobileTooltip} {
+        display: block;
+      }
+    }
+  }
+`;
+
+export const MobileIcons = styled.div`
+  display: none;
+
+  @media (max-width: 480px) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    color: rgb(160, 160, 160);
+
+    padding: 12px;
+
+    h3 {
+      font-size: 8px;
+    }
+  }
+`;
+
+export const Icon = styled(FontAwesomeIcon)`
+  font-size: 16px;
+  margin-bottom: 4px;
 `;

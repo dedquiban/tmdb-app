@@ -70,6 +70,12 @@ export const Header = styled.div`
       background: #1a1a1a;
     }
   }
+
+  @media (max-width: 400px) {
+    h2 {
+      font-size: 20px;
+    }
+  }
 `;
 
 export const Navigate = styled.div`

@@ -14,11 +14,10 @@ const SignupPage = () => {
   return (
     <SignupContainer>
       <LeftDiv>
-        <h1>Sign Up</h1>
         <BackBtn icon={faArrowLeftLong} onClick={() => navigate('/')} />
-        <SignupForm />
       </LeftDiv>
       <RightDiv />
+      <SignupForm />
     </SignupContainer>
   );
 };
