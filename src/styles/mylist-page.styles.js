@@ -58,14 +58,17 @@ const scroll = css`
 
 export const MyListContainer = styled.div`
   ${({ value }) => (value === 'grid' ? grid : scroll)};
+
+  @media (max-width: 682px) {
+    display: none;
+  }
 `;
 
 const gridType = css`
   display: flex;
   background: rgba(26, 26, 26, 0.5);
   width: 100%;
-  min-width: 778px;
-  min-height: 380px;
+  min-height: 526px;
   border-radius: 16px;
   padding: 24px 26px;
   margin: 24px;
@@ -75,8 +78,6 @@ const scrollType = css`
   display: flex;
   background: rgba(26, 26, 26, 0.5);
   width: 100%;
-  min-width: 778px;
-  min-height: 460px;
   height: fit-content;
   border-radius: 16px;
   margin: 24px;
@@ -105,6 +106,10 @@ export const ToggleDiv = styled.div`
   color: rgb(87, 87, 87);
   font-size: 16px;
   width: 100%;
+
+  @media (max-width: 682px) {
+    padding-bottom: 24px;
+  }
 `;
 
 const hide = css`
@@ -121,10 +126,16 @@ export const Name = styled.div`
   width: 75%;
 
   h3 {
-    text-overflow: ellipsis;
-    // overflow-wrap: break-word;
-    overflow-x: hidden;
+    overflow-x: scroll;
     margin-left: 16px;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  @media (max-width: 480px) {
+    width: 60%;
   }
 `;
 
@@ -183,6 +194,13 @@ export const Div = styled.div`
       color: rgb(160, 160, 160);
     }
   }
+
+  @media (max-width: 682px) {
+    #left,
+    #right {
+      display: none;
+    }
+  }
 `;
 
 const scrollView = css`
@@ -192,7 +210,6 @@ const scrollView = css`
 `;
 
 const gridView = css`
-  display: flex;
   position: relative;
   overflow-y: hidden;
   padding-top: 26px;
@@ -237,6 +254,8 @@ export const Overlay = styled.div`
   top: 0;
   left: 0;
   z-index: 99;
+
+  padding: 24px;
 
   ${({ isActive }) => isActive && visible}
 `;
@@ -317,5 +336,72 @@ export const Modal = styled.div`
     align-items: center;
 
     transition: 0.6s all ease;
+  }
+
+  @media (max-width: 480px) {
+    max-height: 280px;
+  }
+`;
+
+export const MobileContainer = styled.div`
+  display: none;
+
+  @media (max-width: 682px) {
+    display: flex;
+    flex-direction: column;
+    // align-items: center;
+    // justify-content: center;
+    padding: 24px 24px 84px 24px;
+
+    background: linear-gradient(
+      to right bottom,
+      #2c272c,
+      #31262c,
+      #352629,
+      #392525,
+      #3b2620,
+      #3d2820,
+      #3f2b1f,
+      #402d1f,
+      #453123,
+      #493428,
+      #4e382c,
+      #523c31
+    );
+    // min-height: 100vh;
+    // height: fit-content;
+    height: 100vh;
+    overflow-y: scroll;
+  }
+`;
+
+export const BottomPane = styled.div`
+  display: flex;
+  height: 60%;
+  width: 100%;
+  min-height: 240px;
+
+  border-radius: 16px;
+  padding: 24px 26px;
+
+  background: rgba(26, 26, 26, 0.5);
+  box-shadow: rgba(0, 0, 0, 0.4) 4px 2px 4px,
+    rgba(0, 0, 0, 0.3) 2px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+`;
+
+export const TopPane = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 40%;
+  width: 100%;
+  min-height: 420px;
+
+  border-radius: 16px;
+
+  padding: 0px 4px;
+  padding-bottom: 24px;
+
+  @media (max-width: 480px) {
+    min-height: 400px;
   }
 `;

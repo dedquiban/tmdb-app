@@ -144,7 +144,6 @@ export const MenuButton = styled.button`
   ${({ isOpen }) => isOpen && openStyles}
 
   @media (max-width: 480px) {
-    width: %;
     border-radius: 4px;
     bottom: 0;
     left: 0;
@@ -155,7 +154,6 @@ export const MenuButton = styled.button`
     align-items: center;
 
     padding: 4px 0px;
-    margin: 0px 4px 2px 4px;
 
     background: #1a1a1a;
 

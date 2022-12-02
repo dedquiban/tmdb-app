@@ -21,6 +21,9 @@ import {
   Button,
   Name,
   FaXmark,
+  MobileContainer,
+  BottomPane,
+  TopPane,
 } from '../../styles/mylist-page.styles';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -34,6 +37,7 @@ import MyMovies from '../MyMovies';
 import { AppContext } from '../../context/AppContext';
 import LeftPane from '../LeftPane';
 import CurrentPlaylistMenu from '../CurrentPlaylistMenu';
+import Playlists from '../Playlists';
 
 const initialValues = {
   playlistName: '',
@@ -76,6 +80,17 @@ const MyListPage = () => {
     );
   };
 
+  let width;
+
+  useEffect(() => {
+    width = window.innerWidth;
+    console.log(width);
+
+    if (width === 680) {
+      dispatch(SET_VIEW('scroll'));
+    }
+  }, [width]);
+
   useEffect(() => {
     const handler = (event) => {
       if (!ref.current.contains(event.target)) {
@@ -114,12 +129,80 @@ const MyListPage = () => {
   };
 
   return (
-    <MyListContainer value={userView}>
+    <>
       <Sidebar />
-      <Group value={userView}>
-        <LeftPane />
+      <MyListContainer value={userView}>
+        <Group value={userView}>
+          <LeftPane />
 
-        <ContentDiv>
+          <ContentDiv>
+            <ToggleDiv>
+              <Name value={currentPlaylist.name}>
+                <h3>{null ? '' : currentPlaylist.name}</h3>
+                {currentPlaylist?.id !== likedMoviesPlaylist?.id && (
+                  <CurrentPlaylistMenu />
+                )}
+              </Name>
+
+              <Div>
+                <FontAwesomeIcon
+                  icon={faChevronLeft}
+                  onClick={() => scrollLeft()}
+                  id='left'
+                />
+                <FontAwesomeIcon
+                  icon={faChevronRight}
+                  onClick={() => scrollRight()}
+                  id='right'
+                />
+
+                <FontAwesomeIcon
+                  icon={faSquare}
+                  id='scroll'
+                  onClick={() => dispatch(SET_VIEW('scroll'))}
+                />
+                <FontAwesomeIcon
+                  icon={faTableCellsLarge}
+                  id='grid'
+                  onClick={() => dispatch(SET_VIEW('grid'))}
+                />
+              </Div>
+            </ToggleDiv>
+            <Movies value={userView}>
+              <MyMovies />
+            </Movies>
+          </ContentDiv>
+        </Group>
+
+        <Overlay isActive={isModalActive}>
+          <Modal ref={ref} isActive={isModalActive}>
+            <form onSubmit={handleSubmit}>
+              <h3>Create playlist</h3>
+              <Input
+                placeholder='Enter playlist name'
+                name='playlistName'
+                onChange={handleChange}
+                value={playlistName}
+                autoComplete='off'
+              />
+
+              <Button
+                type={playlistName ? 'submit' : 'reset'}
+                value={playlistName}
+                onClick={
+                  !playlistName ? () => setIsModalActive(false) : undefined
+                }
+              >
+                <FaXmark icon={faXmark} value={playlistName} />
+                <p>{playlistName ? 'Create' : ''}</p>
+              </Button>
+            </form>
+          </Modal>
+        </Overlay>
+      </MyListContainer>
+
+      <MobileContainer>
+        <TopPane>
           <ToggleDiv>
             <Name value={currentPlaylist.name}>
               <h3>{null ? '' : currentPlaylist.name}</h3>
@@ -152,38 +235,38 @@ const MyListPage = () => {
               />
             </Div>
           </ToggleDiv>
-          <Movies value={userView}>
-            <MyMovies />
-          </Movies>
-        </ContentDiv>
-      </Group>
+          <MyMovies />
+        </TopPane>
+        <BottomPane>
+          <LeftPane />
+        </BottomPane>
+        <Overlay isActive={isModalActive}>
+          <Modal ref={ref} isActive={isModalActive}>
+            <form onSubmit={handleSubmit}>
+              <h3>Create playlist</h3>
+              <Input
+                placeholder='Enter playlist name'
+                name='playlistName'
+                onChange={handleChange}
+                value={playlistName}
+                autoComplete='off'
+              />
 
-      <Overlay isActive={isModalActive}>
-        <Modal ref={ref} isActive={isModalActive}>
-          <form onSubmit={handleSubmit}>
-            <h3>Create playlist</h3>
-            <Input
-              placeholder='Enter playlist name'
-              name='playlistName'
-              onChange={handleChange}
-              value={playlistName}
-              autoComplete='off'
-            />
-
-            <Button
-              type={playlistName ? 'submit' : 'reset'}
-              value={playlistName}
-              onClick={
-                !playlistName ? () => setIsModalActive(false) : undefined
-              }
-            >
-              <FaXmark icon={faXmark} value={playlistName} />
-              <p>{playlistName ? 'Create' : ''}</p>
-            </Button>
-          </form>
-        </Modal>
-      </Overlay>
-    </MyListContainer>
+              <Button
+                type={playlistName ? 'submit' : 'reset'}
+                value={playlistName}
+                onClick={
+                  !playlistName ? () => setIsModalActive(false) : undefined
+                }
+              >
+                <FaXmark icon={faXmark} value={playlistName} />
+                <p>{playlistName ? 'Create' : ''}</p>
+              </Button>
+            </form>
+          </Modal>
+        </Overlay>
+      </MobileContainer>
+    </>
   );
 };
 

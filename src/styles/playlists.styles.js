@@ -9,7 +9,7 @@ const grid = css`
   p {
     font-size: 14px;
     font-weight: bold;
-    padding: 2px 0;
+    padding: 4px 0;
     color: rgb(87, 87, 87);
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -19,6 +19,12 @@ const grid = css`
     &:hover {
       cursor: pointer;
       color: rgb(160, 160, 160);
+    }
+  }
+
+  @media (max-width: 682px) {
+    p {
+      font-size: 16px;
     }
   }
 `;
@@ -32,7 +38,7 @@ const scroll = css`
   p {
     font-size: 14px;
     font-weight: bold;
-    padding: 2px 0;
+    padding: 4px 0px;
     color: rgb(87, 87, 87);
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -42,6 +48,12 @@ const scroll = css`
     &:hover {
       cursor: pointer;
       color: rgb(160, 160, 160);
+    }
+  }
+
+  @media (max-width: 682px) {
+    p {
+      font-size: 16px;
     }
   }
 `;

@@ -137,6 +137,8 @@ export const Overlay = styled.div`
   left: 0;
   z-index: 99;
 
+  padding: 24px;
+
   ${({ isActive }) => isActive && visible}
 `;
 

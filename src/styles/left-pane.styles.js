@@ -6,6 +6,11 @@ export const LeftPaneContainer = styled.div`
   width: 15%;
   padding-top: 5px;
   font-size: 14px;
+
+  @media (max-width: 682px) {
+    width: 100%;
+    font-size: 16px;
+  }
 `;
 
 export const CreatePlaylist = styled.div`

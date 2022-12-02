@@ -26,6 +26,7 @@ import {
   DELETE_MOVIE_FROM_PLAYLIST,
   selectAllPlaylists,
 } from '../store/mylist/mylist.slice';
+import { useState } from 'react';
 
 const base_url = 'https://image.tmdb.org/t/p/original/';
 
@@ -205,7 +206,7 @@ const MyMovies = () => {
                   <FontAwesomeIcon icon={faStar} id='star' />
                   {movie.vote_sliced}
                 </p>
-                <p>{movie.release_sliced}</p>
+                <p id='date'>{movie.release_sliced}</p>
                 <p id='hd'>HD</p>
               </Info>
             </Tooltip>

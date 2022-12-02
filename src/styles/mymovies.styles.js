@@ -61,6 +61,10 @@ const gridView = css`
   h1 {
     color: rgb(87, 87, 87);
   }
+
+  @media (max-width: 682px) {
+    justify-content: center;
+  }
 `;
 
 //Group
@@ -74,9 +78,16 @@ const scrollType = css`
     height: 350px;
     border-radius: 4px;
   }
+  @media (max-width: 480px) {
+    img {
+      width: 200px;
+      height: 310px;
+    }
+  }
 `;
 
 const gridType = css`
+  display: flex;
   position: relative;
   padding: 8px 10px;
 
@@ -127,6 +138,9 @@ const gridOverview = css`
   }
 `;
 
+const fullHeight = css`
+  height: 100%;
+`;
 const scrollOverview = css`
   ${gradientBorder};
   text-align: left;
@@ -161,6 +175,10 @@ const scrollOverview = css`
       cursor: pointer;
       color: rgb(160, 160, 160);
     }
+  }
+
+  @media (max-width: 480px) {
+    height: 80%;
   }
 `;
 
@@ -219,6 +237,10 @@ const scrollOptions = css`
   background: #1a1a1a;
   padding: 12px;
   z-index: 1;
+
+  @media (max-width: 480px) {
+    top: 214px;
+  }
 `;
 export const Options = styled.div``;
 
@@ -317,6 +339,16 @@ const scrollInfo = css`
     display: flex;
     top: 48px;
   }
+
+  @media (max-width: 480px) {
+    top: 248px;
+    left: 18px;
+    width: 79%;
+
+    p {
+      padding: 6px 12px;
+    }
+  }
 `;
 
 export const Info = styled.div``;
@@ -379,6 +411,17 @@ const scrollTooltip = css`
     background: #1a1a1a;
     padding: 12px;
     z-index: 1;
+  }
+
+  @media (max-width: 480px) {
+    width: 200px;
+    height: 310px;
+
+    h3 {
+      top: 6px;
+      font-size: 16px;
+      max-width: 128px;
+    }
   }
 `;
 
