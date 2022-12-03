@@ -24,6 +24,9 @@ import {
   MobileContainer,
   BottomPane,
   TopPane,
+  CreatePlaylist,
+  LikedMoviesBtn,
+  MiddlePane,
 } from '../../styles/mylist-page.styles';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -31,6 +34,8 @@ import {
   faTableCellsLarge,
   faChevronLeft,
   faChevronRight,
+  faPlus,
+  faHeart,
 } from '@fortawesome/free-solid-svg-icons';
 import { faSquare } from '@fortawesome/free-regular-svg-icons';
 import MyMovies from '../MyMovies';
@@ -80,17 +85,6 @@ const MyListPage = () => {
     );
   };
 
-  let width;
-
-  useEffect(() => {
-    width = window.innerWidth;
-    console.log(width);
-
-    if (width === 680) {
-      dispatch(SET_VIEW('scroll'));
-    }
-  }, [width]);
-
   useEffect(() => {
     const handler = (event) => {
       if (!ref.current.contains(event.target)) {
@@ -126,6 +120,27 @@ const MyListPage = () => {
 
     let moviesDiv = document.getElementById(`moviesDiv`);
     moviesDiv.scrollBy(amount, 0);
+  };
+
+  const { setIsEmailOverlayActive } = useContext(AppContext);
+  const handleCreatePlaylistIfVerified = () => {
+    if (!currentUser.emailVerified) {
+      console.log('currentUser.emailVerified', currentUser.emailVerified);
+      setIsEmailOverlayActive(true);
+    } else {
+      setIsModalActive(true);
+    }
+  };
+
+  const { movies } = likedMoviesPlaylist;
+  const handleSetCurrentPlaylist = () => {
+    if (movies) {
+      setCurrentPlaylist(likedMoviesPlaylist);
+      console.log('likedMovies', movies);
+    } else {
+      setCurrentPlaylist(likedMoviesPlaylist);
+      console.log('likedMovies is empty');
+    }
   };
 
   return (
@@ -237,13 +252,21 @@ const MyListPage = () => {
           </ToggleDiv>
           <MyMovies />
         </TopPane>
+        <MiddlePane>
+          <CreatePlaylist onClick={() => handleCreatePlaylistIfVerified()}>
+            <FontAwesomeIcon icon={faPlus} id='faPlus' />
+          </CreatePlaylist>
+          <LikedMoviesBtn onClick={() => handleSetCurrentPlaylist()}>
+            <FontAwesomeIcon icon={faHeart} id='faHeart' />
+          </LikedMoviesBtn>
+        </MiddlePane>
         <BottomPane>
-          <LeftPane />
+          <Playlists />
         </BottomPane>
         <Overlay isActive={isModalActive}>
           <Modal ref={ref} isActive={isModalActive}>
             <form onSubmit={handleSubmit}>
-              <h3>Create playlist</h3>
+              <p>Create playlist</p>
               <Input
                 placeholder='Enter playlist name'
                 name='playlistName'

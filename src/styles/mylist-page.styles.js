@@ -379,12 +379,13 @@ export const MobileContainer = styled.div`
 
 export const BottomPane = styled.div`
   display: flex;
+  flex-direction: column;
   height: 60%;
   width: 100%;
-  min-height: 180px;
+  min-height: 164px;
 
   border-radius: 16px;
-  padding: 24px 26px;
+  padding: 22px;
 
   background: rgba(26, 26, 26, 0.5);
   box-shadow: rgba(0, 0, 0, 0.4) 4px 2px 4px,
@@ -401,9 +402,35 @@ export const TopPane = styled.div`
   border-radius: 16px;
 
   padding: 0px 4px;
-  padding-bottom: 24px;
 
   @media (max-width: 480px) {
-    min-height: 400px;
+    min-height: 356px;
   }
+`;
+
+export const CreatePlaylist = styled.div`
+  width: fit-content;
+  height: fit-content;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #4a295f;
+
+  margin: 12px 4px 12px 16px;
+  padding: 12px;
+
+  border-radius: 8px;
+
+  background: rgba(26, 26, 26, 0.5);
+  box-shadow: rgba(0, 0, 0, 0.4) 4px 2px 4px,
+    rgba(0, 0, 0, 0.3) 2px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+`;
+
+export const LikedMoviesBtn = styled(CreatePlaylist)`
+  color: #712222;
+  margin-left: 6px;
+`;
+
+export const MiddlePane = styled.div`
+  display: flex;
 `;

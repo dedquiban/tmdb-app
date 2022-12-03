@@ -54,7 +54,7 @@ export const Description = styled.div`
 
   @media (max-width: 480px) {
     h1 {
-      font-size: 20px;
+      font-size: 28px;
       margin-bottom: 2px;
     }
 

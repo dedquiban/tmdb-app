@@ -239,7 +239,7 @@ export const MobileTooltip = styled.div`
     display: flex;
     flex-direction: column;
     padding: 12px 18px;
-    margin-bottom: 10px;
+    margin-bottom: 11px;
 
     border-radius: 8px;
     background: #1a1a1a;

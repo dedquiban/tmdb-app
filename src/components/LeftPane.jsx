@@ -52,7 +52,7 @@ const LeftPane = () => {
         <FontAwesomeIcon icon={faHeart} id='faHeart' />
         <p>Liked Movies</p>
       </LikedMovies>
-      <Playlists type='pane' />
+      <Playlists />
     </LeftPaneContainer>
   );
 };
