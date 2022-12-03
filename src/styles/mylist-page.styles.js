@@ -437,4 +437,5 @@ export const LikedMoviesBtn = styled(CreatePlaylist)`
 
 export const MiddlePane = styled.div`
   display: flex;
+  min-height: 64px;
 `;
