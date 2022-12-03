@@ -110,6 +110,7 @@ export const SignOut = styled.div`
   cursor: pointer;
   padding: 12px 18px;
   display: flex;
+  align-items: center;
   font-size: 16px;
   color: #d9d0d0;
   background-image: linear-gradient(
@@ -144,21 +145,15 @@ export const SignOut = styled.div`
   }
 
   @media (max-width: 480px) {
-    background: linear-gradient(
-      to right bottom,
-      #1a1a1a,
-      #1b1b1b,
-      #1c1c1d,
-      #1e1d1e,
-      #1f1e1f,
-      #232023,
-      #272326,
-      #2c2529,
-      #342a30,
-      #3c2f38,
-      #443440,
-      #4c3949
-    );
+    background: #1a1a1a;
+
+    margin-bottom: 0px;
+    padding: 16px 6px 8px 6px;
+
+    &:hover {
+      transform: unset;
+      color: red;
+    }
   }
 `;
 
@@ -222,9 +217,33 @@ export const Profile = styled.div`
 
 export const MobileTooltip = styled.div`
   display: none;
+
   position: absolute;
   bottom: 54px;
   right: 4px;
+  background: transparent;
+
+  span {
+    text-overflow: ellipsis;
+    ${gradientText};
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 14px;
+    padding: 4px;
+    padding-bottom: 16px;
+
+    border-bottom: 0.5px solid rgb(160, 160, 160);
+  }
+
+  #div {
+    display: flex;
+    flex-direction: column;
+    padding: 12px 18px;
+    margin-bottom: 10px;
+
+    border-radius: 8px;
+    background: #1a1a1a;
+  }
 
   &:hover {
     display: flex;

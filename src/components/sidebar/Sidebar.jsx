@@ -109,11 +109,16 @@ const Sidebar = () => {
         ))}
         <MobileProfileDiv>
           <MobileProfileIcon />
+
           <MobileTooltip>
-            <SignOut onClick={handleSignout}>
-              <FontAwesomeIcon icon={faRightFromBracket} />
-              <p>Sign Out</p>
-            </SignOut>
+            <div id='div'>
+              <span>{null ? '' : currentUser?.email}</span>
+
+              <SignOut onClick={handleSignout}>
+                <FontAwesomeIcon icon={faRightFromBracket} />
+                <p>Sign Out</p>
+              </SignOut>
+            </div>
           </MobileTooltip>
         </MobileProfileDiv>
       </Button>

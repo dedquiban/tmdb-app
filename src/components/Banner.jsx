@@ -1,10 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import axios from '../axios';
 import requests from '../utils/requests';
-import { BannerContainer, Description } from '../styles/banner.styles';
+import {
+  BannerContainer,
+  Description,
+  ExpandBtn,
+} from '../styles/banner.styles';
 
 const Banner = () => {
   const [movie, setMovie] = useState([]);
+
+  const [expand, setExpand] = useState(false);
 
   useEffect(() => {
     async function fetchData() {
@@ -21,10 +27,18 @@ const Banner = () => {
 
   return (
     <BannerContainer movie={movie}>
-      <Description>
-        <h1>{movie?.name}</h1>
-        <p>{movie?.overview}</p>
-      </Description>
+      {movie && (
+        <>
+          {' '}
+          <Description expand={expand}>
+            <h1>{movie?.name}</h1>
+            <p>{movie?.overview}</p>
+          </Description>
+          <ExpandBtn onClick={() => setExpand(!expand)}>
+            {expand ? 'See Less' : 'See More'}{' '}
+          </ExpandBtn>
+        </>
+      )}
     </BannerContainer>
   );
 };

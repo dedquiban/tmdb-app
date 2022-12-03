@@ -342,7 +342,7 @@ const scrollInfo = css`
 
   @media (max-width: 480px) {
     top: 248px;
-    left: 18px;
+    left: 20px;
     width: 79%;
 
     p {

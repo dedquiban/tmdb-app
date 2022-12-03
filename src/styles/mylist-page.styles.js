@@ -126,6 +126,8 @@ export const Name = styled.div`
   width: 75%;
 
   h3 {
+    white-space: nowrap;
+
     overflow-x: scroll;
     margin-left: 16px;
 
@@ -379,7 +381,7 @@ export const BottomPane = styled.div`
   display: flex;
   height: 60%;
   width: 100%;
-  min-height: 240px;
+  min-height: 180px;
 
   border-radius: 16px;
   padding: 24px 26px;
