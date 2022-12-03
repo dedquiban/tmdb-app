@@ -54,14 +54,14 @@ export const Description = styled.div`
 
   @media (max-width: 480px) {
     h1 {
-      font-size: 28px;
+      font-size: 20px;
       margin-bottom: 2px;
     }
 
     p {
-      font-size: 12px;
+      font-size: 10px;
 
-      height: 20px;
+      height: 28px;
 
       ${({ expand }) => expand && fullHeight}
     }

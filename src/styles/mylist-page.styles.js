@@ -382,7 +382,7 @@ export const BottomPane = styled.div`
   flex-direction: column;
   height: 60%;
   width: 100%;
-  min-height: 164px;
+  min-height: 132px;
 
   border-radius: 16px;
   padding: 22px;
