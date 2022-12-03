@@ -380,7 +380,7 @@ export const MobileContainer = styled.div`
 export const BottomPane = styled.div`
   display: flex;
   flex-direction: column;
-  height: 60%;
+  // height: 60%;
   width: 100%;
   min-height: 240px;
 
@@ -399,7 +399,7 @@ export const BottomPane = styled.div`
 export const TopPane = styled.div`
   display: flex;
   flex-direction: column;
-  height: 40%;
+  // height: 40%;
   width: 100%;
   min-height: 420px;
 
