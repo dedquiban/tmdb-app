@@ -65,6 +65,10 @@ const gridView = css`
   @media (max-width: 682px) {
     justify-content: center;
   }
+
+  @media (max-width: 515px) {
+    justify-content: flex-start;
+  }
 `;
 
 //Group
@@ -101,8 +105,8 @@ const gridType = css`
   @media (max-width: 515px) {
     padding: 4px;
     img {
-      width: 84px;
-      height: 138px;
+      width: 100px;
+      height: 154px;
     }
   }
 `;
