@@ -97,6 +97,13 @@ const gridType = css`
     height: 320px;
     border-radius: 4px;
   }
+
+  @media (max-width: 515px) {
+    img {
+      width: 81px;
+      height: 118px;
+    }
+  }
 `;
 export const Group = styled.div``;
 
@@ -381,6 +388,9 @@ const gridTooltip = css`
     background: #1a1a1a;
     padding: 12px;
     z-index: 1;
+  }
+  @media (max-width: 515px) {
+    display: none;
   }
 `;
 
