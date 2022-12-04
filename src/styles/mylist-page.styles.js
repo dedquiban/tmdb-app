@@ -393,6 +393,7 @@ export const BottomPane = styled.div`
 
   @media (max-width: 480px) {
     min-height: 164px;
+    max-height: 164px;
   }
 `;
 
