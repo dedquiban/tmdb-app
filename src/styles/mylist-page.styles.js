@@ -398,8 +398,8 @@ export const BottomPane = styled.div`
     rgba(0, 0, 0, 0.3) 2px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
 
   @media (max-width: 682px) {
-    min-height: 148px;
-    height: 50%;
+    min-height: calc(100vh - 540px);
+    // height: 50%;
     // max-height: 50%;
   }
 `;
@@ -409,15 +409,15 @@ export const TopPane = styled.div`
   flex-direction: column;
   // height: 40%;
   width: 100%;
-  min-height: 420px;
 
   border-radius: 16px;
 
   padding: 0px 4px;
 
   @media (max-width: 480px) {
-    min-height: 356px;
-    max-height: 356px;
+    // min-height: 356px;
+    // max-height: 356px;
+    min-height: calc(100vh - 600px);
   }
 `;
 
