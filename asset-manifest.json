@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/tmdb-app/static/css/main.57fbe3f8.css",
-    "main.js": "/tmdb-app/static/js/main.a7bdcebb.js",
+    "main.js": "/tmdb-app/static/js/main.dcad74de.js",
     "static/media/cinema-signup-page.png": "/tmdb-app/static/media/cinema-signup-page.b74c717dcc8e3c9513f1.png",
     "index.html": "/tmdb-app/index.html",
     "main.57fbe3f8.css.map": "/tmdb-app/static/css/main.57fbe3f8.css.map",
-    "main.a7bdcebb.js.map": "/tmdb-app/static/js/main.a7bdcebb.js.map"
+    "main.dcad74de.js.map": "/tmdb-app/static/js/main.dcad74de.js.map"
   },
   "entrypoints": [
     "static/css/main.57fbe3f8.css",
-    "static/js/main.a7bdcebb.js"
+    "static/js/main.dcad74de.js"
   ]
 }
