@@ -72,6 +72,7 @@ const gridType = css`
   border-radius: 16px;
   padding: 24px 26px;
   margin: 24px;
+  overflow: hidden;
 `;
 
 const scrollType = css`
@@ -82,8 +83,7 @@ const scrollType = css`
   border-radius: 16px;
   margin: 24px;
   padding: 24px 26px;
-  overflow-x: hidden;
-  overflow-y: hidden;
+  overflow: hidden;
 `;
 export const Group = styled.div`
   box-shadow: rgba(0, 0, 0, 0.4) 4px 2px 4px,
@@ -437,5 +437,4 @@ export const LikedMoviesBtn = styled(CreatePlaylist)`
 
 export const MiddlePane = styled.div`
   display: flex;
-  min-height: 64px;
 `;
