@@ -99,9 +99,10 @@ const gridType = css`
   }
 
   @media (max-width: 515px) {
+    padding: 4px;
     img {
-      width: 81px;
-      height: 118px;
+      width: 84px;
+      height: 138px;
     }
   }
 `;
