@@ -385,10 +385,7 @@ export const MobileContainer = styled.div`
 export const BottomPane = styled.div`
   display: flex;
   flex-direction: column;
-  // height: 60%;
-  // max-height: 60%;
   width: 100%;
-  // min-height: 300px;
 
   border-radius: 16px;
   padding: 20px 22px;
@@ -398,16 +395,14 @@ export const BottomPane = styled.div`
     rgba(0, 0, 0, 0.3) 2px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
 
   @media (max-width: 682px) {
-    min-height: calc(100vh - 540px);
-    // height: 50%;
-    // max-height: 50%;
+    min-height: 148px;
+    height: 100%;
   }
 `;
 
 export const TopPane = styled.div`
   display: flex;
   flex-direction: column;
-  // height: 40%;
   width: 100%;
 
   border-radius: 16px;
@@ -415,9 +410,8 @@ export const TopPane = styled.div`
   padding: 0px 4px;
 
   @media (max-width: 480px) {
-    // min-height: 356px;
-    // max-height: 356px;
-    min-height: calc(100vh - 600px);
+    min-height: 356px;
+    max-height: 356px;
   }
 `;
 
