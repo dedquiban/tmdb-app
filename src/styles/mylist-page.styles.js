@@ -32,6 +32,7 @@ const grid = css`
   );
   height: 100vh;
   overflow-y: scroll;
+  padding-bottom: 52px;
 `;
 
 const scroll = css`
@@ -380,7 +381,7 @@ export const MobileContainer = styled.div`
 export const BottomPane = styled.div`
   display: flex;
   flex-direction: column;
-  // height: 60%;
+  height: 60%;
   width: 100%;
   min-height: 240px;
 
@@ -391,9 +392,8 @@ export const BottomPane = styled.div`
   box-shadow: rgba(0, 0, 0, 0.4) 4px 2px 4px,
     rgba(0, 0, 0, 0.3) 2px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
 
-  @media (max-width: 480px) {
+  @media (max-width: 682px) {
     min-height: 164px;
-    max-height: 164px;
   }
 `;
 
