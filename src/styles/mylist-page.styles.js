@@ -398,9 +398,8 @@ export const BottomPane = styled.div`
     rgba(0, 0, 0, 0.3) 2px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
 
   @media (max-width: 682px) {
-    height: 100%;
     min-height: 148px;
-    max-height: 1000px;
+    max-height: 346px;
   }
 `;
 
