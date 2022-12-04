@@ -382,6 +382,7 @@ export const BottomPane = styled.div`
   display: flex;
   flex-direction: column;
   height: 60%;
+  max-height: 60%;
   width: 100%;
   min-height: 240px;
 
@@ -394,7 +395,6 @@ export const BottomPane = styled.div`
 
   @media (max-width: 682px) {
     min-height: 164px;
-    max-height: 40vh;
   }
 `;
 
