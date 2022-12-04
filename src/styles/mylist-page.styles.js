@@ -371,7 +371,7 @@ export const MobileContainer = styled.div`
       #4e382c,
       #523c31
     );
-    // min-height: 100vh;
+    // min-height: 80vh;
     // height: fit-content;
     height: 100vh;
     overflow-y: scroll;
@@ -381,10 +381,10 @@ export const MobileContainer = styled.div`
 export const BottomPane = styled.div`
   display: flex;
   flex-direction: column;
-  height: 60%;
-  max-height: 60%;
+  // height: 60%;
+  // max-height: 60%;
   width: 100%;
-  min-height: 240px;
+  // min-height: 300px;
 
   border-radius: 16px;
   padding: 20px 22px;
@@ -394,8 +394,8 @@ export const BottomPane = styled.div`
     rgba(0, 0, 0, 0.3) 2px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
 
   @media (max-width: 682px) {
-    max-height: 164px;
-    // min-height: 164px;
+    height: 100%;
+    min-height: 148px;
   }
 `;
 
@@ -412,6 +412,7 @@ export const TopPane = styled.div`
 
   @media (max-width: 480px) {
     min-height: 356px;
+    max-height: 356px;
   }
 `;
 
@@ -441,5 +442,5 @@ export const LikedMoviesBtn = styled(CreatePlaylist)`
 export const MiddlePane = styled.div`
   display: flex;
 
-  min-height: 66px;
+  // min-height: 66px;
 `;

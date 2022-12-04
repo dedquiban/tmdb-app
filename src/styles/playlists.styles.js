@@ -52,6 +52,7 @@ const scroll = css`
   }
 
   @media (max-width: 682px) {
+    height: unset;
     p {
       font-size: 16px;
     }
