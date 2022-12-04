@@ -84,6 +84,8 @@ const MyListPage = () => {
     event.preventDefault();
 
     setIsModalActive(false);
+    setIsMobileModalActive(false);
+
     const res = await dispatch(CREATE_PLAYLIST({ currentUser, playlistName }));
     console.log('res', res);
     dispatch(FETCH_PLAYLISTS({ currentUser })).then(
@@ -103,14 +105,14 @@ const MyListPage = () => {
   });
 
   useEffect(() => {
-    const handler = (event) => {
+    const mobileHandler = (event) => {
       if (!mobile.current.contains(event.target)) {
         setIsMobileModalActive(false);
         setFormField(initialValues);
       }
     };
-    document.addEventListener('mousedown', handler);
-    return () => document.removeEventListener('mousedown', handler);
+    document.addEventListener('mousedown', mobileHandler);
+    return () => document.removeEventListener('mousedown', mobileHandler);
   });
 
   useEffect(() => {

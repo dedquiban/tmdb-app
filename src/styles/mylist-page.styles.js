@@ -400,7 +400,7 @@ export const BottomPane = styled.div`
   @media (max-width: 682px) {
     height: 100%;
     min-height: 148px;
-    max-height: 100%;
+    max-height: 320px;
   }
 `;
 
