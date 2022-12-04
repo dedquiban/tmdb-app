@@ -261,6 +261,10 @@ export const Overlay = styled.div`
   padding: 24px;
 
   ${({ isActive }) => isActive && visible}
+
+  @media (max-width: 682px) {
+    display: flex;
+  }
 `;
 
 export const Input = styled.input`
@@ -395,7 +399,8 @@ export const BottomPane = styled.div`
 
   @media (max-width: 682px) {
     height: 100%;
-    min-height: 48px;
+    min-height: 148px;
+    min-height: -webkit-fill-available;
   }
 `;
 
@@ -443,4 +448,61 @@ export const MiddlePane = styled.div`
   display: flex;
 
   // min-height: 66px;
+`;
+
+export const MobileOverlay = styled.div`
+  transition: 0.6s ease all;
+  position: fixed;
+  display: none;
+
+  justify-content: center;
+  align-items: center;
+  background: rgba(26, 26, 26, 0.5);
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 99;
+
+  padding: 24px;
+
+  ${({ isActive }) => isActive && visible}
+`;
+
+export const MobileModal = styled.div`
+  transform: translateY(200%);
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
+    rgba(0, 0, 0, 0.22) 0px 15px 12px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: rgba(24, 24, 24, 1);
+  color: #fff;
+  border: 1px solid #1a1a1a;
+  border-radius: 8px;
+  width: 420px;
+  height: 320px;
+  max-height: 280px;
+
+  @keyframes popup {
+    80% {
+      transform: translateY(-10%);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+  animation: 0.3s popup ease;
+  ${({ isActive }) => isActive && popup}
+
+  form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    transition: 0.6s all ease;
+  }
 `;

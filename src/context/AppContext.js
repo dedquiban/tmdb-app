@@ -3,6 +3,8 @@ import { createContext, useState } from 'react';
 export const AppContext = createContext({
   isModalActive: false,
   setIsModalActive: () => {},
+  isMobileModalActive: false,
+  setIsMobileModalActive: () => {},
   currentPlaylist: {},
   setCurrentPlaylist: () => {},
   isEmailOverlayActive: false,
@@ -14,6 +16,7 @@ export const AppContext = createContext({
 
 export const AppProvider = ({ children }) => {
   const [isModalActive, setIsModalActive] = useState(null);
+  const [isMobileModalActive, setIsMobileModalActive] = useState(null);
   const [currentPlaylist, setCurrentPlaylist] = useState({});
   const [isEmailOverlayActive, setIsEmailOverlayActive] = useState(false);
   const [isUpdatePwActive, setIsUpdatePwActive] = useState(false);
@@ -21,6 +24,8 @@ export const AppProvider = ({ children }) => {
   const value = {
     isModalActive,
     setIsModalActive,
+    isMobileModalActive,
+    setIsMobileModalActive,
     currentPlaylist,
     setCurrentPlaylist,
     isEmailOverlayActive,

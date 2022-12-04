@@ -16,7 +16,9 @@ import {
   Div,
   Movies,
   Overlay,
+  MobileOverlay,
   Modal,
+  MobileModal,
   Input,
   Button,
   Name,
@@ -56,9 +58,13 @@ const MyListPage = () => {
   const userView = useSelector(getView);
 
   const ref = useRef(null);
+  const mobile = useRef(null);
+
   const {
     isModalActive,
     setIsModalActive,
+    isMobileModalActive,
+    setIsMobileModalActive,
     currentPlaylist,
     setCurrentPlaylist,
   } = useContext(AppContext);
@@ -89,6 +95,17 @@ const MyListPage = () => {
     const handler = (event) => {
       if (!ref.current.contains(event.target)) {
         setIsModalActive(false);
+        setFormField(initialValues);
+      }
+    };
+    document.addEventListener('mousedown', handler);
+    return () => document.removeEventListener('mousedown', handler);
+  });
+
+  useEffect(() => {
+    const handler = (event) => {
+      if (!mobile.current.contains(event.target)) {
+        setIsMobileModalActive(false);
         setFormField(initialValues);
       }
     };
@@ -128,7 +145,7 @@ const MyListPage = () => {
       console.log('currentUser.emailVerified', currentUser.emailVerified);
       setIsEmailOverlayActive(true);
     } else {
-      setIsModalActive(true);
+      setIsMobileModalActive(true);
     }
   };
 
@@ -263,8 +280,8 @@ const MyListPage = () => {
         <BottomPane>
           <Playlists />
         </BottomPane>
-        <Overlay isActive={isModalActive}>
-          <Modal ref={ref} isActive={isModalActive}>
+        <MobileOverlay isActive={isMobileModalActive}>
+          <MobileModal ref={mobile} isActive={isMobileModalActive}>
             <form onSubmit={handleSubmit}>
               <p>Create playlist</p>
               <Input
@@ -279,15 +296,17 @@ const MyListPage = () => {
                 type={playlistName ? 'submit' : 'reset'}
                 value={playlistName}
                 onClick={
-                  !playlistName ? () => setIsModalActive(false) : undefined
+                  !playlistName
+                    ? () => setIsMobileModalActive(false)
+                    : undefined
                 }
               >
                 <FaXmark icon={faXmark} value={playlistName} />
                 <p>{playlistName ? 'Create' : ''}</p>
               </Button>
             </form>
-          </Modal>
-        </Overlay>
+          </MobileModal>
+        </MobileOverlay>
       </MobileContainer>
     </>
   );
