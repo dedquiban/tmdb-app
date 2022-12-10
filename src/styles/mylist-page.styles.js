@@ -56,7 +56,7 @@ const tableGrid = css`
   padding: 24px 26px;
   overflow: hidden;
 
-  @media (max-width: 502px) {
+  @media (max-width: 682px) {
     overflow-y: scroll;
     padding-bottom: 80px;
   }
