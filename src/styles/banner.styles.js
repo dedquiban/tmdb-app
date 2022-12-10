@@ -11,13 +11,6 @@ export const BannerContainer = styled.div`
   background-image: url('https://image.tmdb.org/t/p/original/${({ movie }) =>
     movie ? movie?.backdrop_path : 'no pics'}');
 
-  // linear-gradient(
-  //   to bottom right,
-  //   rgb(0, 0, 0, 1),
-  //   rgba(20, 20, 20, 0.25),
-  //   rgba(44, 44, 44, 0.1)
-  // ),
-
   @media (max-width: 480px) {
     min-height: 60vh;
     box-shadow: inset -30px 180px 100px 10px rgba(0, 0, 0, 0.75);
@@ -54,12 +47,12 @@ export const Description = styled.div`
 
   @media (max-width: 480px) {
     h1 {
-      font-size: 20px;
+      font-size: 24px;
       margin-bottom: 2px;
     }
 
     p {
-      font-size: 10px;
+      font-size: 12px;
 
       height: 28px;
 

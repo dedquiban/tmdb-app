@@ -7,7 +7,6 @@ import { getView } from '../store/user/user.slice';
 import { PlaylistsContainer } from '../styles/playlists.styles';
 
 const Playlists = () => {
-  const likedMoviesPlaylist = useSelector(selectLikedMoviesPlaylist);
   const userView = useSelector(getView);
   const playlists = useSelector(selectAllPlaylists);
   const { setCurrentPlaylist } = useContext(AppContext);

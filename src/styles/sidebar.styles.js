@@ -53,7 +53,7 @@ export const SidebarContainer = styled.div`
   background: black;
   box-shadow: 50px 50px 905px 305px black;
 
-  @media (max-width: 480px) {
+  @media (max-width: 682px) {
     display: none;
   }
 `;
@@ -71,7 +71,7 @@ export const Overlay = styled.div`
 
   ${({ isOpen }) => isOpen && visible};
 
-  @media (max-width: 480px) {
+  @media (max-width: 682px) {
     display: none;
   }
 `;
@@ -144,7 +144,7 @@ export const SignOut = styled.div`
     margin-left: 18px;
   }
 
-  @media (max-width: 480px) {
+  @media (max-width: 682px) {
     background: #1a1a1a;
 
     margin-bottom: 0px;
@@ -251,7 +251,7 @@ export const MobileTooltip = styled.div`
 `;
 
 export const MobileProfileDiv = styled.div`
-  @media (max-width: 480px) {
+  @media (max-width: 682px) {
     display: block;
     padding: 12px 0px;
 
@@ -267,7 +267,7 @@ export const MobileProfileIcon = styled(Profile)`
   display: none;
   position: relative;
 
-  @media (max-width: 480px) {
+  @media (max-width: 682px) {
     display: flex;
     color: rgb(160, 160, 160);
     height: 28px;
@@ -289,7 +289,7 @@ export const MobileProfileIcon = styled(Profile)`
 export const MobileIcons = styled.div`
   display: none;
 
-  @media (max-width: 480px) {
+  @media (max-width: 682px) {
     display: flex;
     flex-direction: column;
     align-items: center;

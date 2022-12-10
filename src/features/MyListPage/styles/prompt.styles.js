@@ -1,123 +1,6 @@
 import styled, { css } from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-export const Group = styled.div`
-  display: none;
-  position: absolute;
-  top: -1px;
-  left: calc(100%);
-
-  &:hover {
-    display: flex;
-    z-index: 99;
-  }
-  @media (max-width: 582px) {
-    left: calc(-250%);
-    top: 18px;
-    padding-top: 6px;
-  }
-`;
-
-export const Ellipsis = styled(FontAwesomeIcon)`
-  display: flex;
-  align-itens: center;
-  justify-content: center;
-  margin-left: 4px;
-
-  cursor: pointer;
-  color: rgb(87, 87, 87);
-  padding: 2px 6px;
-  position: relative;
-
-  &:hover {
-    border-radius: 6px;
-    background: rgba(26, 26, 26, 1);
-  }
-
-  @media (max-width: 582px) {
-  }
-`;
-
-export const Choices = styled.div`
-  display: flex;
-  flex-direction: column;
-  background: rgba(26, 26, 26, 1);
-  border-radius: 4px;
-  margin-left: 4px;
-  // border: 0.5px solid rgb(36, 36, 36);
-
-  & div:first-child {
-    border-bottom: 0.5px solid rgb(36, 36, 36);
-    border-radius: 4px 4px 0 0;
-  }
-
-  & div:last-child {
-    border-radius: 0 0 4px 4px;
-  }
-
-  #delete {
-    &:hover {
-      color: red;
-    }
-  }
-
-  box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset,
-    rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset,
-    rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px,
-    rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px,
-    rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
-`;
-export const CurrentPlaylistMenuContainer = styled.div`
-  display: flex;
-  position: relative;
-
-  ${Ellipsis} {
-    &:hover {
-      ~ ${Group} {
-        display: flex;
-        z-index: 99;
-      }
-    }
-  }
-`;
-
-export const Rename = styled.div`
-  cursor: pointer;
-  display: flex;
-  color: rgb(87, 87, 87);
-  font-size: 12px;
-  font-family: 'Inter', sans-serif;
-
-  padding: 10px 24px 10px 12px;
-
-  &:hover {
-    background: rgb(36, 36, 36);
-    color: rgb(160, 160, 160);
-  }
-
-  p {
-    margin-left: 8px;
-  }
-`;
-
-export const Delete = styled(Rename)`
-  &:hover {
-    color: red;
-  }
-
-  #faTrash {
-    margin-right: 2px;
-  }
-`;
-
-const visible = css`
-  display: flex;
-`;
-
-const invisible = css`
-  display: none;
-`;
-
 const gradientBorder = css`
   background: linear-gradient(#1a1a1a, #1a1a1a) padding-box,
     linear-gradient(to right, #f7b42c, #fc575e) border-box;
@@ -131,6 +14,13 @@ const gradientText = css`
   -webkit-text-fill-color: transparent;
 `;
 
+const visible = css`
+  display: flex;
+`;
+
+const invisible = css`
+  display: none;
+`;
 export const Overlay = styled.div`
   transition: 0.6s ease all;
   position: fixed;
@@ -147,20 +37,12 @@ export const Overlay = styled.div`
 
   padding: 24px;
 
-  ${({ isActive }) => isActive && visible}
+  ${({ active }) => active && visible}// @media (max-width: 682px) {
+  //   display: flex;
+  // }
 `;
 
-const style = css`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 24px;
-  color: #1a1a1a;
-  width: 100%;
-
-  ${gradientBorder};
-`;
-
+//MODAL
 const popup = css`
   transform: translateY(0);
 `;
@@ -190,7 +72,7 @@ export const Modal = styled.div`
     }
   }
   animation: 0.3s popup ease;
-  ${({ isActive }) => isActive && popup}
+  ${({ active }) => active && popup}
 
   form {
     display: flex;
@@ -199,6 +81,10 @@ export const Modal = styled.div`
     align-items: center;
 
     transition: 0.6s all ease;
+  }
+
+  @media (max-width: 480px) {
+    max-height: 280px;
   }
 `;
 
@@ -215,6 +101,17 @@ export const Input = styled.input`
 `;
 
 export const FaXmark = styled(FontAwesomeIcon)``;
+
+const style = css`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 24px;
+  color: #1a1a1a;
+  width: 100%;
+
+  ${gradientBorder};
+`;
 
 export const Button = styled.button`
   display: flex;

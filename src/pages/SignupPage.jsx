@@ -1,12 +1,12 @@
 import React from 'react';
 import { faArrowLeftLong } from '@fortawesome/free-solid-svg-icons';
-import SignupForm from '../signup-form/SignupForm';
+import SignupForm from '../components/SignupForm/SignupForm';
 import {
   BackBtn,
   LeftDiv,
   RightDiv,
   SignupContainer,
-} from '../../styles/signup-page.styles';
+} from '../styles/signup-page.styles';
 import { useNavigate } from 'react-router-dom';
 
 const SignupPage = () => {

@@ -1,9 +1,9 @@
 import React from 'react';
-import requests from '../../utils/requests';
-import Sidebar from '../sidebar/Sidebar';
-import Banner from '../Banner';
-import Movies from '../Movies';
-import { HomePageContainer } from '../../styles/home-page.styles';
+import requests from '../utils/requests';
+import Sidebar from '../components/sidebar/Sidebar';
+import Banner from '../components/Banner';
+import Movies from '../components/Movies';
+import { HomePageContainer } from '../styles/home-page.styles';
 
 const HomePage = () => {
   return (

@@ -26,7 +26,7 @@ import {
   DELETE_MOVIE_FROM_PLAYLIST,
   selectAllPlaylists,
 } from '../store/mylist/mylist.slice';
-import { useState } from 'react';
+import MoviePreview from '../features/MyMovies/components/MoviePreview';
 
 const base_url = 'https://image.tmdb.org/t/p/original/';
 
@@ -175,13 +175,24 @@ const MyMovies = () => {
       {Object.keys(currentPlaylist).length > 0 ? (
         currentPlaylist.movies.map((movie, index) => (
           <Group key={index}>
-            <img src={`${base_url}${movie.poster_path}`} alt='sample' />
+            {userView === 'scroll' ? (
+              <img src={`${base_url}${movie.poster_path}`} alt='sample' />
+            ) : (
+              <MoviePreview movie={movie} />
+            )}
             <Tooltip>
               <h3>{movie.title || movie.name}</h3>
               <Overview>
                 <p id='overview'>{movie.overview}</p>
+                <Info>
+                  <p id='vote'>
+                    <FontAwesomeIcon icon={faStar} id='star' />
+                    {movie.vote_sliced}
+                  </p>
+                  <p id='date'>{movie.release_sliced}</p>
+                  <p id='hd'>HD</p>
+                </Info>
               </Overview>
-
               <Options>
                 <LikeBtn
                   icon={faHeart}
@@ -201,14 +212,6 @@ const MyMovies = () => {
                   />
                 )}
               </Options>
-              <Info>
-                <p id='vote'>
-                  <FontAwesomeIcon icon={faStar} id='star' />
-                  {movie.vote_sliced}
-                </p>
-                <p id='date'>{movie.release_sliced}</p>
-                <p id='hd'>HD</p>
-              </Info>
             </Tooltip>
           </Group>
         ))

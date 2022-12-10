@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 const initialState = {
   currentUser: {},
-  view: 'scroll',
+  view: 'grid',
   status: 'idle',
   error: '',
 };

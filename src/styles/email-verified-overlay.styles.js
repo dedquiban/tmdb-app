@@ -1,4 +1,3 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styled, { css } from 'styled-components';
 
 const popup = css`
@@ -8,19 +7,6 @@ const popup = css`
 const visible = css`
   display: flex;
 `;
-const invisible = css`
-  display: none;
-`;
-
-// export const Spinner = styled(FontAwesomeIcon)`
-//   transform: scale(1.1);
-//   display: none;
-//   position: absolute;
-//   top: 10px;
-//   left: 10px;
-
-//   ${({ isLoaded }) => isLoaded && visible}
-// `;
 
 export const Message = styled.div`
   transform: translateY(200%);
@@ -35,8 +21,6 @@ export const Message = styled.div`
   color: #fff;
   border: 1px solid #1a1a1a;
   border-radius: 8px;
-  //   width: 420px;
-  //   height: 320px;
 
   padding: 48px;
 

@@ -1,6 +1,9 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styled, { css } from 'styled-components';
 
+const invisible = css`
+  display: none;
+`;
 const gradientBorder = css`
   background: linear-gradient(#1a1a1a, #1a1a1a) padding-box,
     linear-gradient(
@@ -42,10 +45,12 @@ const scrollView = css`
 `;
 
 const gridView = css`
-  display: flex;
+  display: grid;
+
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  grid-template-rows: repeat(auto-fill, minmax(320px, 1fr));
+
   overflow-x: hidden;
-  flex-direction: row;
-  flex-wrap: wrap;
 
   @keyframes scaleY {
     0% {
@@ -62,12 +67,18 @@ const gridView = css`
     color: rgb(87, 87, 87);
   }
 
-  @media (max-width: 682px) {
-    justify-content: center;
+  @media (max-width: 982px) {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    grid-template-rows: repeat(auto-fill, minmax(290px, 1fr));
   }
 
-  @media (max-width: 515px) {
-    justify-content: flex-start;
+  @media (max-width: 682px) {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    grid-template-rows: repeat(auto-fill, minmax(220px, 1fr));
+  }
+  @media (max-width: 582px) {
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+    grid-template-rows: repeat(auto-fill, minmax(180px, 1fr));
   }
 `;
 
@@ -75,18 +86,13 @@ const gridView = css`
 const scrollType = css`
   position: relative;
   padding: 0 14px;
+  padding-bottom: 24px;
 
   img {
     object-fit: cover;
     width: 240px;
     height: 350px;
     border-radius: 4px;
-  }
-  @media (max-width: 480px) {
-    img {
-      width: 200px;
-      height: 310px;
-    }
   }
 `;
 
@@ -97,19 +103,16 @@ const gridType = css`
 
   img {
     object-fit: cover;
-    width: 210px;
-    height: 320px;
+    width: 100%;
+    height: 100%;
     border-radius: 4px;
   }
 
-  @media (max-width: 515px) {
+  @media (max-width: 502px) {
     padding: 4px;
-    img {
-      width: 100px;
-      height: 154px;
-    }
   }
 `;
+
 export const Group = styled.div``;
 
 //Overview
@@ -118,6 +121,7 @@ const gridOverview = css`
   text-align: left;
   padding: 32px 22px;
   height: 60%;
+  position: relative;
 
   #overview {
     height: 100%;
@@ -230,7 +234,9 @@ const gridOptions = css`
   display: flex;
   align-items: center;
   position: absolute;
-  top: 166px;
+  // top: 166px;
+  // left: 36px;
+  top: calc(100% / 1.9);
   left: 36px;
   font-size: 16px;
   background: #1a1a1a;
@@ -259,19 +265,20 @@ export const Options = styled.div``;
 //Info
 const gridInfo = css`
   position: absolute;
-  top: 200px;
-  left: 20px;
+  top: 214px;
+  left: 0;
   display: flex;
-  justify-content: space-between;
+  // justify-content: space-between;
   align-items: center;
-  width: 80%;
-  padding: 12px 0 12px 2px;
+  width: 100%;
+  // padding: 12px 0 12px 2px;
   background: transparent;
 
   transform: translateY(0);
   opacity: 1;
 
   p {
+    margin-right: 4px;
     font-size: 12px;
     font-family: 'Ubuntu', sans-serif;
     background: linear-gradient(
@@ -292,7 +299,7 @@ const gridInfo = css`
 
     font-weight: bold;
     border-radius: 4px;
-    padding: 6px 13.5px;
+    padding: 6px 18px;
   }
 
   #star {
@@ -301,7 +308,6 @@ const gridInfo = css`
   }
   #vote {
     display: flex;
-    top: 48px;
   }
 `;
 
@@ -367,7 +373,7 @@ export const Info = styled.div``;
 
 //Tooltip
 const gridTooltip = css`
-  display: flex;
+  display: none;
   flex-direction: column;
   opacity: 0;
   background-color: #1a1a1a;
@@ -376,10 +382,16 @@ const gridTooltip = css`
   padding: 24px 20px;
 
   position: absolute;
-  top: 8px;
-  left: 10px;
-  width: 210px;
-  height: 320px;
+  top: 0px;
+  left: 0px;
+  bottom: 0px;
+  right: 0px;
+  // top: 8px;
+  // left: 10px;
+  // width: 210px;
+  // height: 320px;
+  width: 100%;
+  height: 100%;
 
   h3 {
     max-width: 136px;
@@ -394,8 +406,9 @@ const gridTooltip = css`
     padding: 12px;
     z-index: 1;
   }
-  @media (max-width: 515px) {
-    display: none;
+
+  @media (max-width: 682px) {
+    // display: none;
   }
 `;
 

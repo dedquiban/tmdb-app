@@ -1,18 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styled, { css } from 'styled-components';
 
-const gradientBorder = css`
-  background: linear-gradient(#1a1a1a, #1a1a1a) padding-box,
-    linear-gradient(to right, #f7b42c, #fc575e) border-box;
-  border-radius: 9999px;
-  border: 2px solid transparent;
-`;
-
-const gradientText = css`
-  background: linear-gradient(to left, #fc575e, #f7b42c);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-`;
 const grid = css`
   display: flex;
   background-image: linear-gradient(
@@ -32,7 +20,6 @@ const grid = css`
   );
   height: 100vh;
   overflow-y: scroll;
-  padding-bottom: 52px;
 `;
 
 const scroll = css`
@@ -52,189 +39,92 @@ const scroll = css`
     #4e382c,
     #523c31
   );
-  min-height: 100vh;
-  height: fit-content;
+  height: 100vh;
   overflow-x: scroll;
 `;
 
-export const MyListContainer = styled.div`
+export const MyListPageContainer = styled.div`
   ${({ value }) => (value === 'grid' ? grid : scroll)};
-
-  @media (max-width: 682px) {
-    display: none;
-  }
 `;
 
-const gridType = css`
+//TABLE
+const tableGrid = css`
   display: flex;
   background: rgba(26, 26, 26, 0.5);
   width: 100%;
   min-height: 526px;
-  border-radius: 16px;
   padding: 24px 26px;
-  margin: 24px;
   overflow: hidden;
+
+  @media (max-width: 502px) {
+    overflow-y: scroll;
+    padding-bottom: 80px;
+  }
 `;
 
-const scrollType = css`
+const tableScroll = css`
   display: flex;
   background: rgba(26, 26, 26, 0.5);
   width: 100%;
-  height: fit-content;
-  border-radius: 16px;
-  margin: 24px;
+
+  height: 100vh;
   padding: 24px 26px;
-  overflow: hidden;
+  overflow-y: scroll;
 `;
-export const Group = styled.div`
+export const Table = styled.div`
   box-shadow: rgba(0, 0, 0, 0.4) 4px 2px 4px,
     rgba(0, 0, 0, 0.3) 2px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
-  ${({ value }) => (value === 'grid' ? gridType : scrollType)};
+  ${({ value }) => (value === 'grid' ? tableGrid : tableScroll)};
 `;
 
+const showContentDiv = css`
+  width: unset;
+  padding-left: 0px;
+  min-width: unset;
+
+  background: rgba(20, 20, 20, 1);
+  display: flex;
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  left: 50%;
+  bottom: 0;
+  right: 0;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+
+  padding: 24px 12px 68px 12px;
+`;
 //CONTENT--movies of playlist
 export const ContentDiv = styled.div`
   display: flex;
   flex-direction: column;
   width: 85%;
   padding-left: 32px;
-`;
+  min-width: 50%;
 
-export const ToggleDiv = styled.div`
-  display: flex;
-  justify-content: space-between;
-
-  color: rgb(87, 87, 87);
-  font-size: 16px;
-  width: 100%;
-
-  @media (max-width: 682px) {
-    padding-bottom: 24px;
-  }
-`;
-
-const hide = css`
-  visibility: hidden;
-`;
-
-export const Name = styled.div`
-  ${({ value }) => !value && hide}
-  display: flex;
-  align-items: center;
-
-  transition: 1s ease all;
-
-  width: 75%;
-
-  h3 {
-    white-space: nowrap;
-
-    overflow-x: scroll;
-    margin-left: 16px;
-
-    &::-webkit-scrollbar {
-      display: none;
-    }
-  }
-
-  @media (max-width: 480px) {
-    width: 60%;
-  }
-`;
-
-export const Div = styled.div`
-  display: flex;
-  align-items: center;
-
-  &:hover {
-    cursor: pointer;
-  }
-
-  #left {
-    font-size: 12px;
-    padding: 8px;
-    border-radius: 8px;
-    background: rgba(26, 26, 26, 0.3);
-    margin-right: 2px;
-
-    transition: 0.3s ease all;
-    &:hover {
-      color: rgb(160, 160, 160);
-      cursor: pointer;
-    }
-  }
-
-  #right {
-    font-size: 12px;
-    padding: 8px;
-    border-radius: 8px;
-    background: rgba(26, 26, 26, 0.3);
-    margin-right: 24px;
-
-    transition: 0.3s ease all;
-    &:hover {
-      color: rgb(160, 160, 160);
-      cursor: pointer;
-    }
-  }
-
-  #scroll {
-    padding-right: 12px;
-    border-right: 1px solid;
-
-    transition: 0.3s ease all;
-    &:hover {
-      border-right: 1px solid rgb(87, 87, 87);
-      color: rgb(160, 160, 160);
-    }
-  }
-
-  #grid {
-    padding-left: 12px;
-
-    transition: 0.3s ease all;
-    &:hover {
-      color: rgb(160, 160, 160);
-    }
-  }
-
-  @media (max-width: 682px) {
-    #left,
-    #right {
-      display: none;
-    }
+  @media (max-width: 502px) {
+    display: none;
+    ${({ show }) => show && showContentDiv}
   }
 `;
 
 const scrollView = css`
   position: relative;
   display: flex;
-  padding-top: 28px;
+  // padding-top: 28px;
 `;
 
 const gridView = css`
   position: relative;
-  overflow-y: hidden;
-  padding-top: 26px;
+  overflow-y: scroll;
 `;
 export const Movies = styled.div`
   ${({ value }) => (value === 'grid' ? gridView : scrollView)}
 `;
 
 //ADD PLAYLIST MODAL
-const popup = css`
-  transform: translateY(0);
-`;
-const style = css`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 24px;
-  color: #1a1a1a;
-  width: 100%;
-
-  ${gradientBorder};
-`;
 
 const visible = css`
   display: flex;
@@ -242,112 +132,6 @@ const visible = css`
 
 const invisible = css`
   display: none;
-`;
-
-export const Overlay = styled.div`
-  transition: 0.6s ease all;
-  position: fixed;
-  display: none;
-
-  justify-content: center;
-  align-items: center;
-  background: rgba(26, 26, 26, 0.5);
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  z-index: 99;
-
-  padding: 24px;
-
-  ${({ isActive }) => isActive && visible}
-
-  @media (max-width: 682px) {
-    display: flex;
-  }
-`;
-
-export const Input = styled.input`
-  padding: 8px 12px;
-  border-radius: 4px;
-  background-color: rgb(60, 60, 60);
-  border: none;
-  color: #fff;
-  outline: 2px solid rgb(60, 60, 60);
-  margin-top: 16px;
-  margin-bottom: 16px;
-  transition: 0.6s all ease;
-`;
-
-export const FaXmark = styled(FontAwesomeIcon)``;
-
-export const Button = styled.button`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-
-  color: #e22525;
-  background: transparent;
-  border-radius: 9999px;
-  border: 2px solid #e22525;
-  padding: 24px;
-  width: 32px;
-  height: 32px;
-  font-family: 'Inter', sans-serif;
-
-  transition: 0.3s width ease;
-  ${({ value }) => value && style}
-
-  p {
-    ${gradientText}
-    font-family: 'Inter', sans-serif;
-  }
-
-  ~ ${FaXmark} {
-    ${({ value }) => value && invisible};
-  }
-`;
-
-export const Modal = styled.div`
-  transform: translateY(200%);
-  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
-    rgba(0, 0, 0, 0.22) 0px 15px 12px;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background: rgba(24, 24, 24, 1);
-  color: #fff;
-  border: 1px solid #1a1a1a;
-  border-radius: 8px;
-  width: 420px;
-  height: 320px;
-
-  @keyframes popup {
-    80% {
-      transform: translateY(-10%);
-    }
-    100% {
-      transform: translateY(0);
-    }
-  }
-  animation: 0.3s popup ease;
-  ${({ isActive }) => isActive && popup}
-
-  form {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
-    transition: 0.6s all ease;
-  }
-
-  @media (max-width: 480px) {
-    max-height: 280px;
-  }
 `;
 
 export const MobileContainer = styled.div`
@@ -438,65 +222,27 @@ export const LikedMoviesBtn = styled(CreatePlaylist)`
   margin-left: 6px;
 `;
 
-export const MiddlePane = styled.div`
-  display: flex;
-
-  // min-height: 66px;
-`;
-
-export const MobileOverlay = styled.div`
-  transition: 0.6s ease all;
-  position: fixed;
+export const BackBtn = styled(FontAwesomeIcon)`
   display: none;
-
-  justify-content: center;
-  align-items: center;
-  background: rgba(26, 26, 26, 0.5);
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  z-index: 99;
-
-  padding: 24px;
-
-  ${({ isActive }) => isActive && visible}
-`;
-
-export const MobileModal = styled.div`
-  transform: translateY(200%);
-  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
-    rgba(0, 0, 0, 0.22) 0px 15px 12px;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background: rgba(24, 24, 24, 1);
-  color: #fff;
-  border: 1px solid #1a1a1a;
-  border-radius: 8px;
-  width: 420px;
-  height: 320px;
-  max-height: 280px;
-
-  @keyframes popup {
-    80% {
-      transform: translateY(-10%);
-    }
-    100% {
-      transform: translateY(0);
-    }
-  }
-  animation: 0.3s popup ease;
-  ${({ isActive }) => isActive && popup}
-
-  form {
+  @media (max-width: 502px) {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    color: rgb(160, 160, 160);
+    background: rgba(42, 42, 42, 0.5);
+    font-size: 12px;
+    padding: 10px;
+    border-radius: 8px;
+    margin-right: 8px;
+    width: fit-content;
 
-    transition: 0.6s all ease;
+    z-index: 2;
+    position: absolute;
+    top: 2%;
+    left: 100%;
+    transform: translate(-210%, -5%);
+
+    transition: 0.2s all ease;
+    &:hover {
+      background: rgb(50, 50, 50);
+    }
   }
 `;

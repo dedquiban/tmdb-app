@@ -10,12 +10,12 @@ import {
   createLikedMoviesDoc,
   sendUserPasswordResetEmail,
   onAuthStateChangedListener,
-} from '../../utils/firebase.utils';
+} from '../utils/firebase.utils';
 import { getRedirectResult } from 'firebase/auth';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 
-import google from '../../assets/google.png';
-import FormInput from '../FormInput';
+import google from '../assets/google.png';
+import FormInput from '../components/FormInput';
 import {
   LoginContainer,
   Form,
@@ -24,11 +24,11 @@ import {
   Span,
   SignUp,
   Group,
-} from '../../styles/login-page.styles';
-import Button, { BUTTON_TYPE_CLASSES } from '../Button';
-import { CREATE_LIKED_MOVIES_PLAYLIST } from '../../store/movies/movies.slice';
-import { selectUser, SET_USER_STATUS } from '../../store/user/user.slice';
-import Loader from '../Loader';
+} from '../styles/LoginPage.styles';
+import Button, { BUTTON_TYPE_CLASSES } from '../components/Button';
+import { CREATE_LIKED_MOVIES_PLAYLIST } from '../store/movies/movies.slice';
+import { selectUser, SET_USER_STATUS } from '../store/user/user.slice';
+import Loader from '../components/Loader';
 
 const defaultFormFields = {
   email: '',

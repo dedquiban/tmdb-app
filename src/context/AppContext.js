@@ -12,6 +12,12 @@ export const AppContext = createContext({
 
   isUpdatePwActive: false,
   setIsUpdatePwActive: () => {},
+
+  isOverviewActive: false,
+  setIsOverviewActive: () => {},
+
+  showContent: false,
+  setShowContent: () => {},
 });
 
 export const AppProvider = ({ children }) => {
@@ -20,6 +26,8 @@ export const AppProvider = ({ children }) => {
   const [currentPlaylist, setCurrentPlaylist] = useState({});
   const [isEmailOverlayActive, setIsEmailOverlayActive] = useState(false);
   const [isUpdatePwActive, setIsUpdatePwActive] = useState(false);
+  const [isOverviewActive, setIsOverviewActive] = useState(false);
+  const [showContent, setShowContent] = useState(false);
 
   const value = {
     isModalActive,
@@ -32,6 +40,10 @@ export const AppProvider = ({ children }) => {
     setIsEmailOverlayActive,
     isUpdatePwActive,
     setIsUpdatePwActive,
+    isOverviewActive,
+    setIsOverviewActive,
+    showContent,
+    setShowContent,
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;

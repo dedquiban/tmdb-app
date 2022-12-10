@@ -143,7 +143,7 @@ export const MenuButton = styled.button`
 
   ${({ isOpen }) => isOpen && openStyles}
 
-  @media (max-width: 480px) {
+  @media (max-width: 682px) {
     border-radius: 4px;
     bottom: 0;
     left: 0;

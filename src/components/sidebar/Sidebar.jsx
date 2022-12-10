@@ -43,8 +43,7 @@ const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const handleClick = () => setIsOpen(!isOpen);
 
-  const { isUpdatePwActive, setIsUpdatePwActive, setCurrentPlaylist } =
-    useContext(AppContext);
+  const { setCurrentPlaylist } = useContext(AppContext);
 
   const handleSignout = async () => {
     await signOutUser();
@@ -85,8 +84,8 @@ const Sidebar = () => {
       </SidebarContainer>
       <Overlay isOpen={isOpen} />
       <Button
+        onClick={() => handleClick()}
         buttonType={BUTTON_TYPE_CLASSES.menu}
-        onClick={handleClick}
         isOpen={isOpen}
       >
         <svg className='svg' width='28' height='28' viewBox='0 0 100 100'>

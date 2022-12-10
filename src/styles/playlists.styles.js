@@ -23,16 +23,20 @@ const grid = css`
   }
 
   @media (max-width: 682px) {
+    flex-basis: 100%;
+
     p {
       font-size: 16px;
     }
+  }
+
+  @media (max-width: 502px) {
+    padding: 0px 8px;
   }
 `;
 const scroll = css`
   display: flex;
   flex-direction: column;
-
-  height: 330px;
   overflow-y: scroll;
 
   p {
@@ -52,7 +56,6 @@ const scroll = css`
   }
 
   @media (max-width: 682px) {
-    height: unset;
     p {
       font-size: 16px;
     }
@@ -60,5 +63,5 @@ const scroll = css`
 `;
 
 export const PlaylistsContainer = styled.div`
-  ${({ value }) => (value === 'scroll' ? scroll : grid)}
+  ${({ value }) => (value === 'scroll' ? scroll : grid)}// overflow-y: scroll;
 `;
