@@ -201,6 +201,7 @@ const previewStyles = css`
   max-height: 706px;
 
   -webkit-transform: translate(-50%, -50%) rotateY(180deg);
+  -webkit-transform: translate3d(0);
 
   @media (max-width: 768px) {
     width: 75%;
