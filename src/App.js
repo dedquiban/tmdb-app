@@ -3,14 +3,15 @@ import { Routes, Route, useNavigate } from 'react-router-dom';
 import './App.css';
 import { onAuthStateChangedListener } from './utils/firebase.utils';
 import { useDispatch, useSelector } from 'react-redux';
-import LoginPage from './components/pages/LoginPage';
-import SignupPage from './components/pages/SignupPage';
-import HomePage from './components/pages/HomePage';
-import MyListPage from './components/pages/MyListPage';
+import LoginPage from './pages/LoginPage';
+import SignupPage from './pages/SignupPage';
+import HomePage from './pages/HomePage';
+import MyListPage from './pages/MyListPage';
 import {
   selectUser,
   selectUserLoadingStatus,
   SET_CURRENT_USER,
+  SET_VIEW,
 } from './store/user/user.slice';
 import {
   EDIT_PLAYLIST,
@@ -90,6 +91,15 @@ function App() {
       dispatch(EDIT_PLAYLIST({ currentUser, currentPlaylist: playlist }));
     });
   }, [likedMoviesPlaylist]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      let windowWidth = window.innerWidth;
+      if (windowWidth < 769) {
+        dispatch(SET_VIEW('grid'));
+      }
+    };
+  }, []);
 
   return (
     <>
