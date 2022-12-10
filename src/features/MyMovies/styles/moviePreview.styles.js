@@ -194,13 +194,13 @@ const previewStyles = css`
   left: 50%;
   bottom: 0;
   right: 0;
-  z-index: 2;
+  z-index: 99;
   width: 60%;
   height: fit-content;
   max-width: 864px;
   max-height: 706px;
 
-  -webkit-transform: translate(-50%, -50%) rotateY(180deg);
+  -webkit-transform: translate(-50%, -50%);
   -webkit-transform: translate3d(0);
 
   @media (max-width: 768px) {
@@ -235,7 +235,7 @@ export const MoviePreviewContainer = styled.div`
   ${BackCard} {
     transition: 2s all ease;
     ${({ preview }) => preview && visible}
-    ${({ preview }) => preview && rotate}
+    // {( preview && rotate}
 
 
     @media (max-width: 480px) {
