@@ -217,7 +217,7 @@ const previewStyles = css`
 export const MoviePreviewContainer = styled.div`
   display: flex;
 
-  transition: 0.6s all ease;
+  transition: 0.6s ease;
   ${({ preview }) => preview && previewStyles}
 
   img {
