@@ -99,6 +99,10 @@ function App() {
         dispatch(SET_VIEW('grid'));
       }
     };
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
   }, []);
 
   return (

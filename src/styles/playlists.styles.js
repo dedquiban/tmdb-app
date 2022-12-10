@@ -32,6 +32,8 @@ const grid = css`
 
   @media (max-width: 502px) {
     padding: 0px 8px;
+    overflow-y: unset;
+    overflow-x: clip;
   }
 `;
 const scroll = css`
