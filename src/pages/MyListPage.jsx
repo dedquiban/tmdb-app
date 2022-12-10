@@ -9,6 +9,7 @@ import {
   Table,
   ContentDiv,
   Movies,
+  BackBtnWrapper,
 } from '../styles/mylist-page.styles';
 import MyMovies from '../components/MyMovies';
 import { AppContext } from '../context/AppContext';
@@ -56,11 +57,9 @@ const MyListPage = () => {
           <ContentDiv show={showContent}>
             <Heading />
             {windowWidth < 503 && (
-              <BackBtn
-                value={windowWidth}
-                icon={faLeftLong}
-                onClick={() => setShowContent(false)}
-              />
+              <BackBtnWrapper onClick={() => setShowContent(false)}>
+                <BackBtn value={windowWidth} icon={faLeftLong} />
+              </BackBtnWrapper>
             )}
             <Movies value={userView}>
               <MyMovies />

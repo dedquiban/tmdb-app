@@ -157,7 +157,6 @@ export const BackCard = styled.div`
   border-radius: 16px;
 
   padding: 48px;
-  transform-style: preserve-3d;
 
   h3 {
     font-size: 40px;
