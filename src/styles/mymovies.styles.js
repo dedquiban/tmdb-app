@@ -1,9 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styled, { css } from 'styled-components';
 
-const invisible = css`
-  display: none;
-`;
 const gradientBorder = css`
   background: linear-gradient(#1a1a1a, #1a1a1a) padding-box,
     linear-gradient(
@@ -184,6 +181,7 @@ const scrollOverview = css`
 
     text-overflow: ellipsis;
     white-space: nowrap;
+    padding-bottom: 72px;
     overflow-x: clip;
 
     transition: 0.3s all ease;
