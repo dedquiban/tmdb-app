@@ -62,7 +62,7 @@ const tableGrid = css`
 
   @media (max-width: 682px) {
     overflow-y: scroll;
-    padding-bottom: 80px;
+    padding-bottom: 100px;
   }
 `;
 
