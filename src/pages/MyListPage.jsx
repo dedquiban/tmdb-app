@@ -21,6 +21,7 @@ import ViewLikedMoviesBtn from '../features/MyListPage/components/ViewLikedMovie
 import Playlists from '../components/Playlists';
 import { BackBtn } from '../styles/mylist-page.styles';
 import { faLeftLong } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const MyListPage = () => {
   const dispatch = useDispatch();

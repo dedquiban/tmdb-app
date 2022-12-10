@@ -223,31 +223,30 @@ export const LikedMoviesBtn = styled(CreatePlaylist)`
 `;
 
 export const BackBtn = styled(FontAwesomeIcon)`
-  // display: none;
+  display: flex;
 `;
 
-export const BackBtnWrapper = styled`
-display: none;
+export const BackBtnWrapper = styled.div`
+  display: none;
+  @media (max-width: 502px) {
+    display: flex;
+    color: rgb(160, 160, 160);
+    background: rgba(42, 42, 42, 0.5);
+    font-size: 12px;
+    padding: 10px;
+    border-radius: 8px;
+    margin-right: 8px;
+    width: fit-content;
 
-@media (max-width: 502px) {
-  display: flex;
-  color: rgb(160, 160, 160);
-  background: rgba(42, 42, 42, 0.5);
-  font-size: 12px;
-  padding: 10px;
-  border-radius: 8px;
-  margin-right: 8px;
-  width: fit-content;
+    z-index: 2;
+    position: absolute;
+    top: 2%;
+    left: 100%;
+    transform: translate(-210%, -5%);
 
-  z-index: 2;
-  position: absolute;
-  top: 2%;
-  left: 100%;
-  transform: translate(-210%, -5%);
-
-  transition: 0.2s ease;
-  &:hover {
-    background: rgb(50, 50, 50);
+    transition: 0.2s ease;
+    &:hover {
+      background: rgb(50, 50, 50);
+    }
   }
-}
 `;
