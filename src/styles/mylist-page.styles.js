@@ -20,6 +20,10 @@ const grid = css`
   );
   height: 100vh;
   overflow-y: scroll;
+
+  @media (max-width: 502px) {
+    overflow-y: unset;
+  }
 `;
 
 const scroll = css`
